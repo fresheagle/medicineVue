@@ -1,0 +1,334 @@
+<template>
+  <div class="app-container">
+    <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+      <el-form :inline="true">
+        <el-form-item>
+        <!--<el-select v-model="value" clearable placeholder="状态">-->
+          <!--<el-option-->
+            <!--v-for="item in status"-->
+            <!--:key="item.statusId"-->
+            <!--:label="item.label"-->
+            <!--:value="item.statusId">-->
+          <!--</el-option>-->
+        <!--</el-select>-->
+        </el-form-item>
+        <el-form-item >
+          <el-input placeholder="名称" v-model="searchName"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="doFilter()"><i class="el-icon-search"></i>搜索</el-button>
+        </el-form-item>
+      </el-form>
+    </el-col>
+    <!--列表-->
+    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中" style="width: 100%;">
+      <el-table-column prop="taskTitle" label="任务名称"></el-table-column>
+      <el-table-column prop="taskMenuType"  label="任务来源"></el-table-column>
+      <el-table-column prop="taskType"  label="任务类型"></el-table-column>
+      <el-table-column prop="taskStatus" label="状态"></el-table-column>
+      <el-table-column prop="taskChangePoints" label="评分" ></el-table-column>
+      <el-table-column prop="taskChangeComments" label="备注" ></el-table-column>
+      <el-table-column prop="operation" label="操作 ">
+        <template slot-scope="scope" >
+          <el-button  type="text" @click="handleUpdate(scope.row)">查看</el-button>
+          <el-button  type="text" @click="handleUpdate(scope.row)">编辑</el-button>
+          <el-button  type="text" @click="handleSubmit(scope.row)">提交</el-button>
+          <el-button  type="text" @click="handleModifyStatus(scope.row)">对比</el-button>
+          <el-button  type="text" @click="deleteUpdate(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!--工具条-->
+    <el-pagination layout="total, prev, pager, next"
+                   background
+                   :page-size="10"
+                   @size-change="handleSizeChange"
+                   :total="total"
+                   @current-change="handleCurrentChange"
+                   style="text-align:center;">
+    </el-pagination>
+
+    <create-basics-dialog  :visible.sync="isShowCreateVisible" :row-data="curRowData"
+                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-basics-dialog>
+    <delete-dialog  :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
+                    @refreshList="fetchData"></delete-dialog>
+    <submit-next-dialog  :visible.sync="isShowSubmit" :row-data="curRowData" :cur-task-type="curTaskType"
+                         @refreshList="fetchData"></submit-next-dialog>
+    <first-compare-dialog :visible.sync="isShowCompare" :row-data="curRowData" :cur-task-type="curTaskType"
+                          @refreshList="fetchData"></first-compare-dialog>
+
+  </div>
+</template>
+
+
+
+<script>
+  import { getMissionList,getDisBasicsList, doCreateDisBasics } from '../../api/task'
+
+  import createBasicsDialog from '../dialog/createBasicsDialog'
+  import deleteDialog from '../dialog/deleteDialog'
+  import submitNextDialog from '../dialog/submitNextDialog'
+  import firstCompareDialog from '../dialog/firstCompareDialog'
+
+  import enumerate from '../../store/modules/enumerate'
+  export default {
+    components: {
+      createBasicsDialog,
+      deleteDialog,
+      submitNextDialog,
+      firstCompareDialog
+    },
+    data() {
+      return {
+        tableList: [],
+        listLoading: true,
+        isShowCreateVisible:false,
+        isShowEditVisible: false,
+        isShowSubmit:false,
+        isShowCompare:false,
+        deleteVisible: false,
+
+        formData: {
+          "taskStatus": "",
+          "taskType": "",
+          "taskMenuType": "missDisease",
+          "taskTitle": "",
+          "taskChangeVote": "",
+          "taskChangePoints": "",
+          "taskChangeComments": "",
+          "taskId":"",
+          "jsonStr": {
+            "symptomMapDTO": {
+              "symptomId": "",
+              "symptomChineseName": "",
+              "symptomEnglishName": "",
+            },
+            "missDisease": {
+              "taskId":"",
+              "id": "",
+              "chineseName": "",
+              "englishName": "",
+              "otherName": "",
+              "latinName": "",
+              "relatedDiseases": "",
+              "diseaseType": "chinese",
+              "locationPid": "",
+              "locationDisease": "",
+              "mainCauses": "",
+              "commonSymptom": "",
+              "multiplePopulation": "",
+              "infectivity": 1,
+              "seaCharacteristic": "",
+              "departmentPid": "",
+              "departmentId": "",
+              "clinicalTypesClass": "",
+              "clinicalManifestation": "",
+              "sign": "",
+              "laboratoryExamination": "",
+              "diagnosticPoints": "",
+              "differentialDiagnosis": "",
+              "preventionTreatment": "",
+              "treatmentPrognosis": "",
+              "preventiveNursing": "",
+              "nursing": "",
+              "preventionMeasures": "",
+              "dietaryConditioning": "",
+              "drugResistance": "",
+              "attentionMatter": "",
+              "picturePath": "",
+              "thumbnail": "",
+              "dataStatus": "",
+            }
+          },
+        },
+        total: 0,
+        page: 1,
+        pageSize: 10,
+        status: [
+          {
+            statusId: 1,
+            label: '启用'
+          }, {
+            statusId: 0,
+            label: '禁用'
+          }
+        ],
+        value: '',
+        searchName: '',
+        filterTableDataEnd: [],
+
+        curRowData:{},
+        curTaskType:""
+      }
+    },
+    created() {
+      this.fetchData()
+    },
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          1: 'success',
+          2: 'danger'
+        }
+        return statusMap[status]
+      }
+    },
+    methods: {
+      fetchData() {
+        this.listLoading = false;
+        const params={
+          currentPage:1,
+          pageSize:1000,
+          taskStatus:"drifts"
+          //chineseName=XXX&englishName=XXX&otherName=XXX
+        }
+        getMissionList(params).then(response => {
+          const limit = 10
+          const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
+          console.log(pageList)
+          this.total = response.data.total
+          this.tableList = pageList
+          this.listLoading = false
+        })
+      },
+      doCreate(){
+        this.isShowCreateVisible=true;
+      },
+      createOK(){
+        this.formData.taskStatus="drafts";
+        this.formData.taskType="creat";
+        doCreateDisBasics(this.formData).then(response => {
+          debugger
+          console.log(pageList)
+        })
+
+      },
+      submitOK(){
+        this.formData.taskType="update";
+        doCreateDisBasics(this.formData).then(response => {
+        })
+      },
+      doFilter() {
+        if (this.searchName === '') {
+          this.fetchData()
+          // this.$message.warning('查询条件不能为空！')
+          return
+        }
+        console.log(this.searchName)
+        // 每次手动将数据置空,因为会出现多次点击搜索情况
+        this.filterTableDataEnd = []
+        this.tableList.forEach((value, index) => {
+          if (value.taskTitle) {
+            if (value.taskTitle.indexOf(this.searchName) >= 0) {
+              this.filterTableDataEnd.push(value)
+              console.log(this.filterTableDataEnd)
+            }
+          }
+        })
+        // 页面数据改变重新统计数据数量和当前页
+        this.page = 1
+        this.total = this.filterTableDataEnd.length
+        // 渲染表格,根据值
+        this.currentChangePage(this.filterTableDataEnd)
+      },
+
+      handleUpdate(row) {
+        this.curRowData=Object.assign({}, row);
+        this.isShowCreateVisible = true;
+      },
+      deleteUpdate(row) {
+        this.deleteVisible = true;
+        this.curRowData=Object.assign({}, row);
+      },
+      submitDelete() {
+        const tempData = Object.assign({}, this.temp)
+        console.log(tempData)
+        console.log(this.tableList)
+        for (const v of this.tableList) {
+          if (v.uid === this.temp.uid) {
+            const index = this.tableList.indexOf(v)
+            this.tableList.splice(index, 1)
+            this.fetchData()
+            console.log(this.tableList)
+            break
+          }
+        }
+        this.deleteVisible = false
+        this.$notify({
+          title: '成功',
+          message: '删除成功',
+          type: 'success',
+          duration: 2000
+        })
+      },
+      handleSubmit(row){
+        this.isShowSubmit = true;
+        debugger
+        this.curRowData = Object.assign({}, row)
+      },
+      handleModifyStatus(row, status) {
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
+        console.log(row)
+        row.status = status
+      },
+      updateData() {
+        const tempData = Object.assign({}, this.temp)
+        console.log(tempData)
+        // updateArticle(tempData).then(() => {
+        //   for (const v of this.tableList) {
+        //     if (v.uid === this.temp.uid) {
+        //       const index = this.tableList.indexOf(v)
+        //       this.tableList.splice(index, 1, this.temp)
+        //       break
+        //     }
+        //   }
+        //   this.isShowEditVisible = false
+        //   this.$notify({
+        //     title: '成功',
+        //     message: '更新成功',
+        //     type: 'success',
+        //     duration: 2000
+        //   })
+        // })
+      },
+      handleSizeChange(val) {
+        this.page = val
+        console.log(this.page)
+        this.fetchData()
+      },
+      handleCurrentChange(val) {
+        this.page = val
+        console.log(this.page)
+        this.fetchData()
+      },
+      currentChangePage(list) {
+        let from = (this.page - 1) * this.pageSize
+        const to = this.page * this.pageSize
+        this.tableList = []
+        for (; from < to; from++) {
+          if (list[from]) {
+            this.tableList.push(list[from])
+          }
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  .demo-table-expand {
+    font-size: 0;
+  }
+  .demo-table-expand label {
+    width: 120px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
+  }
+</style>

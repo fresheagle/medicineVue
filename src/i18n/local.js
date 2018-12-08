@@ -1,0 +1,65 @@
+
+export default {
+  zh: {
+    i18nView: {
+      "taskId":"任务ID",
+      "taskVersion":"版本",
+      "taskStatus":"任务状态",
+      "taskType":"任务类型",
+      "taskMenuType":"任务类别",
+      "taskTitle":"标题",
+      "taskChangeVote":"taskChangeVote",
+      "taskChangePoints":"taskChangePoints",
+      "taskChangeComments":"taskChangeComments",
+      "chinese_name":"中文名称",
+      "english_name":"英文名称",
+      "other_name":"其他名称",
+      "latin_name":"拉丁名称",
+      "related_diseases":"相关疾病",
+      "disease_type":"疾病分类",
+      "location_pid":"主发病部位",
+      "location_disease":"次发病部位",
+      "main_causes":"主要病因",
+      "common_symptom":"常见症状",
+      "multiple_population":"多发群体",
+      "infectivity":"传染性",
+      "sea_characteristic":"季节特点",
+      "department_pid":"科室父级",
+      "department_id":"就诊科室",
+      "clinical_types_class":"临床类型和分类",
+      "clinical_manifestation":"临床表现",
+      "sign":"体征",
+      "laboratory_examination":"实验室检查",
+      "diagnostic_points":"诊断要点",
+      "differential_diagnosis":"鉴别诊断",
+      "prevention_treatment":"并发症及防治",
+      "treatment_prognosis":"治疗与预后",
+      "preventive_nursing":"预防调护",
+      "nursing":"护理",
+      "prevention_measures":"防治措施",
+      "dietary_conditioning":"膳食调理",
+      "drug_resistance":"耐药性",
+      "attention_matter":"注意事项",
+      "picture_path":"图片路径",
+      "thumbnail":"缩略图",
+      "dataStatus":"数据状态",
+    }
+
+  },
+  en: {
+    i18nView: {
+      title: 'Switch Language',
+      note: 'Currently only translated the i18n page and the sidebar and levelbar, please look forword to...',
+      datePlaceholder: 'Pick a day',
+      tableDate: 'tableDate',
+      tableName: 'tableName',
+      tableAddress: 'tableAddress',
+      default: 'default:',
+      primary: 'primary',
+      success: 'success',
+      info: 'info',
+      warning: 'warning',
+      danger: 'danger'
+    }
+  }
+}
