@@ -25,15 +25,19 @@
       <el-table-column prop="taskTitle" label="任务名称"></el-table-column>
       <el-table-column prop="taskMenuType"  label="任务来源"></el-table-column>
       <el-table-column prop="taskType"  label="任务类型"></el-table-column>
-      <el-table-column prop="taskStatus" label="状态"></el-table-column>
+      <el-table-column prop="taskStatus" label="状态">
+        <template slot-scope="scope">
+          {{i18n[scope.row.taskStatus]}}
+        </template>
+      </el-table-column>
       <el-table-column prop="taskChangePoints" label="评分" ></el-table-column>
       <el-table-column prop="taskChangeComments" label="备注" ></el-table-column>
       <el-table-column prop="operation" label="操作 ">
         <template slot-scope="scope" >
-          <el-button  type="text" @click="handleUpdate(scope.row)">查看</el-button>
+          <!--<el-button  type="text" @click="handleUpdate(scope.row)">查看</el-button>-->
           <el-button  type="text" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button  type="text" @click="handleSubmit(scope.row)">提交</el-button>
-          <el-button  type="text" @click="handleModifyStatus(scope.row)">对比</el-button>
+          <el-button  type="text" @click="handleCompare(scope.row)">对比</el-button>
           <el-button  type="text" @click="deleteUpdate(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -70,7 +74,9 @@
   import submitNextDialog from '../dialog/submitNextDialog'
   import firstCompareDialog from '../dialog/firstCompareDialog'
 
-  import enumerate from '../../store/modules/enumerate'
+  import i18n from '../../i18n/local'
+  const viewName = 'i18nView'
+
   export default {
     components: {
       createBasicsDialog,
@@ -80,6 +86,7 @@
     },
     data() {
       return {
+        i18n:i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
         isShowCreateVisible:false,
@@ -194,20 +201,6 @@
       doCreate(){
         this.isShowCreateVisible=true;
       },
-      createOK(){
-        this.formData.taskStatus="drafts";
-        this.formData.taskType="creat";
-        doCreateDisBasics(this.formData).then(response => {
-          debugger
-          console.log(pageList)
-        })
-
-      },
-      submitOK(){
-        this.formData.taskType="update";
-        doCreateDisBasics(this.formData).then(response => {
-        })
-      },
       doFilter() {
         if (this.searchName === '') {
           this.fetchData()
@@ -236,63 +229,18 @@
         this.curRowData=Object.assign({}, row);
         this.isShowCreateVisible = true;
       },
+      handleCompare(row){
+        //调用查看版本的接口
+        this.isShowCompare=true;
+        this.curRowData=row;
+      },
       deleteUpdate(row) {
         this.deleteVisible = true;
         this.curRowData=Object.assign({}, row);
       },
-      submitDelete() {
-        const tempData = Object.assign({}, this.temp)
-        console.log(tempData)
-        console.log(this.tableList)
-        for (const v of this.tableList) {
-          if (v.uid === this.temp.uid) {
-            const index = this.tableList.indexOf(v)
-            this.tableList.splice(index, 1)
-            this.fetchData()
-            console.log(this.tableList)
-            break
-          }
-        }
-        this.deleteVisible = false
-        this.$notify({
-          title: '成功',
-          message: '删除成功',
-          type: 'success',
-          duration: 2000
-        })
-      },
       handleSubmit(row){
         this.isShowSubmit = true;
-        debugger
         this.curRowData = Object.assign({}, row)
-      },
-      handleModifyStatus(row, status) {
-        this.$message({
-          message: '操作成功',
-          type: 'success'
-        })
-        console.log(row)
-        row.status = status
-      },
-      updateData() {
-        const tempData = Object.assign({}, this.temp)
-        console.log(tempData)
-        // updateArticle(tempData).then(() => {
-        //   for (const v of this.tableList) {
-        //     if (v.uid === this.temp.uid) {
-        //       const index = this.tableList.indexOf(v)
-        //       this.tableList.splice(index, 1, this.temp)
-        //       break
-        //     }
-        //   }
-        //   this.isShowEditVisible = false
-        //   this.$notify({
-        //     title: '成功',
-        //     message: '更新成功',
-        //     type: 'success',
-        //     duration: 2000
-        //   })
-        // })
       },
       handleSizeChange(val) {
         this.page = val

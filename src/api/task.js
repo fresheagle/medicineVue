@@ -25,6 +25,23 @@ export function getDepartmentList(params) {
   })
 }
 
+//发病部位
+export function getDislocationList(params) {
+  return request({
+    url: '/api/dislocation/param',
+    method: 'get',
+    params
+  })
+}
+//版本明细
+export function getMissionDetailsList(params) {
+  return request({
+    url: '/api/mission/missionDetails/page?',
+    method: 'get',
+    params
+  })
+}
+
 
 
 

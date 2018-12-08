@@ -1,104 +1,94 @@
 <template>
   <!-- 对比弹框 -->
-  <el-dialog
-    title="版本比对"
-    v-bind="$attrs"
-    v-on="$listeners"
-    :append-to-body="true"
-    width="30%">
-    <div>
-      <el-table
-        ref="multipleTable"
-        :data="rowData"
-        tooltip-effect="dark"
-        style="width: 100%"
-        @selection-change="handleVersionSelectionChange">
-        <el-table-column
-          type="selection"
-          width="55">
-        </el-table-column>
-        <el-table-column  prop="taskTitle" label="标题" ></el-table-column>
-        <el-table-column  prop="taskVersion" label="版本"> </el-table-column>
-        <el-table-column  prop="taskMenuType" label="数据源"  show-overflow-tooltip> </el-table-column>
-      </el-table>
-    </div>
+  <div>
+    <el-dialog
+      title="版本比对"
+      v-bind="$attrs"
+      v-on="$listeners"
+      :append-to-body="true"
+      width="50%">
+      <div>
+        <el-table
+          ref="multipleTable"
+          :data="multipleVersionData"
+          tooltip-effect="dark"
+          style="width: 100%"
+          @cell-dblclick="handleVersionSelectionChange">
+          <el-table-column prop="taskId" label="任务ID">
+            <template slot-scope="scope">
+              {{scope.row.jsonStr.taskId}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="taskchangeday" label="当前节点">
+            <template slot-scope="scope">
+              {{scope.row.jsonStr.taskstatuschangeafter}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="taskchangeday" label="变更时间">
+            <template slot-scope="scope">
+              {{scope.row.jsonStr.taskchangeday}}
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-pagination layout="total, prev, pager, next"
+             background
+             :page-size="10"
+             @size-change="handleSizeChange"
+             :total="total"
+             @current-change="handleCurrentChange"
+             style="text-align:center;">
+        </el-pagination>
 
-    <span slot="footer" class="dialog-footer">
+      </div>
+
+      <span slot="footer" class="dialog-footer">
         <el-button  @click="cancelDelete">取 消</el-button>
-        <el-button type="primary" @click="compareOk">确 定</el-button>
+        <!--<el-button type="primary" @click="compareOk">确 定</el-button>-->
       </span>
-  </el-dialog>
+    </el-dialog>
+
+    <second-compare-dialog :visible.sync="isShowComResoultDialog" :row-data="curRowData"></second-compare-dialog>
+
+  </div>
+
 </template>
 <script>
-  export default {
-    props:{
-      // rowData:{
-      //   type:Array,
-      // },
+  import { getMissionDetailsList} from '../../api/task'
+  import secondCompareDialog from './secondCompareDialog'
 
+  export default {
+    components:{
+      secondCompareDialog
+    },
+    props:{
+      rowData:{},
     },
     data(){
       return {
-        rowData:{},
-        formData:{
-          "taskStatus":"",
-          "taskType":"",
-          "taskMenuType":"missDisease",
-          "taskTitle":"",
-          "taskChangeVote":"",
-          "taskChangePoints":"",
-          "taskChangeComments":"",
-          "jsonStr":{
-            "symptomMapDTO":{
-              "symptomId":"",
-              "symptomChineseName":"",
-              "symptomEnglishName":"",
-            },
-            "missDisease":{
-              "taskId":"",
-              "id":"",
-              "chineseName":"",
-              "englishName":"",
-              "otherName":"",
-              "latinName":"",
-              "relatedDiseases":"",
-              "diseaseType":"chinese",
-              "locationPid":"",
-              "locationDisease":"",
-              "mainCauses":"",
-              "commonSymptom":"",
-              "multiplePopulation":"",
-              "infectivity":1,
-              "seaCharacteristic":"",
-              "departmentPid":"",
-              "departmentId":"",
-              "clinicalTypesClass":"",
-              "clinicalManifestation":"",
-              "sign":"",
-              "laboratoryExamination":"",
-              "diagnosticPoints":"",
-              "differentialDiagnosis":"",
-              "preventionTreatment":"",
-              "treatmentPrognosis":"",
-              "preventiveNursing":"",
-              "nursing":"",
-              "preventionMeasures":"",
-              "dietaryConditioning":"",
-              "drugResistance":"",
-              "attentionMatter":"",
-              "picturePath":"",
-              "thumbnail":"",
-              "dataStatus":"",
-            }
-          },
-        },
-        versionData:[]
+        multipleVersionData:[],
+        isShowComResoultDialog:false,
+        total: 0,
+        page: 1,
+        pageSize: 10,
+        curRowData:{},
       }
     },
     created(){
-
     },
     methods:{
+      init(taskId){
+        const params={
+          currentPage:1,
+          pageSize:1000,
+          taskId: taskId
+        }
+        getMissionDetailsList(params).then(response => {
+          const limit = 10
+          const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
+          this.total = response.data.total
+          this.multipleVersionData = pageList
+        })
+      },
       cancelDelete(){
         this.$emit("update:visible",false)
       },
@@ -109,14 +99,33 @@
         this.isShowComResoultDialog=true;
       },
       handleVersionSelectionChange(val){
-        this.multipleSelection = val;
+        this.$emit("update:visible",false);
+        this.isShowComResoultDialog=true;
+        this.curRowData = val;
+      },
+      handleSizeChange(val) {
+        this.page = val
+        this.init()
+      },
+      handleCurrentChange(val) {
+        this.page = val
+        this.init()
+      },
+      currentChangePage(list) {
+        let from = (this.page - 1) * this.pageSize
+        const to = this.page * this.pageSize
+        this.tableList = []
+        for (; from < to; from++) {
+          if (list[from]) {
+            this.tableList.push(list[from])
+          }
+        }
       },
     },
     watch:{
       rowData(newVal,oldVal)
       {
-        debugger
-        this.versionData=Object.assign({}, newVal)
+        this.init(newVal.taskId)
       },
     }
   }
