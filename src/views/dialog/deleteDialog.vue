@@ -19,7 +19,7 @@
   export default {
     props:{
       rowData:{},
-      curTtaskType:"",
+      curTaskType:"",
     },
     data(){
       return {

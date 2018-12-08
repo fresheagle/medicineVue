@@ -186,7 +186,7 @@
         const params={
           currentPage:1,
           pageSize:1000,
-          taskStatus:"drifts"
+          taskStatus:"drafts"
           //chineseName=XXX&englishName=XXX&otherName=XXX
         }
         getMissionList(params).then(response => {
@@ -236,6 +236,7 @@
       },
       deleteUpdate(row) {
         this.deleteVisible = true;
+        this.curTaskType='delete'
         this.curRowData=Object.assign({}, row);
       },
       handleSubmit(row){

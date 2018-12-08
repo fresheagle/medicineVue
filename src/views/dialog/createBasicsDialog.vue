@@ -315,10 +315,6 @@
         getDislocationList(params).then(response => {
           this.dislocationList = response.data.params;
         })
-        // this.$store.dispatch('getDepartment', params).then((respones) => {
-        //   this.restaurants=respones.data.params;
-        // }).catch(() => {
-        // })
       },
       showDepartmentDialog(){
         this.isShowDepartmentDialog=true;

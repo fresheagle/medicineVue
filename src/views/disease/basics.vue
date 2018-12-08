@@ -312,7 +312,6 @@
           if (value.taskTitle) {
             if (value.taskTitle.indexOf(this.searchName) >= 0) {
               this.filterTableDataEnd.push(value)
-              console.log(this.filterTableDataEnd)
             }
           }
         })

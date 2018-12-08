@@ -25,7 +25,11 @@
       <el-table-column prop="taskTitle" label="任务名称"></el-table-column>
       <el-table-column prop="taskMenuType"  label="任务来源"></el-table-column>
       <el-table-column prop="taskType"  label="任务类型"></el-table-column>
-      <el-table-column prop="taskStatus" label="状态"></el-table-column>
+      <el-table-column prop="taskStatus" label="状态">
+        <template slot-scope="scope">
+          {{i18n[scope.row.taskStatus]}}
+        </template>
+      </el-table-column>
       <el-table-column prop="taskChangePoints" label="评分" ></el-table-column>
       <el-table-column prop="taskChangeComments" label="备注" ></el-table-column>
       <el-table-column prop="operation" label="操作 ">
@@ -70,7 +74,9 @@
   import submitNextDialog from '../dialog/submitNextDialog'
   import firstCompareDialog from '../dialog/firstCompareDialog'
 
-  import enumerate from '../../store/modules/enumerate'
+  import i18n from '../../i18n/local'
+  const viewName = 'i18nView'
+
   export default {
     components: {
       createBasicsDialog,
@@ -80,6 +86,7 @@
     },
     data() {
       return {
+        i18n:i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
         isShowCreateVisible:false,
@@ -179,7 +186,7 @@
         const params={
           currentPage:1,
           pageSize:1000,
-          taskStatus:"drifts"
+          taskStatus:"discarded"
           //chineseName=XXX&englishName=XXX&otherName=XXX
         }
         getMissionList(params).then(response => {
@@ -229,6 +236,7 @@
       },
       deleteUpdate(row) {
         this.deleteVisible = true;
+        this.curTaskType='delete'
         this.curRowData=Object.assign({}, row);
       },
       handleSubmit(row){
