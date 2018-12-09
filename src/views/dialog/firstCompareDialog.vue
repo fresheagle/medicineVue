@@ -6,7 +6,7 @@
       v-bind="$attrs"
       v-on="$listeners"
       :append-to-body="true"
-      width="50%">
+      width="60%">
       <div>
         <el-table
           ref="multipleTable"
@@ -14,12 +14,17 @@
           tooltip-effect="dark"
           style="width: 100%"
           @cell-dblclick="handleVersionSelectionChange">
-          <el-table-column prop="taskId" label="任务ID">
+          <el-table-column prop="taskmenutype" label="类型">
             <template slot-scope="scope">
-              {{scope.row.jsonStr.taskId}}
+              {{scope.row.jsonStr.taskmenutype}}
             </template>
           </el-table-column>
-          <el-table-column prop="taskchangeday" label="当前节点">
+          <el-table-column prop="taskstatuschangebefore" label="变更前">
+            <template slot-scope="scope">
+              {{scope.row.jsonStr.taskstatuschangebefore}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="taskstatuschangeafter" label="变更后">
             <template slot-scope="scope">
               {{scope.row.jsonStr.taskstatuschangeafter}}
             </template>
@@ -125,7 +130,10 @@
     watch:{
       rowData(newVal,oldVal)
       {
-        this.init(newVal.taskId)
+        if(newVal.taskId){
+          this.init(newVal.taskId)
+        }
+
       },
     }
   }

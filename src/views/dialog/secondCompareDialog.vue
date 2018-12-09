@@ -40,7 +40,6 @@
 
 </template>
 <script>
-  import { getMissionDetailsList} from '../../api/task'
   import i18n from '../../i18n/local'
   const viewName = 'i18nView'
 

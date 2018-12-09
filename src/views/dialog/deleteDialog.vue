@@ -26,7 +26,7 @@
         formData:{
           "taskStatus":"",
           "taskType":"",
-          "taskMenuType":"miss_disease",
+          "taskMenuType":"missDisease",
           "taskTitle":"",
           "taskChangeVote":"",
           "taskChangePoints":"",
