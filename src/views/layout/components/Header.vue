@@ -68,12 +68,12 @@ export default {
   .logo{
       display: inline-block;
       float: left;
-      width: 155px;
+      width: 55px;
       height: 55px;
       padding: .5rem 1rem;
       margin-right: 0;
       background: url(../../../assets/images/top_frame.png);
-      background-size: 150px auto;;
+      background-size: 50px auto;;
       background-repeat: no-repeat;
       background-position: left center;
       border-bottom: 1px solid #cfd8dc;
