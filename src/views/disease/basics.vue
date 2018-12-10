@@ -25,60 +25,6 @@
     </el-col>
     <!--列表-->
     <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中" style="width: 100%;">
-      <el-table-column type="expand">
-        <!--<template slot-scope="props">-->
-          <!--<el-form label-position="left" inline class="demo-table-expand">-->
-            <!--<el-form-item label="临床类型">-->
-              <!--<span>{{ props.row.jsonStr.clinical_types_class }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="临床表现">-->
-              <!--<span>{{ props.row.jsonStr.clinical_manifestation }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="体征">-->
-              <!--<span>{{ props.row.jsonStr.sign }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="店铺 ID">-->
-              <!--<span>{{ props.row.jsonStr.shopId }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="实验室检查">-->
-              <!--<span>{{ props.row.jsonStr.laboratory_examination }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="诊断要点">-->
-              <!--<span>{{ props.row.jsonStr.diagnostic_points }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="鉴别诊断">-->
-              <!--<span>{{ props.row.jsonStr.differential_diagnosis }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="鉴别诊断">-->
-              <!--<span>{{ props.row.jsonStr.differential_diagnosis }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="并发症及防治">-->
-              <!--<span>{{ props.row.jsonStr.prevention_treatment }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="治疗与预后">-->
-              <!--<span>{{ props.row.jsonStr.treatment_prognosis }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="预防调护">-->
-              <!--<span>{{ props.row.jsonStr.preventive_nursing }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="护理">-->
-              <!--<span>{{ props.row.jsonStr.nursing }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="防治措施">-->
-              <!--<span>{{ props.row.jsonStr.prevention_measures }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="膳食调理">-->
-              <!--<span>{{ props.row.jsonStr.dietary_conditioning }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="耐药性">-->
-              <!--<span>{{ props.row.jsonStr.drug_resistance }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="注意事项">-->
-              <!--<span>{{ props.row.jsonStr.attention_matter }}</span>-->
-            <!--</el-form-item>-->
-          <!--</el-form>-->
-        <!--</template>-->
-      </el-table-column>
       <el-table-column prop="jsonStr.missDisease.chineseName" label="中文名称">
         <template slot-scope="scope">
           {{scope.row.jsonStr.missDisease.chineseName}}
@@ -106,7 +52,10 @@
       </el-table-column>
       <el-table-column prop="jsonStr.missDisease.diseaseType" label="疾病分类">
         <template slot-scope="scope">
-          {{scope.row.jsonStr.missDisease.diseaseType}}
+          <span v-if="scope.row.jsonStr.missDisease.diseaseType==='1'">中医疾病</span>
+          <span v-else-if="scope.row.jsonStr.missDisease.diseaseType==='2'">西医疾病</span>
+          <span v-else-if="scope.row.jsonStr.missDisease.diseaseType==='3'">中西医疾病</span>
+          <span v-else>{{scope.row.jsonStr.missDisease.diseaseType}}</span>
         </template>
       </el-table-column>
 
@@ -164,6 +113,7 @@
     },
     data() {
       return {
+        enumerate:enumerate,
         i18n:i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
@@ -196,7 +146,7 @@
               "otherName":"",
               "latinName":"",
               "relatedDiseases":"",
-              "diseaseType":"chinese",
+              "diseaseType":"1",
               "locationPid":"",
               "locationDisease":"",
               "mainCauses":"",

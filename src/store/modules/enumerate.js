@@ -5,7 +5,7 @@ import errLog from "../errLog";
  * */
 const enumerate = {
     infectivityList:[{id:1,value:"有传染性"},{id:2,value:"无传染性"}],
-    diseaseTypeList:[{id:"1",value:"中医"},{id:"2",value:"西医"},{id:"3",value:"中西结合"}],
+    diseaseTypeList:[{id:"1",value:"中医"},{id:2,value:"西医"},{id:3,value:"中西结合"}],
     locationPidList:[{id:1,value:"中医"},{id:2,value:"西医"},{id:3,value:"中西结合"}],
     locationDiseaseList:[{id:1,value:"中医"},{id:2,value:"西医"},{id:3,value:"中西结合"}],
     taskStatus:[{key:"drafts",value:"创建中" },{key:"toFirAudited",value:"待一审" },{key:"toSecAudited",value:"待二审" },

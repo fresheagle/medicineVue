@@ -54,24 +54,19 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="主发病部位">
-              <el-select v-model="formData.jsonStr.missDisease.locationPid" >
-                <el-option
-                  v-for="item in dislocationList"
-                  :key="item.jsonStr.id"
-                  :label="item.jsonStr.value"
-                  :value="item.jsonStr.id">
-                </el-option>
-              </el-select>
+              <el-input placeholder="请输入内容" :disabled="true" v-model="locationPidtoChinese" class="input-with-select">
+                <el-button slot="append" icon="el-icon-more" @click="showLocationPidDialog"></el-button>
+              </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="次发病部位" >
               <el-select v-model="formData.jsonStr.missDisease.locationDisease" >
                 <el-option
-                  v-for="item in enumerate.locationDiseaseList"
-                  :key="item.id"
-                  :label="item.value"
-                  :value="item.id">
+                  v-for="item in dislocationList"
+                  :key="item.jsonStr.id"
+                  :label="item.jsonStr.dislocationName"
+                  :value="item.jsonStr.id">
                 </el-option>
               </el-select>
               <!--<el-input v-model="formData.jsonStr.location_disease"></el-input>-->
@@ -251,6 +246,7 @@
       </div>
     </el-dialog>
     <search-department-dialog :visible.sync="isShowDepartmentDialog" v-on:listenToChild="listenToChild"></search-department-dialog>
+    <search-location-pid-dialog  :visible.sync="isShowLocationPidDialog" v-on:listenLocationChild="listenLocationChild"></search-location-pid-dialog>
     <quill-editor-dialog :visible.sync="isShowquillEditorDialog" v-on:listenToChildquillEditor="listenToChildquillEditor"
     :cur-input-content="curInputContent"></quill-editor-dialog>
   </div>
@@ -261,12 +257,14 @@
   import {getDepartmentList, doCreateDisBasics, getDislocationList } from '../../api/task'
 
   import searchDepartmentDialog from '../dialog/searchDepartmentDialog'
+  import searchLocationPidDialog from '../dialog/searchLocationPidDialog'
   import quillEditorDialog from '../dialog/quillEditorDialog'
 
   import enumerate from '../../store/modules/enumerate'
   export default {
     components: {
       searchDepartmentDialog,
+      searchLocationPidDialog,
       quillEditorDialog,
     },
     props:{
@@ -299,7 +297,7 @@
               "otherName": "",
               "latinName": "",
               "relatedDiseases": "",
-              "diseaseType": "chinese",
+              "diseaseType": "1",
               "locationPid": "",
               "locationDisease": "",
               "mainCauses": "",
@@ -331,6 +329,7 @@
         },
         isShowDepartmentDialog:false,
         isShowquillEditorDialog:false,
+        isShowLocationPidDialog:false,
         total: 0,
         page: 1,
         pageSize: 10,
@@ -339,6 +338,7 @@
         dislocationList:[],
         curInputKey:"",
         curInputContent:"",
+        locationPidtoChinese:"",
       }
     },
     created() {
@@ -357,6 +357,9 @@
       showDepartmentDialog(){
         this.isShowDepartmentDialog=true;
       },
+      showLocationPidDialog(){
+        this.isShowLocationPidDialog=true;
+      },
       showClinicalTypesDialog(key){
         this.curInputKey=key;
         this.curInputContent=this.formData.jsonStr.missDisease[key];
@@ -367,6 +370,20 @@
       },
       doCreate(){
         this.isShowCreateVisible=true;
+      },
+      listenLocationChild(data){
+        this.formData.jsonStr.missDisease.locationPid=data.jsonStr.id;
+        this.locationPidtoChinese=data.jsonStr.dislocationName;
+        const params={
+          currentPage:1,
+          pageSize:1000,
+          parentDislocationId:data.jsonStr.id
+        }
+        getDislocationList(params).then(response => {
+          debugger
+          this.dislocationList = response.data.params
+        })
+
       },
       listenToChild(data){ //选中父级科室兼听事件
         this.formData.jsonStr.missDisease.departmentPid=data.jsonStr.id;
@@ -466,6 +483,31 @@
       {
         this.formData=Object.assign({}, newVal)
       },
+      'formData.jsonStr.missDisease.locationPid'(newVal,oldVal)
+      {
+        var newarr = this.dislocationList.filter(item => item.jsonStr.id==newVal );
+        if(newarr.length > 0){
+          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName ;
+        }
+      },
+    },
+    computed:{
+      locationPidtoChinese1(){
+        const params={
+          currentPage:1,
+          pageSize:1000,
+        }
+        getDislocationList(params).then(response => {
+          this.dislocationList = response.data.params;
+        })
+        if(this.formData.jsonStr.missDisease.locationPid ){
+          const newarr  = this.dislocationList;
+          newarr.filter(item => item.jsonStr.id===this.formData.jsonStr.missDisease.locationPid );
+          console.log("newarr[0].departmentName===",newarr[0].departmentName);
+          return newarr[0].departmentName;
+        }
+
+      }
     }
   }
 </script>
