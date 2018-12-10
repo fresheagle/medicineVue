@@ -110,7 +110,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="科室父级" prop="departmentPid">
-              <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.departmentPid" class="input-with-select">
+              <el-input placeholder="请输入内容" :disabled="true" v-model="departmentPidtoChinese" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showDepartmentDialog"></el-button>
               </el-input>
             </el-form-item>
@@ -339,6 +339,7 @@
         curInputKey:"",
         curInputContent:"",
         locationPidtoChinese:"",
+        departmentPidtoChinese:"",
       }
     },
     created() {
@@ -380,13 +381,13 @@
           parentDislocationId:data.jsonStr.id
         }
         getDislocationList(params).then(response => {
-          debugger
           this.dislocationList = response.data.params
         })
 
       },
       listenToChild(data){ //选中父级科室兼听事件
         this.formData.jsonStr.missDisease.departmentPid=data.jsonStr.id;
+        this.departmentPidtoChinese=data.jsonStr.departmentName;
         const params={
           currentPage:1,
           pageSize:1000,
@@ -488,6 +489,13 @@
         var newarr = this.dislocationList.filter(item => item.jsonStr.id==newVal );
         if(newarr.length > 0){
           this.locationPidtoChinese = newarr[0].jsonStr.dislocationName ;
+        }
+      },
+      'formData.jsonStr.missDisease.departmentPid'(newVal,oldVal)
+      {
+        var newarr = this.departmentList.filter(item => item.jsonStr.id==newVal );
+        if(newarr.length > 0){
+          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName ;
         }
       },
     },
