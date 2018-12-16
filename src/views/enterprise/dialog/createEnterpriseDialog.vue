@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-dialog title="新增药品企业"
+    <el-dialog title="新增企业信息"
                v-bind="$attrs"
                v-on="$listeners"
                :append-to-body="true" width="80%" top="10vh">
-      <el-form label-width="120px" :model="formData" ref="formData">
+      <el-form label-width="125px" :model="formData" ref="formData">
         <el-row>
           <el-col :span="8">
             <el-form-item label="任务标题" prop="taskTitle">
@@ -25,7 +25,11 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="i18n.foundedTime" prop="foundedTime">
-              <el-input placeholder="请输入内容" v-model="formData.jsonStr.missMedicalCompany.foundedTime"></el-input>
+              <el-date-picker
+                v-model="formData.jsonStr.missMedicalCompany.foundedTime"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -52,7 +56,11 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="i18n.timeMarket" prop="timeMarket">
-              <el-input placeholder="请输入内容" v-model="formData.jsonStr.missMedicalCompany.timeMarket"></el-input>
+              <el-date-picker
+                v-model="formData.jsonStr.missMedicalCompany.timeMarket"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>

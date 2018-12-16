@@ -38,7 +38,7 @@
           <el-button  type="text" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button  type="text" @click="handleSubmit(scope.row)">提交</el-button>
           <el-button  type="text" @click="handleCompare(scope.row)">对比</el-button>
-          <el-button  type="text" @click="deleteUpdate(scope.row)">删除</el-button>
+          <!--<el-button  type="text" @click="deleteUpdate(scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -52,8 +52,24 @@
                    style="text-align:center;">
     </el-pagination>
 
-    <create-basics-dialog  :visible.sync="isShowCreateVisible" :row-data="curRowData"
+    <create-basics-dialog  :visible.sync="isShowCreateVisible" :row-data="missDiseaseCurRowData"
                            :cur-task-type="curTaskType" @refreshList="fetchData"></create-basics-dialog>
+    <create-chinese-dialog :visible.sync="isShowCreateChineseVisible" :row-data="missChineseDiseaseCurRowData"
+                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-chinese-dialog>
+    <create-western-dialog :visible.sync="isShowCreateWesternVisible" :row-data="missWesternCurRowData"
+                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-western-dialog>
+    <create-combination-dialog :visible.sync="isShowCreateCombineVisible" :row-data="missCombineDiseaseCurRowData"
+                               :cur-task-type="curTaskType" @refreshList="fetchData"></create-combination-dialog>
+
+    <create-public-dialog  :visible.sync="isShowCreatePublicVisible" :row-data="missInstitutionCurRowData"
+                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-public-dialog>
+    <create-symptom-dialog  :visible.sync="isShowCreateSymptomVisible" :row-data="missSymptomCurRowData"
+                            :cur-task-type="curTaskType" @refreshList="fetchData"></create-symptom-dialog>
+    <create-enterprise-dialog  :visible.sync="isShowCreateEnterpriseVisible" :row-data="missMedicalCompanyCurRowData"
+                               :cur-task-type="curTaskType" @refreshList="fetchData"></create-enterprise-dialog>
+    <create-drugs-chinese-dialog  :visible.sync="isShowCreateDrugsChineseVisible" :row-data="missMedicalCurRowData"
+                                  :cur-task-type="curTaskType" @refreshList="fetchData"></create-drugs-chinese-dialog>
+
     <delete-dialog  :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
                     @refreshList="fetchData"></delete-dialog>
     <submit-next-dialog  :visible.sync="isShowSubmit" :row-data="curRowData" :cur-task-type="curTaskType"
@@ -67,12 +83,21 @@
 
 
 <script>
-  import { getMissionList,getDisBasicsList, doCreateDisBasics } from '../../api/task'
+  import { getMissionList } from '../../api/task'
 
   import createBasicsDialog from '../dialog/createBasicsDialog'
   import deleteDialog from '../dialog/deleteDialog'
   import submitNextDialog from '../dialog/submitNextDialog'
   import firstCompareDialog from '../dialog/firstCompareDialog'
+
+  import createChineseDialog from '../disease/dialog/createChineseDialog'
+  import createWesternDialog from '../disease/dialog/createWesternDialog'
+  import createCombinationDialog from '../disease/dialog/createCombinationDialog'
+  import createPublicDialog from '../institution/dialog/createPublicDialog'
+  import createSymptomDialog from '../symptom/dialog/createSymptomDialog'
+  import createEnterpriseDialog from '../enterprise/dialog/createEnterpriseDialog'
+  import createDrugsChineseDialog from '../drugs/dialog/createChineseDialog'
+
 
   import i18n from '../../i18n/local'
   const viewName = 'i18nView'
@@ -80,6 +105,13 @@
   export default {
     components: {
       createBasicsDialog,
+      createChineseDialog,
+      createWesternDialog,
+      createCombinationDialog,
+      createPublicDialog,
+      createSymptomDialog,
+      createEnterpriseDialog,
+      createDrugsChineseDialog,
       deleteDialog,
       submitNextDialog,
       firstCompareDialog
@@ -90,7 +122,13 @@
         tableList: [],
         listLoading: true,
         isShowCreateVisible:false,
-        isShowEditVisible: false,
+        isShowCreateChineseVisible: false,
+        isShowCreateWesternVisible: false,
+        isShowCreateCombineVisible:false,
+        isShowCreatePublicVisible:false,
+        isShowCreateSymptomVisible:false,
+        isShowCreateEnterpriseVisible:false,
+        isShowCreateDrugsChineseVisible:false,
         isShowSubmit:false,
         isShowCompare:false,
         deleteVisible: false,
@@ -98,55 +136,13 @@
         formData: {
           "taskStatus": "",
           "taskType": "",
-          "taskMenuType": "missDisease",
+          "taskMenuType": "",
           "taskTitle": "",
           "taskChangeVote": "",
           "taskChangePoints": "",
           "taskChangeComments": "",
           "taskId":"",
-          "jsonStr": {
-            "symptomMapDTO": {
-              "symptomId": "",
-              "symptomChineseName": "",
-              "symptomEnglishName": "",
-            },
-            "missDisease": {
-              "taskId":"",
-              "id": "",
-              "chineseName": "",
-              "englishName": "",
-              "otherName": "",
-              "latinName": "",
-              "relatedDiseases": "",
-              "diseaseType": "chinese",
-              "locationPid": "",
-              "locationDisease": "",
-              "mainCauses": "",
-              "commonSymptom": "",
-              "multiplePopulation": "",
-              "infectivity": 1,
-              "seaCharacteristic": "",
-              "departmentPid": "",
-              "departmentId": "",
-              "clinicalTypesClass": "",
-              "clinicalManifestation": "",
-              "sign": "",
-              "laboratoryExamination": "",
-              "diagnosticPoints": "",
-              "differentialDiagnosis": "",
-              "preventionTreatment": "",
-              "treatmentPrognosis": "",
-              "preventiveNursing": "",
-              "nursing": "",
-              "preventionMeasures": "",
-              "dietaryConditioning": "",
-              "drugResistance": "",
-              "attentionMatter": "",
-              "picturePath": "",
-              "thumbnail": "",
-              "dataStatus": "",
-            }
-          },
+          "jsonStr": {},
         },
         total: 0,
         page: 1,
@@ -165,6 +161,14 @@
         filterTableDataEnd: [],
 
         curRowData:{},
+        missDiseaseCurRowData:{},
+        missChineseDiseaseCurRowData:{},
+        missWesternCurRowData:{},
+        missCombineDiseaseCurRowData:{},
+        missInstitutionCurRowData:{},
+        missSymptomCurRowData:{},
+        missMedicalCompanyCurRowData:{},
+        missMedicalCurRowData:{},
         curTaskType:""
       }
     },
@@ -207,14 +211,12 @@
           // this.$message.warning('查询条件不能为空！')
           return
         }
-        console.log(this.searchName)
         // 每次手动将数据置空,因为会出现多次点击搜索情况
         this.filterTableDataEnd = []
         this.tableList.forEach((value, index) => {
           if (value.taskTitle) {
             if (value.taskTitle.indexOf(this.searchName) >= 0) {
               this.filterTableDataEnd.push(value)
-              console.log(this.filterTableDataEnd)
             }
           }
         })
@@ -226,8 +228,42 @@
       },
 
       handleUpdate(row) {
-        this.curRowData=Object.assign({}, row);
-        this.isShowCreateVisible = true;
+        switch (row.taskMenuType) {
+          case 'missDisease' :
+            this.missDiseaseCurRowData=Object.assign({}, row);
+            this.isShowCreateVisible = true;
+            break;
+          case 'missChineseDisease' :
+            this.missChineseDiseaseCurRowData=Object.assign({}, row);
+            this.isShowCreateChineseVisible=true;
+            break;
+          case 'missWestern' :
+            this.missWesternCurRowData=Object.assign({}, row);
+            this.isShowCreateWesternVisible=true;
+            break;
+          case 'missCombineDisease' :
+            this.missCombineDiseaseCurRowData=Object.assign({}, row);
+            this.isShowCreateCombineVisible=true;
+            break;
+          case 'missInstitution' :
+            this.missInstitutionCurRowData=Object.assign({}, row);
+            this.isShowCreatePublicVisible=true;
+            break;
+          case 'missSymptom' :
+            this.missSymptomCurRowData=Object.assign({}, row);
+            this.isShowCreateSymptomVisible=true;
+            break;
+          case 'missMedicalCompany' :
+            this.missMedicalCompanyCurRowData=Object.assign({}, row);
+            this.isShowCreateEnterpriseVisible=true;
+            break;
+          case 'missMedical' :
+            this.missMedicalCurRowData=Object.assign({}, row);
+            this.isShowCreateDrugsChineseVisible=true;
+            break;
+          default :
+            break;
+        }
       },
       handleCompare(row){
         //调用查看版本的接口

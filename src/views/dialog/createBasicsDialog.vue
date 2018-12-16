@@ -122,9 +122,9 @@
               <el-select v-model="formData.jsonStr.missDisease.departmentId" >
                 <el-option
                   v-for="item in departmentList"
-                  :key="item.jsonStr.id"
-                  :label="item.jsonStr.departmentName"
-                  :value="item.jsonStr.id">
+                  :key="item.jsonStr.key.id"
+                  :label="item.jsonStr.key.departmentName"
+                  :value="item.jsonStr.key.id">
                 </el-option>
               </el-select>
             </el-form-item>

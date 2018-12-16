@@ -290,7 +290,7 @@
               "mainCauses": "",
               "commonSymptom": "",
               "multiplePopulation": "",
-              "infectivity": "",
+              "infectivity": "1",
               "inspectionItems": "",
               "reserve1": "",
               "reserve2": "",
