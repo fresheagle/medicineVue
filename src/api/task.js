@@ -41,10 +41,6 @@ export function getMissionDetailsList(params) {
     params
   })
 }
-
-
-
-
 //任务查询
 export function getMissionList(params) {
   return request({
@@ -53,7 +49,6 @@ export function getMissionList(params) {
     params
   })
 }
-
 //草稿箱
 export function getDraftMissionList(params) {
   return request({
@@ -110,6 +105,80 @@ export function getDesdroyMissionList(params) {
     params
   })
 }
+
+//中医疾病查询
+export function getChineseDiseaseList(params) {
+  return request({
+    url: '/api/chineseDisease/page',
+    method: 'get',
+    params
+  })
+}
+
+//西医疾病查询
+export function getWestDiseaseList(params) {
+  return request({
+    url: '/api/westDisease/page',
+    method: 'get',
+    params
+  })
+}
+
+//中西医疾病查询
+export function getCombinationDiseaseList(params) {
+  return request({
+    url: '/api/combinationDisease/page',
+    method: 'get',
+    params
+  })
+}
+
+//公立医疗机构
+export function getInstitutionList(params) {
+  return request({
+    url: '/api/institution/page',
+    method: 'get',
+    params
+  })
+}
+
+//医生信息
+export function getDoctorList(params) {
+  return request({
+    url: '/api/doctor/page',
+    method: 'get',
+    params
+  })
+}
+
+//药品信息
+export function getEdicilList(params) {
+  return request({
+    url: '/api/edicil/page',
+    method: 'get',
+    params
+  })
+}
+
+//药品企业
+export function getMedicalCompanyList(params) {
+  return request({
+    url: '/api/medicalCompany/page',
+    method: 'get',
+    params
+  })
+}
+
+//药品企业
+export function getSymptomList(params) {
+  return request({
+    url: '/api/symptom/page',
+    method: 'get',
+    params
+  })
+}
+
+
 export function getMonth(params) {
   return request({
     url: '/api/schedule/month',

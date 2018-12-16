@@ -46,6 +46,49 @@ export const constantRouterMap = [
     ]
   },
   {
+    path: '/institution',
+    component: Layout,
+    name: '医疗机构',
+    children: [
+      {path: 'public',name: '公立医疗机构',component: () => import('../views/institution/public')},
+      {path: 'chinese',name: '中医疾病',component: () => import('../views/disease/chinese')},
+      {path: 'western',name: '西医疾病',component: () => import('../views/disease/western')},
+      {path: 'chinese-western',name: '中西医疾病',component: () => import('../views/disease/chinese-western')}
+    ]
+  },
+  {
+    path: '/modernDoctor',
+    component: Layout,
+    name: '医生信息',
+    children: [
+      {path: 'cooperation',name: '医生信息',component: () => import('../views/modernDoctor/cooperation')},
+    ]
+  },
+  {
+    path: '/drugs',
+    component: Layout,
+    name: '药品',
+    children: [
+      {path: 'chinese',name: '中成药',component: () => import('../views/drugs/chinese')},
+    ]
+  },
+  {
+    path: '/enterprise',
+    component: Layout,
+    name: '药品企业',
+    children: [
+      {path: 'list',name: '药品企业',component: () => import('../views/enterprise/list')},
+    ]
+  },
+  {
+    path: '/symptom',
+    component: Layout,
+    name: '症状',
+    children: [
+      {path: 'list',name: '症状',component: () => import('../views/symptom/list')},
+    ]
+  },
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',

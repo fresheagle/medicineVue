@@ -14,12 +14,12 @@
         style="width: 100%">
         <el-table-column prop="departmentName" label="部门名称">
           <template slot-scope="scope">
-            {{scope.row.jsonStr.departmentName}}
+            {{scope.row.jsonStr.key.departmentName}}
           </template>
         </el-table-column>
         <el-table-column prop="departmentName" label="部门ID">
           <template slot-scope="scope">
-            {{scope.row.jsonStr.id}}
+            {{scope.row.jsonStr.key.id}}
           </template>
         </el-table-column>
       </el-table>

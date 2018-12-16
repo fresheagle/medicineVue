@@ -14,12 +14,12 @@
         style="width: 100%">
         <el-table-column prop="dislocationName" label="发病部位">
           <template slot-scope="scope">
-            {{scope.row.jsonStr.dislocationName}}
+            {{scope.row.jsonStr.key.dislocationName}}
           </template>
         </el-table-column>
         <el-table-column prop="departmentName" label="ID">
           <template slot-scope="scope">
-            {{scope.row.jsonStr.id}}
+            {{scope.row.jsonStr.key.id}}
           </template>
         </el-table-column>
       </el-table>

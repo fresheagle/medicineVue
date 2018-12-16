@@ -106,6 +106,7 @@ export default {
       "enterprise":"生产企业",
       "environment":"医院环境",
       "epidemiology":"流行病学",
+      "tRelatedDiseases":"相关疾病",
       "etiologyPathogenesis":"病因与发病机制",
       "examinationPoints":"检查点",
       "expertsTime":"出诊时间",

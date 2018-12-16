@@ -74,16 +74,12 @@ export default {
         ]
       },
       {path: '/symptom',name: '症状',
-        children: [ {path: 'chinese',name: '症状参数'},
+        children: [ {path: 'list',name: '症状参数'},
           {path: 'western',name: '发病部位参数'}
         ]
       },
       {path: '/enterprise',name: '医药企业',
-        children: [ {path: 'chinese',name: '药品企业信息'}
-        ]
-      },
-      {path: '/area',name: '地区参数',
-        children: [ {path: 'chinese',name: '药品企业信息'}
+        children: [ {path: 'list',name: '药品企业信息'}
         ]
       },
       {path: '/trash',name: '回收站',

@@ -16,7 +16,15 @@ const enumerate = {
       {key:"institutionSpecial",value:"非公特性立医疗结构" },
       {key:"institutionMedical",value:"非公医美机构" },
       {key:"institutionInformation",value:"医院科室信息参数维护" },
-    ]  //菜单类型
+    ], //菜单类型
+  institutionLevel:[
+    {id:0,level:"未定级"},{id:1,level:"一级"},{id:2,level:"一级丙等"},
+    {id:3,level:"一级乙等"},{id:4,level:"一级甲等"},{id:5,level:"二级"},
+    {id:6,level:"二级丙等"},{id:7,level:"二级乙等"},{id:8,level:"二级甲等"},
+    {id:9,level:"三级"},{id:10,level:"三级丙等"},{id:11,level:"三级乙等"},{id:12,level:"三级甲等"},
+    ],//机构级别
+  sexList:[{id:0,value:"男"},{id:1,value:"女"}],
+  medicalTypeList:[{id:1,value:"中药"},{id:2,value:"西药"}],
 }
 
 export default enumerate

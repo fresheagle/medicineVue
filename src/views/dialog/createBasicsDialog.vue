@@ -134,7 +134,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.clinicalTypesClass" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('clinicalTypesClass')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.clinicalTypesClass"></el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -149,7 +148,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.sign" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('sign')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.sign"></el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -157,7 +155,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.laboratoryExamination" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('laboratoryExamination')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.laboratoryExamination"></el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -165,7 +162,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.diagnosticPoints" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('diagnosticPoints')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.diagnosticPoints"></el-input>-->
             </el-form-item>
           </el-col>
         </el-row>
@@ -175,7 +171,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.differentialDiagnosis" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('differentialDiagnosis')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.differentialDiagnosis"></el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -183,7 +178,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.preventionTreatment" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('preventionTreatment')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.preventionTreatment"></el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -191,7 +185,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.treatmentPrognosis" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('treatmentPrognosis')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.treatmentPrognosis"></el-input>-->
             </el-form-item>
           </el-col>
         </el-row>
@@ -206,7 +199,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.nursing" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('nursing')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.nursing"></el-input>-->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -214,7 +206,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.preventionMeasures" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('preventionMeasures')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.preventionMeasures"></el-input>-->
             </el-form-item>
           </el-col>
         </el-row>
@@ -234,7 +225,6 @@
               <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDisease.attentionMatter" class="input-with-select">
                 <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('attentionMatter')"></el-button>
               </el-input>
-              <!--<el-input v-model="formData.jsonStr.missDisease.attentionMatter"></el-input>-->
             </el-form-item>
           </el-col>
         </el-row>
@@ -373,8 +363,8 @@
         this.isShowCreateVisible=true;
       },
       listenLocationChild(data){
-        this.formData.jsonStr.missDisease.locationPid=data.jsonStr.id;
-        this.locationPidtoChinese=data.jsonStr.dislocationName;
+        this.formData.jsonStr.missDisease.locationPid=data.jsonStr.key.id;
+        this.locationPidtoChinese=data.jsonStr.key.dislocationName;
         const params={
           currentPage:1,
           pageSize:1000,
@@ -386,8 +376,8 @@
 
       },
       listenToChild(data){ //选中父级科室兼听事件
-        this.formData.jsonStr.missDisease.departmentPid=data.jsonStr.id;
-        this.departmentPidtoChinese=data.jsonStr.departmentName;
+        this.formData.jsonStr.missDisease.departmentPid=data.jsonStr.key.id;
+        this.departmentPidtoChinese=data.jsonStr.key.departmentName;
         const params={
           currentPage:1,
           pageSize:1000,

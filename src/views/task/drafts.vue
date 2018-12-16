@@ -54,6 +54,12 @@
 
     <create-basics-dialog  :visible.sync="isShowCreateVisible" :row-data="curRowData"
                            :cur-task-type="curTaskType" @refreshList="fetchData"></create-basics-dialog>
+    <create-chinese-dialog :visible.sync="isShowCreateChineseVisible" :row-data="curRowData"
+                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-chinese-dialog>
+    <create-western-dialog :visible.sync="isShowCreateWesternVisible" :row-data="curRowData"
+                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-western-dialog>
+    <create-combination-dialog :visible.sync="isShowCreateCombineVisible" :row-data="curRowData"
+                               :cur-task-type="curTaskType" @refreshList="fetchData"></create-combination-dialog>
     <delete-dialog  :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
                     @refreshList="fetchData"></delete-dialog>
     <submit-next-dialog  :visible.sync="isShowSubmit" :row-data="curRowData" :cur-task-type="curTaskType"
@@ -74,12 +80,20 @@
   import submitNextDialog from '../dialog/submitNextDialog'
   import firstCompareDialog from '../dialog/firstCompareDialog'
 
+  import createChineseDialog from '../disease/dialog/createChineseDialog'
+  import createWesternDialog from '../disease/dialog/createWesternDialog'
+  import createCombinationDialog from '../disease/dialog/createCombinationDialog'
+
+
   import i18n from '../../i18n/local'
   const viewName = 'i18nView'
 
   export default {
     components: {
       createBasicsDialog,
+      createChineseDialog,
+      createWesternDialog,
+      createCombinationDialog,
       deleteDialog,
       submitNextDialog,
       firstCompareDialog
@@ -90,7 +104,9 @@
         tableList: [],
         listLoading: true,
         isShowCreateVisible:false,
-        isShowEditVisible: false,
+        isShowCreateChineseVisible: false,
+        isShowCreateWesternVisible: false,
+        isShowCreateCombineVisible:false,
         isShowSubmit:false,
         isShowCompare:false,
         deleteVisible: false,
@@ -98,55 +114,13 @@
         formData: {
           "taskStatus": "",
           "taskType": "",
-          "taskMenuType": "missDisease",
+          "taskMenuType": "",
           "taskTitle": "",
           "taskChangeVote": "",
           "taskChangePoints": "",
           "taskChangeComments": "",
           "taskId":"",
-          "jsonStr": {
-            "symptomMapDTO": {
-              "symptomId": "",
-              "symptomChineseName": "",
-              "symptomEnglishName": "",
-            },
-            "missDisease": {
-              "taskId":"",
-              "id": "",
-              "chineseName": "",
-              "englishName": "",
-              "otherName": "",
-              "latinName": "",
-              "relatedDiseases": "",
-              "diseaseType": "chinese",
-              "locationPid": "",
-              "locationDisease": "",
-              "mainCauses": "",
-              "commonSymptom": "",
-              "multiplePopulation": "",
-              "infectivity": 1,
-              "seaCharacteristic": "",
-              "departmentPid": "",
-              "departmentId": "",
-              "clinicalTypesClass": "",
-              "clinicalManifestation": "",
-              "sign": "",
-              "laboratoryExamination": "",
-              "diagnosticPoints": "",
-              "differentialDiagnosis": "",
-              "preventionTreatment": "",
-              "treatmentPrognosis": "",
-              "preventiveNursing": "",
-              "nursing": "",
-              "preventionMeasures": "",
-              "dietaryConditioning": "",
-              "drugResistance": "",
-              "attentionMatter": "",
-              "picturePath": "",
-              "thumbnail": "",
-              "dataStatus": "",
-            }
-          },
+          "jsonStr": {},
         },
         total: 0,
         page: 1,
@@ -207,14 +181,12 @@
           // this.$message.warning('查询条件不能为空！')
           return
         }
-        console.log(this.searchName)
         // 每次手动将数据置空,因为会出现多次点击搜索情况
         this.filterTableDataEnd = []
         this.tableList.forEach((value, index) => {
           if (value.taskTitle) {
             if (value.taskTitle.indexOf(this.searchName) >= 0) {
               this.filterTableDataEnd.push(value)
-              console.log(this.filterTableDataEnd)
             }
           }
         })
@@ -227,7 +199,24 @@
 
       handleUpdate(row) {
         this.curRowData=Object.assign({}, row);
-        this.isShowCreateVisible = true;
+        debugger
+        switch (row.taskMenuType) {
+          case 'missDisease' :
+            this.isShowCreateVisible = true;
+            break;
+          case 'missChineseDisease' :
+            this.isShowCreateChineseVisible=true;
+            break;
+          case 'missWestern' :
+            this.isShowCreateWesternVisible=true;
+            break;
+          case 'missCombineDisease' :
+            this.isShowCreateCombineVisible=true;
+            break;
+          default :
+            break;
+        }
+
       },
       handleCompare(row){
         //调用查看版本的接口

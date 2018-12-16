@@ -6,7 +6,11 @@
     v-on="$listeners"
     :append-to-body="true"
     width="30%">
-    <span>确认删除吗</span>
+    <el-form label-width="100px" :model="formData" ref="formData">
+          <el-form-item label="任务标题" prop="taskTitle">
+            <el-input v-model="formData.taskTitle"></el-input>
+          </el-form-item>
+    </el-form>
     <span slot="footer" class="dialog-footer">
         <el-button @click="cancelDelete">取 消</el-button>
         <el-button type="primary" @click="submitDelete">确 定</el-button>
@@ -24,57 +28,15 @@
     data(){
       return {
         formData:{
-          "taskStatus":"",
+          "taskStatus":"drafts",
           "taskType":"",
-          "taskMenuType":"missDisease",
+          "taskMenuType":"",
           "taskTitle":"",
           "taskChangeVote":"",
           "taskChangePoints":"",
           "taskChangeComments":"",
           "taskId":"",
-          "jsonStr":{
-            "symptomMapDTO":{
-              "symptomId":"",
-              "symptomChineseName":"",
-              "symptomEnglishName":"",
-            },
-            "missDisease":{
-              "taskId":"",
-              "id":"",
-              "chineseName":"",
-              "englishName":"",
-              "otherName":"",
-              "latinName":"",
-              "relatedDiseases":"",
-              "diseaseType":"chinese",
-              "locationPid":"",
-              "locationDisease":"",
-              "mainCauses":"",
-              "commonSymptom":"",
-              "multiplePopulation":"",
-              "infectivity":1,
-              "seaCharacteristic":"",
-              "departmentPid":"",
-              "departmentId":"",
-              "clinicalTypesClass":"",
-              "clinicalManifestation":"",
-              "sign":"",
-              "laboratoryExamination":"",
-              "diagnosticPoints":"",
-              "differentialDiagnosis":"",
-              "preventionTreatment":"",
-              "treatmentPrognosis":"",
-              "preventiveNursing":"",
-              "nursing":"",
-              "preventionMeasures":"",
-              "dietaryConditioning":"",
-              "drugResistance":"",
-              "attentionMatter":"",
-              "picturePath":"",
-              "thumbnail":"",
-              "dataStatus":"",
-            }
-          },
+          "jsonStr":{},
         },
       }
     },
@@ -84,6 +46,7 @@
       },
       submitDelete() {
         this.formData.taskType=this.curTaskType;
+        this.formData.taskStatus="drafts";
         doCreateDisBasics(this.formData).then(response => {
           this.$emit("update:visible",false);
           this.$notify({

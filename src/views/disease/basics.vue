@@ -87,7 +87,6 @@
     <first-compare-dialog :visible.sync="isShowCompare" :row-data="curRowData" :cur-task-type="curTaskType"
                           @refreshList="fetchData"></first-compare-dialog>
 
-
   </div>
 </template>
 
@@ -176,11 +175,6 @@
             }
           }
         },
-        versionData:[{taskId:1,taskTitle:"测试1",taskVersion:"1.0",taskMenuType:"基础疾病"},
-          {taskId:2,taskTitle:"测试2",taskVersion:"2.0",taskMenuType:"基础疾病"},{taskId:3,taskTitle:"测试3",taskVersion:"3.0",taskMenuType:"基础疾病"}],
-        leftVersionData:{taskId:1,taskTitle:"测试1",taskVersion:"1.0",taskMenuType:"基础疾病"},
-        leftVersionKeyArr:[],
-        rightVersionData:{taskId:1,taskTitle:"测试1",taskVersion:"2.0",taskMenuType:"基础疾病"},
         multipleSelection: [],
         total: 0,
         page: 1,

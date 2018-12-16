@@ -31,7 +31,7 @@
       return {
         content: '',
         editorOption: {
-          placeholder: 'Hello World'
+          placeholder: '请输入内容'
         }
       }
     },
