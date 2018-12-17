@@ -14,8 +14,8 @@
             <el-row>
               <el-col :span="8" v-for="key in versionKeyArr">
                 <span> {{i18n[key]  || key}} :</span>
-                <span v-if="beforejson[key]===afterjson[key]">{{beforejson[key]}}</span>
-                <span v-else style="color: #ff0000">{{beforejson[key]}}</span>
+                <!--<span v-if="beforejson[key]===afterjson[key]">{{beforejson[key]}}</span>-->
+                <span v-if="beforejson[key]!==afterjson[key]" style="color: #ff0000">{{beforejson[key]}}</span>
               </el-col>
             </el-row>
           </div>
@@ -26,7 +26,7 @@
             <el-row>
               <el-col :span="8" v-for="key in versionKeyArr">
                 <span> {{i18n[key] || key}} :</span>
-                <span>{{afterjson[key]}}</span>
+                <span v-if="beforejson[key]!==afterjson[key]" style="color: #ff0000">{{afterjson[key]}}</span>
               </el-col>
             </el-row>
           </div>
@@ -69,10 +69,13 @@
     watch:{
       rowData(newVal,oldVal)
       {
+
         const missionDetails = newVal;
-        this.beforejson=missionDetails.jsonStr.taskchangebeforejson.missDisease;
-        this.afterjson=missionDetails.jsonStr.taskchangeafterjson.missDisease;
-        for (let key in this.beforejson) {
+        if(missionDetails.jsonStr.taskchangebeforejson[missionDetails.taskMenuType]){
+          this.beforejson=missionDetails.jsonStr.taskchangebeforejson[missionDetails.taskMenuType];
+        }
+        this.afterjson=missionDetails.jsonStr.taskchangeafterjson[missionDetails.taskMenuType];
+        for (let key in this.afterjson) {
           this.versionKeyArr.push(key); //属性
         }
       },

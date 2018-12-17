@@ -48,6 +48,7 @@
         this.formData.taskType=this.curTaskType;
         this.formData.taskStatus="drafts";
         doCreateDisBasics(this.formData).then(response => {
+          this.$emit("refreshList");
           this.$emit("update:visible",false);
           this.$notify({
             title: '成功',

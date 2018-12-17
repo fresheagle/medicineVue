@@ -112,19 +112,19 @@
     },
     data() {
       return {
-        enumerate:enumerate,
-        i18n:i18n.zh.i18nView,
+        enumerate: enumerate,
+        i18n: i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
-        isShowCreateVisible:false,
+        isShowCreateVisible: false,
         isShowEditVisible: false,
-        isShowCompare:false,
-        isShowSubmit:false,
+        isShowCompare: false,
+        isShowSubmit: false,
         deleteVisible: false,
-        isShowComResoultDialog:false,
-        formData:{
-          "taskStatus":"",
-          "taskType":"",
+        isShowComResoultDialog: false,
+        formData: {
+          "taskStatus": '',
+          "taskType": "",
           "taskMenuType":"missDisease",
           "taskTitle":"",
           "taskChangeVote":"",
@@ -191,10 +191,8 @@
         value: '',
         searchName: '',
         filterTableDataEnd: [],
-
-
-        curRowData:{},
-        curTaskType:"",//作为参数，区分是创建还是更新操作
+        curRowData: {},
+        curTaskType: '' // 作为参数，区分是创建还是更新操作
       }
     },
     created() {

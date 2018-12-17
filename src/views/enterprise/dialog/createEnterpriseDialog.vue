@@ -376,6 +376,7 @@
         }
         this.formData.taskMenuType = "missMedicalCompany"
         doCreateDisBasics(this.formData).then(response => {
+          this.$emit("refreshList");
           this.$emit("update:visible", false)
         })
 
@@ -398,7 +399,7 @@
         }
         this.formData.taskMenuType = "missMedicalCompany"
         doCreateDisBasics(this.formData).then(response => {
-          // this.isShowCreateVisible=false;
+          this.$emit("refreshList");
           this.$emit("update:visible", false)
         })
       },

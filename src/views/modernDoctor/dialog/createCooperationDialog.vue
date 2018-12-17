@@ -42,18 +42,22 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="i18n.birthday"  prop="birthday">
-              <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDoctor.birthday" class="input-with-select">
-                <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('birthday')"></el-button>
-              </el-input>
+              <el-date-picker
+                v-model="formData.jsonStr.missDoctor.birthday"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item :label="i18n.dieday"  prop="dieday">
-              <el-input placeholder="请输入内容" :disabled="true" v-model="formData.jsonStr.missDoctor.dieday" class="input-with-select">
-                <el-button slot="append" icon="el-icon-more" @click="showClinicalTypesDialog('dieday')"></el-button>
-              </el-input>
+              <el-date-picker
+                v-model="formData.jsonStr.missDoctor.dieday"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -75,7 +79,11 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="i18n.expertsTime" prop="expertsTime">
-              <el-input placeholder="请输入内容" v-model="formData.jsonStr.missDoctor.expertsTime" ></el-input>
+              <el-date-picker
+                v-model="formData.jsonStr.missDoctor.expertsTime"
+                type="date"
+                placeholder="选择日期">
+              </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -93,8 +101,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item :label="i18n.picturepath" prop="dean">
-              <el-input placeholder="请输入内容" v-model="formData.jsonStr.missDoctor.picturepath" class="input-with-select"></el-input>
+            <el-form-item :label="i18n.picturepath" prop="picturepath">
+              <el-input placeholder="请输入内容" v-model="formData.jsonStr.missDoctor.picturepath"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -394,6 +402,7 @@
         }
         this.formData.taskMenuType="missDoctor"
         doCreateDisBasics(this.formData).then(response => {
+          this.$emit("refreshList");
           this.$emit("update:visible",false)
         })
 
@@ -416,7 +425,7 @@
         }
         this.formData.taskMenuType="missDoctor"
         doCreateDisBasics(this.formData).then(response => {
-          // this.isShowCreateVisible=false;
+          this.$emit("refreshList");
           this.$emit("update:visible",false)
         })
       },

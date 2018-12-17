@@ -40,7 +40,7 @@ export default {
       "dietaryConditioning":"膳食调理",
       "drugResistance":"耐药性",
       "attentionMatter":"注意事项",
-      "picturePath":"图片路径",
+      "picturepath":"图片路径",
       "thumbnail":"缩略图",
       "dataStatus":"数据状态",
       "drafts":"草稿箱",
@@ -49,7 +49,6 @@ export default {
       "toFinalAudited":"待终审",
       "finished":"已完成",
       "discarded":"已废止",
-
       "academic":"学术思想",
       "academicActivity":"学术活动",
       "academicMonograph":"学术专著",
