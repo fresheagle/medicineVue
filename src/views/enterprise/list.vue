@@ -53,12 +53,11 @@
 
 
 <script>
-  import {getMedicalCompanyList, doCreateDisBasics} from '../../api/task'
+  import { getMedicalCompanyList, doCreateDisBasics } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
 
   import createEnterpriseDialog from './dialog/createEnterpriseDialog'
   import deleteDialog from '../dialog/deleteDialog'
-
 
   import i18n from '../../i18n/local'
 
@@ -66,7 +65,7 @@
   export default {
     components: {
       createEnterpriseDialog,
-      deleteDialog,
+      deleteDialog
     },
     data() {
       return {
@@ -81,46 +80,46 @@
         deleteVisible: false,
         isShowComResoultDialog: false,
         formData: {
-          "taskStatus": "",
-          "taskType": "",
-          "taskMenuType": "missMedicalCompany",
-          "taskTitle": "",
-          "taskChangeVote": "",
-          "taskChangePoints": "",
-          "taskChangeComments": "",
-          "taskId": "",
-          "jsonStr": {
-            "missMedicalCompany": {
-              "id": "",
-              "chineseName": "",
-              "englishName": "",
-              "foundedTime": "",
-              "location": "",
-              "sile": "",
-              "range": "",
-              "marketValue": "",
-              "timeMarket": "",
-              "registerMoney": "",
-              "registrationNumber": "",
-              "domicile": "",
-              "staffNumber": "",
-              "legalPerson": "",
-              "chairman": "",
-              "companyIdea": "",
-              "creditCode": "",
-              "website": "",
-              "leader": "",
-              "businessScope": "",
-              "history": "",
-              "companyIntroduction": "",
-              "brandProduct": "",
-              "honor": "",
-              "achievements": "",
-              "news": "",
-              "datastatus": "",
-              "taskId": "",
-              "taskStatus": "",
-              "taskJson": "",
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missMedicalCompany',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'missMedicalCompany': {
+              'id': '',
+              'chineseName': '',
+              'englishName': '',
+              'foundedTime': '',
+              'location': '',
+              'sile': '',
+              'range': '',
+              'marketValue': '',
+              'timeMarket': '',
+              'registerMoney': '',
+              'registrationNumber': '',
+              'domicile': '',
+              'staffNumber': '',
+              'legalPerson': '',
+              'chairman': '',
+              'companyIdea': '',
+              'creditCode': '',
+              'website': '',
+              'leader': '',
+              'businessScope': '',
+              'history': '',
+              'companyIntroduction': '',
+              'brandProduct': '',
+              'honor': '',
+              'achievements': '',
+              'news': '',
+              'datastatus': '',
+              'taskId': '',
+              'taskStatus': '',
+              'taskJson': ''
             }
           }
         },
@@ -141,7 +140,7 @@
         searchName: '',
         filterTableDataEnd: [],
         curRowData: {},
-        curTaskType: "",//作为参数，区分是创建还是更新操作
+        curTaskType: '' // 作为参数，区分是创建还是更新操作
       }
     },
     created() {
@@ -162,15 +161,15 @@
     },
     methods: {
       fetchData() {
-        this.listLoading = false;
+        this.listLoading = false
         const params = {
           currentPage: 1,
-          pageSize: 1000,
+          pageSize: 1000
           // chineseName:"",
           // englishNam:"",
           // otherName:"",
         }
-        //this.listQuery
+        // this.listQuery
         getMedicalCompanyList(params).then(response => {
           const limit = 10
           const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
@@ -178,21 +177,19 @@
           this.tableList = pageList
           this.listLoading = false
         })
-      }
-      ,
+      },
       doCreate() {
-        this.curTaskType = "create";
-        this.curRowData = Object.assign({}, this.formData);
-        this.isShowCreateVisible = true;
+        this.curTaskType = 'create'
+        this.curRowData = Object.assign({}, this.formData)
+        this.isShowCreateVisible = true
         const params = {
           currentPage: 1,
-          pageSize: 1000,
+          pageSize: 1000
         }
         this.$store.dispatch('getDepartment', params).then(() => {
         }).catch(() => {
         })
-      }
-      ,
+      },
       doFilter() {
         if (this.searchName === '') {
           this.fetchData()
@@ -213,44 +210,37 @@
         this.total = this.filterTableDataEnd.length
         // 渲染表格,根据值
         this.currentChangePage(this.filterTableDataEnd)
-      }
-      ,
+      },
       handleUpdate(row) {
-        this.curTaskType = "update";
-        this.curRowData = Object.assign({}, row);
-        this.isShowCreateVisible = true;
-      }
-      ,
-      deleteUpdate(row) {
-        this.deleteVisible = true;
-        this.curTaskType = 'delete';
-        this.curRowData = Object.assign({}, row);
-      }
-      ,
-      handleSubmit(row) {
-        this.isShowSubmit = true;
+        this.curTaskType = 'update'
         this.curRowData = Object.assign({}, row)
-      }
-      ,
+        this.isShowCreateVisible = true
+      },
+      deleteUpdate(row) {
+        this.deleteVisible = true
+        this.curTaskType = 'delete'
+        this.curRowData = Object.assign({}, row)
+      },
+      handleSubmit(row) {
+        this.isShowSubmit = true
+        this.curRowData = Object.assign({}, row)
+      },
       handleCompare(row) {
-        //调用查看版本的接口
-        this.isShowCompare = true;
+        // 调用查看版本的接口
+        this.isShowCompare = true
         doCreateDisBasics(row.taskId).then(response => {
-          this.isShowCompare = false;
-          this.curRowData = response.data;
+          this.isShowCompare = false
+          this.curRowData = response.data
         })
-      }
-      ,
+      },
       handleSizeChange(val) {
         this.page = val
         this.fetchData()
-      }
-      ,
+      },
       handleCurrentChange(val) {
         this.page = val
         this.fetchData()
-      }
-      ,
+      },
       currentChangePage(list) {
         let from = (this.page - 1) * this.pageSize
         const to = this.page * this.pageSize
@@ -266,8 +256,7 @@
       lang: {
         get() {
           return this.$store.state.app.language
-        }
-        ,
+        },
         set(lang) {
           this.$i18n.locale = lang
           this.$store.dispatch('setLanguage', lang)

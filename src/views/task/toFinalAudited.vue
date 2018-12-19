@@ -98,7 +98,6 @@
   import createEnterpriseDialog from '../enterprise/dialog/createEnterpriseDialog'
   import createDrugsChineseDialog from '../drugs/dialog/createChineseDialog'
 
-
   import i18n from '../../i18n/local'
   const viewName = 'i18nView'
 
@@ -118,31 +117,31 @@
     },
     data() {
       return {
-        i18n:i18n.zh.i18nView,
+        i18n: i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
-        isShowCreateVisible:false,
+        isShowCreateVisible: false,
         isShowCreateChineseVisible: false,
         isShowCreateWesternVisible: false,
-        isShowCreateCombineVisible:false,
-        isShowCreatePublicVisible:false,
-        isShowCreateSymptomVisible:false,
-        isShowCreateEnterpriseVisible:false,
-        isShowCreateDrugsChineseVisible:false,
-        isShowSubmit:false,
-        isShowCompare:false,
+        isShowCreateCombineVisible: false,
+        isShowCreatePublicVisible: false,
+        isShowCreateSymptomVisible: false,
+        isShowCreateEnterpriseVisible: false,
+        isShowCreateDrugsChineseVisible: false,
+        isShowSubmit: false,
+        isShowCompare: false,
         deleteVisible: false,
 
         formData: {
-          "taskStatus": "",
-          "taskType": "",
-          "taskMenuType": "",
-          "taskTitle": "",
-          "taskChangeVote": "",
-          "taskChangePoints": "",
-          "taskChangeComments": "",
-          "taskId":"",
-          "jsonStr": {},
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': '',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {}
         },
         total: 0,
         page: 1,
@@ -160,16 +159,16 @@
         searchName: '',
         filterTableDataEnd: [],
 
-        curRowData:{},
-        missDiseaseCurRowData:{},
-        missChineseDiseaseCurRowData:{},
-        missWesternCurRowData:{},
-        missCombineDiseaseCurRowData:{},
-        missInstitutionCurRowData:{},
-        missSymptomCurRowData:{},
-        missMedicalCompanyCurRowData:{},
-        missMedicalCurRowData:{},
-        curTaskType:""
+        curRowData: {},
+        missDiseaseCurRowData: {},
+        missChineseDiseaseCurRowData: {},
+        missWesternCurRowData: {},
+        missCombineDiseaseCurRowData: {},
+        missInstitutionCurRowData: {},
+        missSymptomCurRowData: {},
+        missMedicalCompanyCurRowData: {},
+        missMedicalCurRowData: {},
+        curTaskType: ''
       }
     },
     created() {
@@ -186,12 +185,12 @@
     },
     methods: {
       fetchData() {
-        this.listLoading = false;
-        const params={
-          currentPage:1,
-          pageSize:1000,
-          taskStatus:"toFinalAudited"
-          //chineseName=XXX&englishName=XXX&otherName=XXX
+        this.listLoading = false
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
+          taskStatus: 'toFinalAudited'
+          // chineseName=XXX&englishName=XXX&otherName=XXX
         }
         getMissionList(params).then(response => {
           const limit = 10
@@ -202,8 +201,8 @@
           this.listLoading = false
         })
       },
-      doCreate(){
-        this.isShowCreateVisible=true;
+      doCreate() {
+        this.isShowCreateVisible = true
       },
       doFilter() {
         if (this.searchName === '') {
@@ -230,53 +229,53 @@
       handleUpdate(row) {
         switch (row.taskMenuType) {
           case 'missDisease' :
-            this.missDiseaseCurRowData=Object.assign({}, row);
-            this.isShowCreateVisible = true;
-            break;
+            this.missDiseaseCurRowData = Object.assign({}, row)
+            this.isShowCreateVisible = true
+            break
           case 'missChineseDisease' :
-            this.missChineseDiseaseCurRowData=Object.assign({}, row);
-            this.isShowCreateChineseVisible=true;
-            break;
+            this.missChineseDiseaseCurRowData = Object.assign({}, row)
+            this.isShowCreateChineseVisible = true
+            break
           case 'missWestern' :
-            this.missWesternCurRowData=Object.assign({}, row);
-            this.isShowCreateWesternVisible=true;
-            break;
+            this.missWesternCurRowData = Object.assign({}, row)
+            this.isShowCreateWesternVisible = true
+            break
           case 'missCombineDisease' :
-            this.missCombineDiseaseCurRowData=Object.assign({}, row);
-            this.isShowCreateCombineVisible=true;
-            break;
+            this.missCombineDiseaseCurRowData = Object.assign({}, row)
+            this.isShowCreateCombineVisible = true
+            break
           case 'missInstitution' :
-            this.missInstitutionCurRowData=Object.assign({}, row);
-            this.isShowCreatePublicVisible=true;
-            break;
+            this.missInstitutionCurRowData = Object.assign({}, row)
+            this.isShowCreatePublicVisible = true
+            break
           case 'missSymptom' :
-            this.missSymptomCurRowData=Object.assign({}, row);
-            this.isShowCreateSymptomVisible=true;
-            break;
+            this.missSymptomCurRowData = Object.assign({}, row)
+            this.isShowCreateSymptomVisible = true
+            break
           case 'missMedicalCompany' :
-            this.missMedicalCompanyCurRowData=Object.assign({}, row);
-            this.isShowCreateEnterpriseVisible=true;
-            break;
+            this.missMedicalCompanyCurRowData = Object.assign({}, row)
+            this.isShowCreateEnterpriseVisible = true
+            break
           case 'missMedical' :
-            this.missMedicalCurRowData=Object.assign({}, row);
-            this.isShowCreateDrugsChineseVisible=true;
-            break;
+            this.missMedicalCurRowData = Object.assign({}, row)
+            this.isShowCreateDrugsChineseVisible = true
+            break
           default :
-            break;
+            break
         }
       },
-      handleCompare(row){
-        //调用查看版本的接口
-        this.isShowCompare=true;
-        this.curRowData=row;
+      handleCompare(row) {
+        // 调用查看版本的接口
+        this.isShowCompare = true
+        this.curRowData = row
       },
       deleteUpdate(row) {
-        this.deleteVisible = true;
-        this.curTaskType='delete'
-        this.curRowData=Object.assign({}, row);
+        this.deleteVisible = true
+        this.curTaskType = 'delete'
+        this.curRowData = Object.assign({}, row)
       },
-      handleSubmit(row){
-        this.isShowSubmit = true;
+      handleSubmit(row) {
+        this.isShowSubmit = true
         this.curRowData = Object.assign({}, row)
       },
       handleSizeChange(val) {

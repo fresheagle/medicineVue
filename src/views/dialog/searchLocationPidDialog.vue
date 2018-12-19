@@ -41,7 +41,7 @@
 
 
 <script>
-  import {getDepartmentList, getDislocationList } from '../../api/task'
+  import { getDepartmentList, getDislocationList } from '../../api/task'
   export default {
     data() {
       return {
@@ -49,17 +49,17 @@
         total: 0,
         page: 1,
         pageSize: 10,
-        dislocationList:[],
+        dislocationList: []
       }
     },
     created() {
-      this.init();
-    },
+      this.init()
+  },
     methods: {
-      init(){
-        const params={
-          currentPage:1,
-          pageSize:1000,
+      init() {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         getDislocationList(params).then(response => {
           const limit = 10
@@ -68,12 +68,12 @@
           this.dislocationList = pageList
         })
       },
-      cancelBtn(){
-        this.$emit("update:visible",false);
+      cancelBtn() {
+        this.$emit('update:visible', false)
       },
-      handleVersionSelectionChange(val){
-        this.$emit("update:visible",false);
-        this.$emit("listenLocationChild",val);
+      handleVersionSelectionChange(val) {
+        this.$emit('update:visible', false)
+        this.$emit('listenLocationChild', val)
       },
       handleSizeChange(val) {
         this.page = val
@@ -92,8 +92,8 @@
             this.tableList.push(list[from])
           }
         }
-      },
-    },
+      }
+    }
 
   }
 </script>

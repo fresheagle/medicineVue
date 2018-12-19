@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(userCode, userPassWord) {
   return request({
-    url: '/api/tokens' + '?userCode=' + userCode +'&userPassWord='+userPassWord,
+    url: '/api/tokens' + '?userCode=' + userCode + '&userPassWord=' + userPassWord,
     method: 'post'
   })
 }

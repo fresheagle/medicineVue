@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done() // router在hash模式下 手动改变hash 重定向回来 不会触发afterEach 暂时hack方案 ps：history模式下无问题，可删除该行！
     } else {
-      //如果token存在，并且判断当前用户的可展示菜单的length，如果length为0，则返回给用户，没有相应的权限。如果大于0，则正常展示
+      // 如果token存在，并且判断当前用户的可展示菜单的length，如果length为0，则返回给用户，没有相应的权限。如果大于0，则正常展示
       if (store.getters.menus.length !== 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetInfo').then(res => { // 拉取user_info
           next()
@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
             next({ path: '/login' })
           })
         })
-      }else {
+      } else {
         next()
       }
     }

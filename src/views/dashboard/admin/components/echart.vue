@@ -85,7 +85,7 @@ export default {
               formatter: '{value}'
             }
           }
-          ],
+        ],
         series: [
           {
             name: '私立',

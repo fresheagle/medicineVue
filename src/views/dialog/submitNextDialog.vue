@@ -30,38 +30,35 @@
   import { doCreateDisBasics } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   export default {
-    props:{
-      rowData:{},
-      curTaskType:"",
+    props: {
+      rowData: {},
+      curTaskType: ''
     },
-    data(){
+    data() {
       return {
-        enumerate:enumerate,
-        formData:{
+        enumerate: enumerate,
+        formData: {
 
-        },
+        }
       }
     },
-    methods:{
-      cancelBtn(){
-        this.$emit("update:visible",false)
+    methods: {
+      cancelBtn() {
+        this.$emit('update:visible', false)
       },
-      submitNext(){
-        //提交下一步审核
+      submitNext() {
+        // 提交下一步审核
         doCreateDisBasics(this.formData).then(response => {
-          this.$emit("update:visible",false)
-          this.$emit('refreshList');
+          this.$emit('update:visible', false)
+          this.$emit('refreshList')
         })
-
-
-      },
+      }
     },
-    watch:{
-      rowData(newVal,oldVal)
-      {
-        this.formData=Object.assign({}, newVal)
-      },
+    watch: {
+      rowData(newVal, oldVal) {
+        this.formData = Object.assign({}, newVal)
+      }
     }
-  };
+  }
 
 </script>

@@ -58,33 +58,33 @@
 
 </template>
 <script>
-  import { getMissionDetailsList} from '../../api/task'
+  import { getMissionDetailsList } from '../../api/task'
   import secondCompareDialog from './secondCompareDialog'
 
   export default {
-    components:{
+    components: {
       secondCompareDialog
     },
-    props:{
-      rowData:{},
+    props: {
+      rowData: {}
     },
-    data(){
+    data() {
       return {
-        multipleVersionData:[],
-        isShowComResoultDialog:false,
+        multipleVersionData: [],
+        isShowComResoultDialog: false,
         total: 0,
         page: 1,
         pageSize: 10,
-        curRowData:{},
+        curRowData: {}
       }
     },
-    created(){
+    created() {
     },
-    methods:{
-      init(taskId){
-        const params={
-          currentPage:1,
-          pageSize:1000,
+    methods: {
+      init(taskId) {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
           taskId: taskId
         }
         getMissionDetailsList(params).then(response => {
@@ -94,19 +94,19 @@
           this.multipleVersionData = pageList
         })
       },
-      cancelDelete(){
-        this.$emit("update:visible",false)
+      cancelDelete() {
+        this.$emit('update:visible', false)
       },
-      compareOk(){
-        for (let key in this.leftVersionData) {
-          this.leftVersionKeyArr.push(key); //属性
+      compareOk() {
+        for (const key in this.leftVersionData) {
+          this.leftVersionKeyArr.push(key) // 属性
         }
-        this.isShowComResoultDialog=true;
+        this.isShowComResoultDialog = true
       },
-      handleVersionSelectionChange(val){
-        this.$emit("update:visible",false);
-        this.isShowComResoultDialog=true;
-        this.curRowData = val;
+      handleVersionSelectionChange(val) {
+        this.$emit('update:visible', false)
+        this.isShowComResoultDialog = true
+        this.curRowData = val
       },
       handleSizeChange(val) {
         this.page = val
@@ -125,16 +125,14 @@
             this.tableList.push(list[from])
           }
         }
-      },
+      }
     },
-    watch:{
-      rowData(newVal,oldVal)
-      {
-        if(newVal.taskId){
+    watch: {
+      rowData(newVal, oldVal) {
+        if (newVal.taskId) {
           this.init(newVal.taskId)
         }
-
-      },
+      }
     }
   }
 </script>

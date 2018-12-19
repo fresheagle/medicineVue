@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken,getUserCode, setUserCode, removeUserCode,getUserPassWord, setUserPassWord, removeUserPassWord, setMenuPath, removeMenuPath } from '@/utils/auth'
+import { getToken, setToken, removeToken, getUserCode, setUserCode, removeUserCode, getUserPassWord, setUserPassWord, removeUserPassWord, setMenuPath, removeMenuPath } from '@/utils/auth'
 
 const user = {
   state: {
@@ -7,7 +7,7 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    menus:[],
+    menus: []
   },
 
   mutations: {
@@ -36,13 +36,13 @@ const user = {
         login(username, userInfo.userPassWord).then(response => {
           const data = response.data
           commit('SET_NAME', data.userCode)
-          commit('SET_ROLES', "admin")
-          setUserCode(data.userCode);
-          setUserPassWord(userInfo.userPassWord);
-          setToken(data.token);
+          commit('SET_ROLES', 'admin')
+          setUserCode(data.userCode)
+          setUserPassWord(userInfo.userPassWord)
+          setToken(data.token)
           commit('SET_TOKEN', data.token)
           // commit('SET_MENUS',data.userPrivilege)
-          localStorage.setItem('curMenus',JSON.stringify(data.userPrivilege));
+          localStorage.setItem('curMenus', JSON.stringify(data.userPrivilege))
           resolve()
         }).catch(error => {
           reject(error)
@@ -52,16 +52,15 @@ const user = {
 
     // 获取用户信息
     GetInfo({ commit, state }) {
-      const curUserName=getUserCode();
-      const curUserPasswd=getUserPassWord();
+      const curUserName = getUserCode()
+      const curUserPasswd = getUserPassWord()
       return new Promise((resolve, reject) => {
-        localStorage.setItem('curMenus',JSON.stringify(test1));
         login(curUserName, curUserPasswd).then(response => {
           const data = response.data
-          setToken(data.token);
+          setToken(data.token)
           commit('SET_TOKEN', data.token)
-          commit('SET_MENUS',data.userPrivilege)
-          commit('SET_ROLES', "admin")
+          commit('SET_MENUS', data.userPrivilege)
+          commit('SET_ROLES', 'admin')
           resolve(response)
         }).catch(error => {
           reject(error)

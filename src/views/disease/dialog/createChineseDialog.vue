@@ -226,7 +226,7 @@
 
 
 <script>
-  import {getDepartmentList, doCreateDisBasics, getDislocationList } from '../../../api/task'
+  import { getDepartmentList, doCreateDisBasics, getDislocationList } from '../../../api/task'
 
   import searchDepartmentDialog from '../../dialog/searchDepartmentDialog'
   import searchLocationPidDialog from '../../dialog/searchLocationPidDialog'
@@ -237,298 +237,291 @@
     components: {
       searchDepartmentDialog,
       searchLocationPidDialog,
-      quillEditorDialog,
+      quillEditorDialog
     },
-    props:{
-      rowData:{},
-      curTaskType:"",
+    props: {
+      rowData: {},
+      curTaskType: ''
     },
     data() {
       return {
-        enumerate:enumerate,
+        enumerate: enumerate,
         formData: {
-          "taskStatus": "",
-          "taskType": "",
-          "taskMenuType": "missChineseDisease",
-          "taskTitle": "",
-          "taskChangeVote": "",
-          "taskChangePoints": "",
-          "taskChangeComments": "",
-          "taskId":"",
-          "jsonStr": {
-            "missChineseDisease": {
-              "taskId":"",
-              "id": "",
-              "dataReference":"",
-              "treatment":"",
-              "seaCharacteristic":"",
-              "attentionMatter":"",
-              "externalTherapy":"",
-              "pathogeny":"",
-              "relatedExaminations":"",
-              "syndromeType":"",
-              "nounInterpretation": "",
-              "relationshipWestern":"",
-              "treatmentPrinciples":"",
-              "diagnosisBasis":"",
-              "syndromeDifferentiation":"",
-              "diseaseId":"",
-              "examinationPoints":"",
-              "clinicalPreparation":"",
-              "dialecticalTreatment":"",
-              "textDietaryConditioning":"",
-              "history":"",
-              "otherTherapies":"",
-              "dialecticalPoints":"",
-              "modernResearch":"",
-              "pathogenesis":"",
-              "literatureAbstract":"",
-              "clinicalManifestation":"",
-              "diseaseIdentification":"",
-              "preventiveNursing":""
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missChineseDisease',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'missChineseDisease': {
+              'taskId': '',
+              'id': '',
+              'dataReference': '',
+              'treatment': '',
+              'seaCharacteristic': '',
+              'attentionMatter': '',
+              'externalTherapy': '',
+              'pathogeny': '',
+              'relatedExaminations': '',
+              'syndromeType': '',
+              'nounInterpretation': '',
+              'relationshipWestern': '',
+              'treatmentPrinciples': '',
+              'diagnosisBasis': '',
+              'syndromeDifferentiation': '',
+              'diseaseId': '',
+              'examinationPoints': '',
+              'clinicalPreparation': '',
+              'dialecticalTreatment': '',
+              'textDietaryConditioning': '',
+              'history': '',
+              'otherTherapies': '',
+              'dialecticalPoints': '',
+              'modernResearch': '',
+              'pathogenesis': '',
+              'literatureAbstract': '',
+              'clinicalManifestation': '',
+              'diseaseIdentification': '',
+              'preventiveNursing': ''
             }
-          },
+          }
         },
-        isShowDepartmentDialog:false,
-        isShowquillEditorDialog:false,
-        isShowLocationPidDialog:false,
+        isShowDepartmentDialog: false,
+        isShowquillEditorDialog: false,
+        isShowLocationPidDialog: false,
         total: 0,
         page: 1,
         pageSize: 10,
-        multipleSelection:[],
-        departmentList:[],
-        dislocationList:[],
-        curInputKey:"",
-        curInputContent:"",
-        locationPidtoChinese:"",
-        departmentPidtoChinese:"",
+        multipleSelection: [],
+        departmentList: [],
+        dislocationList: [],
+        curInputKey: '',
+        curInputContent: '',
+        locationPidtoChinese: '',
+        departmentPidtoChinese: ''
       }
     },
     created() {
-      this.init();
-    },
+      this.init()
+  },
     methods: {
-      init(){
-        const params={
-          currentPage:1,
-          pageSize:1000,
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params;
-        })
-      },
-      showDepartmentDialog(){
-        this.isShowDepartmentDialog=true;
-      },
-      showLocationPidDialog(){
-        this.isShowLocationPidDialog=true;
-      },
-      showClinicalTypesDialog(key){
-        this.curInputKey=key;
-        this.curInputContent=this.formData.jsonStr.missChineseDisease[key];
-        this.isShowquillEditorDialog=true;
-      },
-      cancelBtn(){
-        this.$emit("update:visible",false)
-      },
-      doCreate(){
-        this.isShowCreateVisible=true;
-      },
-      listenLocationChild(data){
-        this.formData.jsonStr.missChineseDisease.locationPid=data.jsonStr.id;
-        this.locationPidtoChinese=data.jsonStr.dislocationName;
-        const params={
-          currentPage:1,
-          pageSize:1000,
-          parentDislocationId:data.jsonStr.id
+      init() {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         getDislocationList(params).then(response => {
           this.dislocationList = response.data.params
         })
-
       },
-      listenToChild(data){ //选中父级科室兼听事件
-        this.formData.jsonStr.missChineseDisease.missDisease.departmentPid=data.jsonStr.id;
-        this.departmentPidtoChinese=data.jsonStr.departmentName;
-        const params={
-          currentPage:1,
-          pageSize:1000,
-          parentDepartmentId:data.jsonStr.id
+      showDepartmentDialog() {
+        this.isShowDepartmentDialog = true
+      },
+      showLocationPidDialog() {
+        this.isShowLocationPidDialog = true
+      },
+      showClinicalTypesDialog(key) {
+        this.curInputKey = key
+        this.curInputContent = this.formData.jsonStr.missChineseDisease[key]
+        this.isShowquillEditorDialog = true
+      },
+      cancelBtn() {
+        this.$emit('update:visible', false)
+      },
+      doCreate() {
+        this.isShowCreateVisible = true
+      },
+      listenLocationChild(data) {
+        this.formData.jsonStr.missChineseDisease.locationPid = data.jsonStr.id
+        this.locationPidtoChinese = data.jsonStr.dislocationName
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
+          parentDislocationId: data.jsonStr.id
+        }
+        getDislocationList(params).then(response => {
+          this.dislocationList = response.data.params
+        })
+      },
+      listenToChild(data) { // 选中父级科室兼听事件
+        this.formData.jsonStr.missChineseDisease.missDisease.departmentPid = data.jsonStr.id
+        this.departmentPidtoChinese = data.jsonStr.departmentName
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
+          parentDepartmentId: data.jsonStr.id
         }
         getDepartmentList(params).then(response => {
           this.departmentList = response.data.params
         })
       },
-      listenToChildquillEditor(data){
-        //判断之前典籍的是那个输入框后面得按钮，对应的将值付给那个输入框
+      listenToChildquillEditor(data) {
+        // 判断之前典籍的是那个输入框后面得按钮，对应的将值付给那个输入框
         switch (this.curInputKey) {
           case 'dataReference':
-            this.formData.jsonStr.missChineseDisease.dataReference=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.dataReference = data
+            break
           case 'treatment':
-            this.formData.jsonStr.missChineseDisease.treatment=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.treatment = data
+            break
           case 'seaCharacteristic':
-            this.formData.jsonStr.missChineseDisease.seaCharacteristic=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.seaCharacteristic = data
+            break
           case 'attentionMatter':
-            this.formData.jsonStr.missChineseDisease.attentionMatter=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.attentionMatter = data
+            break
           case 'externalTherapy':
-            this.formData.jsonStr.missChineseDisease.externalTherapy=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.externalTherapy = data
+            break
           case 'pathogeny':
-            this.formData.jsonStr.missChineseDisease.pathogeny=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.pathogeny = data
+            break
           case 'relatedExaminations':
-            this.formData.jsonStr.missChineseDisease.relatedExaminations=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.relatedExaminations = data
+            break
           case 'syndromeType':
-            this.formData.jsonStr.missChineseDisease.syndromeType=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.syndromeType = data
+            break
           case 'nounInterpretation':
-            this.formData.jsonStr.missChineseDisease.nounInterpretation=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.nounInterpretation = data
+            break
           case 'relationshipWestern':
-            this.formData.jsonStr.missChineseDisease.relationshipWestern=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.relationshipWestern = data
+            break
           case 'treatmentPrinciples':
-            this.formData.jsonStr.missChineseDisease.treatmentPrinciples=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.treatmentPrinciples = data
+            break
           case 'diagnosisBasis':
-            this.formData.jsonStr.missChineseDisease.diagnosisBasis=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.diagnosisBasis = data
+            break
           case 'syndromeDifferentiation':
-            this.formData.jsonStr.missChineseDisease.syndromeDifferentiation=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.syndromeDifferentiation = data
+            break
           case 'diseaseId':
-            this.formData.jsonStr.missChineseDisease.diseaseId=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.diseaseId = data
+            break
           case 'examinationPoints':
-            this.formData.jsonStr.missChineseDisease.examinationPoints=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.examinationPoints = data
+            break
           case 'clinicalPreparation':
-            this.formData.jsonStr.missChineseDisease.clinicalPreparation=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.clinicalPreparation = data
+            break
           case 'dialecticalTreatment':
-            this.formData.jsonStr.missChineseDisease.dialecticalTreatment=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.dialecticalTreatment = data
+            break
           case 'textDietaryConditioning':
-            this.formData.jsonStr.missChineseDisease.textDietaryConditioning=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.textDietaryConditioning = data
+            break
           case 'history':
-            this.formData.jsonStr.missChineseDisease.history=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.history = data
+            break
           case 'otherTherapies':
-            this.formData.jsonStr.missChineseDisease.otherTherapies=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.otherTherapies = data
+            break
           case 'dialecticalPoints':
-            this.formData.jsonStr.missChineseDisease.dialecticalPoints=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.dialecticalPoints = data
+            break
           case 'modernResearch':
-            this.formData.jsonStr.missChineseDisease.modernResearch=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.modernResearch = data
+            break
           case 'pathogenesis':
-            this.formData.jsonStr.missChineseDisease.pathogenesis=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.pathogenesis = data
+            break
           case 'literatureAbstract':
-            this.formData.jsonStr.missChineseDisease.literatureAbstract=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.literatureAbstract = data
+            break
           case 'clinicalManifestation':
-            this.formData.jsonStr.missChineseDisease.clinicalManifestation=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.clinicalManifestation = data
+            break
           case 'diseaseIdentification':
-            this.formData.jsonStr.missChineseDisease.diseaseIdentification=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.diseaseIdentification = data
+            break
           case 'preventiveNursing':
-            this.formData.jsonStr.missChineseDisease.preventiveNursing=data;
-            break;
+            this.formData.jsonStr.missChineseDisease.preventiveNursing = data
+            break
           default:
-            break;
+            break
         }
-
       },
-      createOK(){
-        if(this.rowData.taskStatus==="drafts"){
-          this.formData.taskStatus="drafts";
-        } else if(this.rowData.taskStatus==="toFirAudited"){
-          this.formData.taskStatus="toFirAudited";
-        } else if(this.rowData.taskStatus==="toSecAudited"){
-          this.formData.taskStatus="toSecAudited";
-        } else if(this.rowData.taskStatus==="toFinalAudited"){
-          this.formData.taskStatus="toFinalAudited";
+      createOK() {
+        if (this.rowData.taskStatus === 'drafts') {
+          this.formData.taskStatus = 'drafts'
+        } else if (this.rowData.taskStatus === 'toFirAudited') {
+          this.formData.taskStatus = 'toFirAudited'
+        } else if (this.rowData.taskStatus === 'toSecAudited') {
+          this.formData.taskStatus = 'toSecAudited'
+        } else if (this.rowData.taskStatus === 'toFinalAudited') {
+          this.formData.taskStatus = 'toFinalAudited'
         } else {
-          this.formData.taskStatus="drafts";
+          this.formData.taskStatus = 'drafts'
         }
-        if(this.curTaskType){
-          this.formData.taskType=this.curTaskType;
+        if (this.curTaskType) {
+          this.formData.taskType = this.curTaskType
         }
-        this.formData.taskMenuType="missChineseDisease"
+        this.formData.taskMenuType = 'missChineseDisease'
         doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible",false)
-        })
-
-      },
-      submitOK(){
-        if(this.rowData.taskStatus==="drafts"){
-          this.formData.taskStatus="toFirAudited";
-        } else if(this.rowData.taskStatus==="toFirAudited"){
-          this.formData.taskStatus="toSecAudited";
-        } else if(this.rowData.taskStatus==="toSecAudited"){
-          this.formData.taskStatus="toFinalAudited";
-        } else if(this.rowData.taskStatus==="toFinalAudited"){
-          this.formData.taskStatus="finished";
-        } else {
-          this.formData.taskStatus="drafts";
-        }
-        //this.formData.taskStatus="toFirAudited";//此处需要判断当前的状态，然后将下一步的值付给taskStatus
-        if(this.curTaskType){
-          this.formData.taskType=this.curTaskType;
-        }
-        this.formData.taskMenuType="missChineseDisease"
-        doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible",false)
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
         })
       },
+      submitOK() {
+        if (this.rowData.taskStatus === 'drafts') {
+          this.formData.taskStatus = 'toFirAudited'
+        } else if (this.rowData.taskStatus === 'toFirAudited') {
+          this.formData.taskStatus = 'toSecAudited'
+        } else if (this.rowData.taskStatus === 'toSecAudited') {
+          this.formData.taskStatus = 'toFinalAudited'
+        } else if (this.rowData.taskStatus === 'toFinalAudited') {
+          this.formData.taskStatus = 'finished'
+        } else {
+          this.formData.taskStatus = 'drafts'
+        }
+        // this.formData.taskStatus="toFirAudited";//此处需要判断当前的状态，然后将下一步的值付给taskStatus
+        if (this.curTaskType) {
+          this.formData.taskType = this.curTaskType
+        }
+        this.formData.taskMenuType = 'missChineseDisease'
+        doCreateDisBasics(this.formData).then(response => {
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
+        })
+      }
     },
-    watch:{
-      rowData(newVal,oldVal)
-      {
-        this.formData=Object.assign({}, newVal)
+    watch: {
+      rowData(newVal, oldVal) {
+        this.formData = Object.assign({}, newVal)
       },
-      'formData.jsonStr.missDisease.locationPid'(newVal,oldVal)
-      {
-        var newarr = this.dislocationList.filter(item => item.jsonStr.id==newVal );
-        if(newarr.length > 0){
-          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName ;
+      'formData.jsonStr.missDisease.locationPid'(newVal, oldVal) {
+        var newarr = this.dislocationList.filter(item => item.jsonStr.id == newVal)
+        if (newarr.length > 0) {
+          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName
         }
       },
-      'formData.jsonStr.missDisease.departmentPid'(newVal,oldVal)
-      {
-        var newarr = this.departmentList.filter(item => item.jsonStr.id==newVal );
-        if(newarr.length > 0){
-          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName ;
+      'formData.jsonStr.missDisease.departmentPid'(newVal, oldVal) {
+        var newarr = this.departmentList.filter(item => item.jsonStr.id == newVal)
+        if (newarr.length > 0) {
+          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName
         }
-      },
+      }
     },
-    computed:{
-      locationPidtoChinese1(){
-        const params={
-          currentPage:1,
-          pageSize:1000,
+    computed: {
+      locationPidtoChinese1() {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params;
+          this.dislocationList = response.data.params
         })
-        if(this.formData.jsonStr.missDisease.locationPid ){
-          const newarr  = this.dislocationList;
-          newarr.filter(item => item.jsonStr.id===this.formData.jsonStr.missDisease.locationPid );
-          console.log("newarr[0].departmentName===",newarr[0].departmentName);
-          return newarr[0].departmentName;
+        if (this.formData.jsonStr.missDisease.locationPid) {
+          const newarr = this.dislocationList
+          newarr.filter(item => item.jsonStr.id === this.formData.jsonStr.missDisease.locationPid)
+          console.log('newarr[0].departmentName===', newarr[0].departmentName)
+          return newarr[0].departmentName
         }
-
       }
     }
   }

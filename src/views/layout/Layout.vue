@@ -16,9 +16,9 @@
 
 
 <script>
-import { Headerbar,Navbar, Sidebar, AppMain } from '../../views/layout/components';
-import headerbar from '../../views/layout/components/Header';
-import Footer from '../../views/layout/components/Footer';
+import { Headerbar, Navbar, Sidebar, AppMain } from '../../views/layout/components'
+import headerbar from '../../views/layout/components/Header'
+import Footer from '../../views/layout/components/Footer'
 export default {
   name: 'layout',
   components: {

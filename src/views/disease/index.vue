@@ -54,7 +54,7 @@ export default {
       tableList: [],
       listLoading: true,
       isShowEditVisible: false,
-      isShowCreateVisible:false,
+      isShowCreateVisible: false,
       deleteVisible: false,
       temp: {
         uid: '',
@@ -62,14 +62,14 @@ export default {
         date: '',
         status: ''
       },
-      formData:{
-        taskStatus:"creating",
-        taskType:"",
-        taskMenuType:"",
-        taskTitle:"",
-        taskChangeVote:"",
-        taskChangePoints:"",
-        taskChangeComments:"",
+      formData: {
+        taskStatus: 'creating',
+        taskType: '',
+        taskMenuType: '',
+        taskTitle: '',
+        taskChangeVote: '',
+        taskChangePoints: '',
+        taskChangeComments: ''
       },
       total: 0,
       page: 1,
@@ -103,7 +103,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      this.tableList = [{taskId:1,taskTitle: "liming"}]
+      this.tableList = [{ taskId: 1, taskTitle: 'liming' }]
       this.listLoading = false
       // getList(this.listQuery).then(response => {
       //   const limit = 10
@@ -145,8 +145,8 @@ export default {
       this.temp = Object.assign({}, row)
       console.log(row)
     },
-    doCreate(){
-      this.isShowCreateVisible=true;
+    doCreate() {
+      this.isShowCreateVisible = true
     },
     deleteUpdate(row) {
       console.log(row)

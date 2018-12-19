@@ -11,8 +11,8 @@ export function removeToken() {
   return Cookies.remove(TokenKey)
 }
 
-const userCode = 'userCode'   //用户名
-export function getUserCode () {
+const userCode = 'userCode' // 用户名
+export function getUserCode() {
   return Cookies.get(userCode)
 }
 export function setUserCode(name) {
@@ -22,8 +22,8 @@ export function removeUserCode() {
   return Cookies.remove(userCode)
 }
 
-const userPassWord = 'userPassWord'   //密码
-export function getUserPassWord () {
+const userPassWord = 'userPassWord' // 密码
+export function getUserPassWord() {
   return Cookies.get(userPassWord)
 }
 export function setUserPassWord(passwd) {
@@ -33,8 +33,8 @@ export function removeUserPassWord() {
   return Cookies.remove(userPassWord)
 }
 
-const menuPath = 'menuPath'   //目录结构
-export function getMenuPath () {
+const menuPath = 'menuPath' // 目录结构
+export function getMenuPath() {
   return Cookies.get(menuPath)
 }
 export function setMenuPath(menu) {

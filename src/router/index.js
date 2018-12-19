@@ -25,13 +25,13 @@ export const constantRouterMap = [
     name: '我的任务',
     // meta: { roles: ['admin'] },
     children: [
-      {path: 'drafts',name: '草稿箱',component: () => import('../views/task/drafts')},
-      {path: 'unfinished',name: '未完成任务',component: () => import('../views/task/unfinished'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'toFirAudited',name: '待初审任务',component: () => import('../views/task/toFirAudited'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'toSecAudited',name: '待二审任务',component: () => import('../views/task/toSecAudited'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'toFinalAudited',name: '待终审发布任务',component: () => import('../views/task/toFinalAudited'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'finished',name: '已完成任务',component: () => import('../views/task/finished'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'discarded',name: '已废止任务',component: () => import('../views/task/discarded'),meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'drafts', name: '草稿箱', component: () => import('../views/task/drafts') },
+      { path: 'unfinished', name: '未完成任务', component: () => import('../views/task/unfinished'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toFirAudited', name: '待初审任务', component: () => import('../views/task/toFirAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toSecAudited', name: '待二审任务', component: () => import('../views/task/toSecAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toFinalAudited', name: '待终审发布任务', component: () => import('../views/task/toFinalAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'finished', name: '已完成任务', component: () => import('../views/task/finished'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'discarded', name: '已废止任务', component: () => import('../views/task/discarded'), meta: { title: 'svgicons', roles: ['admin'] }}
     ]
   },
   {
@@ -39,10 +39,10 @@ export const constantRouterMap = [
     component: Layout,
     name: '疾病',
     children: [
-      {path: 'basics',name: '基础疾病',component: () => import('../views/disease/basics')},
-      {path: 'chinese',name: '中医疾病',component: () => import('../views/disease/chinese')},
-      {path: 'western',name: '西医疾病',component: () => import('../views/disease/western')},
-      {path: 'chinese-western',name: '中西医疾病',component: () => import('../views/disease/chinese-western')}
+      { path: 'basics', name: '基础疾病', component: () => import('../views/disease/basics') },
+      { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
+      { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
+      { path: 'chinese-western', name: '中西医疾病', component: () => import('../views/disease/chinese-western') }
     ]
   },
   {
@@ -50,10 +50,10 @@ export const constantRouterMap = [
     component: Layout,
     name: '医疗机构',
     children: [
-      {path: 'public',name: '公立医疗机构',component: () => import('../views/institution/public')},
-      {path: 'chinese',name: '中医疾病',component: () => import('../views/disease/chinese')},
-      {path: 'western',name: '西医疾病',component: () => import('../views/disease/western')},
-      {path: 'chinese-western',name: '中西医疾病',component: () => import('../views/disease/chinese-western')}
+      { path: 'public', name: '公立医疗机构', component: () => import('../views/institution/public') },
+      { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
+      { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
+      { path: 'chinese-western', name: '中西医疾病', component: () => import('../views/disease/chinese-western') }
     ]
   },
   {
@@ -61,7 +61,7 @@ export const constantRouterMap = [
     component: Layout,
     name: '医生信息',
     children: [
-      {path: 'cooperation',name: '医生信息',component: () => import('../views/modernDoctor/cooperation')},
+      { path: 'cooperation', name: '医生信息', component: () => import('../views/modernDoctor/cooperation') }
     ]
   },
   {
@@ -69,7 +69,7 @@ export const constantRouterMap = [
     component: Layout,
     name: '药品',
     children: [
-      {path: 'chinese',name: '中成药',component: () => import('../views/drugs/chinese')},
+      { path: 'chinese', name: '中成药', component: () => import('../views/drugs/chinese') }
     ]
   },
   {
@@ -77,7 +77,7 @@ export const constantRouterMap = [
     component: Layout,
     name: '药品企业',
     children: [
-      {path: 'list',name: '药品企业',component: () => import('../views/enterprise/list')},
+      { path: 'list', name: '药品企业', component: () => import('../views/enterprise/list') }
     ]
   },
   {
@@ -85,7 +85,7 @@ export const constantRouterMap = [
     component: Layout,
     name: '症状',
     children: [
-      {path: 'list',name: '症状',component: () => import('../views/symptom/list')},
+      { path: 'list', name: '症状', component: () => import('../views/symptom/list') }
     ]
   },
   {
@@ -172,13 +172,13 @@ export const asyncRouterMap = [
     component: Layout,
     name: '我的任务',
     children: [
-      {path: 'drafts',name: '草稿箱',component: () => import('../views/task/drafts')},
-      {path: 'unfinished',name: '未完成任务',component: () => import('../views/task/unfinished'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'toFirAudited',name: '待初审任务',component: () => import('../views/task/toFirAudited'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'toSecAudited',name: '待二审任务',component: () => import('../views/task/toSecAudited'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'toFinalAudited',name: '待终审发布任务',component: () => import('../views/task/toFinalAudited'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'finished',name: '已完成任务',component: () => import('../views/task/finished'),meta: { title: 'svgicons', roles: ['admin'] }},
-      {path: 'discarded',name: '已废止任务',component: () => import('../views/task/discarded'),meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'drafts', name: '草稿箱', component: () => import('../views/task/drafts') },
+      { path: 'unfinished', name: '未完成任务', component: () => import('../views/task/unfinished'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toFirAudited', name: '待初审任务', component: () => import('../views/task/toFirAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toSecAudited', name: '待二审任务', component: () => import('../views/task/toSecAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toFinalAudited', name: '待终审发布任务', component: () => import('../views/task/toFinalAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'finished', name: '已完成任务', component: () => import('../views/task/finished'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'discarded', name: '已废止任务', component: () => import('../views/task/discarded'), meta: { title: 'svgicons', roles: ['admin'] }}
     ]
   },
   { path: '*', redirect: '/404', hidden: true }

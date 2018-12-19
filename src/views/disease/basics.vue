@@ -123,55 +123,55 @@
         deleteVisible: false,
         isShowComResoultDialog: false,
         formData: {
-          "taskStatus": '',
-          "taskType": "",
-          "taskMenuType":"missDisease",
-          "taskTitle":"",
-          "taskChangeVote":"",
-          "taskChangePoints":"",
-          "taskChangeComments":"",
-          "taskId":"",
-          "jsonStr":{
-            "symptomMapDTO":{
-              "symptomId":"",
-              "symptomChineseName":"",
-              "symptomEnglishName":"",
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missDisease',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'symptomMapDTO': {
+              'symptomId': '',
+              'symptomChineseName': '',
+              'symptomEnglishName': ''
             },
-            "missDisease":{
-              "taskId":"",
-              "id":"",
-              "chineseName":"",
-              "englishName":"",
-              "otherName":"",
-              "latinName":"",
-              "relatedDiseases":"",
-              "diseaseType":"1",
-              "locationPid":"",
-              "locationDisease":"",
-              "mainCauses":"",
-              "commonSymptom":"",
-              "multiplePopulation":"",
-              "infectivity":1,
-              "seaCharacteristic":"",
-              "departmentPid":"",
-              "departmentId":"",
-              "clinicalTypesClass":"",
-              "clinicalManifestation":"",
-              "sign":"",
-              "laboratoryExamination":"",
-              "diagnosticPoints":"",
-              "differentialDiagnosis":"",
-              "preventionTreatment":"",
-              "treatmentPrognosis":"",
-              "preventiveNursing":"",
-              "nursing":"",
-              "preventionMeasures":"",
-              "dietaryConditioning":"",
-              "drugResistance":"",
-              "attentionMatter":"",
-              "picturePath":"",
-              "thumbnail":"",
-              "dataStatus":"",
+            'missDisease': {
+              'taskId': '',
+              'id': '',
+              'chineseName': '',
+              'englishName': '',
+              'otherName': '',
+              'latinName': '',
+              'relatedDiseases': '',
+              'diseaseType': '1',
+              'locationPid': '',
+              'locationDisease': '',
+              'mainCauses': '',
+              'commonSymptom': '',
+              'multiplePopulation': '',
+              'infectivity': 1,
+              'seaCharacteristic': '',
+              'departmentPid': '',
+              'departmentId': '',
+              'clinicalTypesClass': '',
+              'clinicalManifestation': '',
+              'sign': '',
+              'laboratoryExamination': '',
+              'diagnosticPoints': '',
+              'differentialDiagnosis': '',
+              'preventionTreatment': '',
+              'treatmentPrognosis': '',
+              'preventiveNursing': '',
+              'nursing': '',
+              'preventionMeasures': '',
+              'dietaryConditioning': '',
+              'drugResistance': '',
+              'attentionMatter': '',
+              'picturePath': '',
+              'thumbnail': '',
+              'dataStatus': ''
             }
           }
         },
@@ -213,15 +213,15 @@
     },
     methods: {
       fetchData() {
-        this.listLoading = false;
-        const params={
-          currentPage:1,
-          pageSize:1000,
+        this.listLoading = false
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
           // chineseName:"",
           // englishNam:"",
           // otherName:"",
         }
-        //this.listQuery
+        // this.listQuery
         getDisBasicsList(params).then(response => {
           const limit = 10
           const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
@@ -230,13 +230,13 @@
           this.listLoading = false
         })
       },
-      doCreate(){
-        this.curTaskType="create";
-        this.curRowData=Object.assign({}, this.formData);
-        this.isShowCreateVisible=true;
-        const params={
-          currentPage:1,
-          pageSize:1000,
+      doCreate() {
+        this.curTaskType = 'create'
+        this.curRowData = Object.assign({}, this.formData)
+        this.isShowCreateVisible = true
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         this.$store.dispatch('getDepartment', params).then(() => {
         }).catch(() => {
@@ -264,25 +264,25 @@
         this.currentChangePage(this.filterTableDataEnd)
       },
       handleUpdate(row) {
-        this.curTaskType="update";
-        this.curRowData=Object.assign({}, row);
-        this.isShowCreateVisible = true;
+        this.curTaskType = 'update'
+        this.curRowData = Object.assign({}, row)
+        this.isShowCreateVisible = true
       },
       deleteUpdate(row) {
-        this.deleteVisible = true;
-        this.curTaskType='delete';
-        this.curRowData=Object.assign({}, row);
-      },
-      handleSubmit(row){
-        this.isShowSubmit = true;
+        this.deleteVisible = true
+        this.curTaskType = 'delete'
         this.curRowData = Object.assign({}, row)
       },
-      handleCompare(row){
-        //调用查看版本的接口
-        this.isShowCompare=true;
+      handleSubmit(row) {
+        this.isShowSubmit = true
+        this.curRowData = Object.assign({}, row)
+      },
+      handleCompare(row) {
+        // 调用查看版本的接口
+        this.isShowCompare = true
         doCreateDisBasics(row.taskId).then(response => {
-          this.isShowCompare=false;
-          this.curRowData=response.data;
+          this.isShowCompare = false
+          this.curRowData = response.data
         })
       },
       handleSizeChange(val) {

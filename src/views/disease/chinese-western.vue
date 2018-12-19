@@ -90,61 +90,61 @@
     },
     data() {
       return {
-        enumerate:enumerate,
-        i18n:i18n.zh.i18nView,
+        enumerate: enumerate,
+        i18n: i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
-        isShowCreateVisible:false,
+        isShowCreateVisible: false,
         isShowEditVisible: false,
-        isShowCompare:false,
-        isShowSubmit:false,
+        isShowCompare: false,
+        isShowSubmit: false,
         deleteVisible: false,
-        isShowComResoultDialog:false,
-        formData:{
-          "taskStatus":"",
-          "taskType":"",
-          "taskMenuType":"missCombineDisease",
-          "taskTitle":"",
-          "taskChangeVote":"",
-          "taskChangePoints":"",
-          "taskChangeComments":"",
-          "taskId":"",
-          "jsonStr":{
-            "missCombineDisease":{
-              "taskId":"",
-              "id": "",
-              "epidemiology":"",
-              "tRelatedDiseases":"",
-              "etiologyPathogenesis":"",
-              "pathology":"",
-              "clinicalTypesClass":"",
-              "clinicalManifestation":"",
-              "symptom":"",
-              "sign":"",
-              "laboratoryExamination": "",
-              "textOtherCheck":"",
-              "diagnosticPoints":"",
-              "differentialDiagnosis":"",
-              "preventionTreatment":"",
-              "treatmentPrognosis":"",
-              "management":"",
-              "preventiveNursing":"",
-              "nursing":"",
-              "preventionMeasures":"",
-              "modernResearch":"",
-              "drugResistance":"",
-              "dietaryConditioning":"",
-              "attentionMatter":"",
-              "dataReference":"",
-              "datastatus":"",
+        isShowComResoultDialog: false,
+        formData: {
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missCombineDisease',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'missCombineDisease': {
+              'taskId': '',
+              'id': '',
+              'epidemiology': '',
+              'tRelatedDiseases': '',
+              'etiologyPathogenesis': '',
+              'pathology': '',
+              'clinicalTypesClass': '',
+              'clinicalManifestation': '',
+              'symptom': '',
+              'sign': '',
+              'laboratoryExamination': '',
+              'textOtherCheck': '',
+              'diagnosticPoints': '',
+              'differentialDiagnosis': '',
+              'preventionTreatment': '',
+              'treatmentPrognosis': '',
+              'management': '',
+              'preventiveNursing': '',
+              'nursing': '',
+              'preventionMeasures': '',
+              'modernResearch': '',
+              'drugResistance': '',
+              'dietaryConditioning': '',
+              'attentionMatter': '',
+              'dataReference': '',
+              'datastatus': ''
             }
           }
         },
-        versionData:[{taskId:1,taskTitle:"测试1",taskVersion:"1.0",taskMenuType:"基础疾病"},
-          {taskId:2,taskTitle:"测试2",taskVersion:"2.0",taskMenuType:"基础疾病"},{taskId:3,taskTitle:"测试3",taskVersion:"3.0",taskMenuType:"基础疾病"}],
-        leftVersionData:{taskId:1,taskTitle:"测试1",taskVersion:"1.0",taskMenuType:"基础疾病"},
-        leftVersionKeyArr:[],
-        rightVersionData:{taskId:1,taskTitle:"测试1",taskVersion:"2.0",taskMenuType:"基础疾病"},
+        versionData: [{ taskId: 1, taskTitle: '测试1', taskVersion: '1.0', taskMenuType: '基础疾病' },
+          { taskId: 2, taskTitle: '测试2', taskVersion: '2.0', taskMenuType: '基础疾病' }, { taskId: 3, taskTitle: '测试3', taskVersion: '3.0', taskMenuType: '基础疾病' }],
+        leftVersionData: { taskId: 1, taskTitle: '测试1', taskVersion: '1.0', taskMenuType: '基础疾病' },
+        leftVersionKeyArr: [],
+        rightVersionData: { taskId: 1, taskTitle: '测试1', taskVersion: '2.0', taskMenuType: '基础疾病' },
         multipleSelection: [],
         total: 0,
         page: 1,
@@ -162,9 +162,8 @@
         searchName: '',
         filterTableDataEnd: [],
 
-
-        curRowData:{},
-        curTaskType:"",//作为参数，区分是创建还是更新操作
+        curRowData: {},
+        curTaskType: ''// 作为参数，区分是创建还是更新操作
       }
     },
     created() {
@@ -185,15 +184,15 @@
     },
     methods: {
       fetchData() {
-        this.listLoading = false;
-        const params={
-          currentPage:1,
-          pageSize:1000,
+        this.listLoading = false
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
           // chineseName:"",
           // englishNam:"",
           // otherName:"",
         }
-        //this.listQuery
+        // this.listQuery
         getCombinationDiseaseList(params).then(response => {
           const limit = 10
           const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
@@ -202,13 +201,13 @@
           this.listLoading = false
         })
       },
-      doCreate(){
-        this.curTaskType="create";
-        this.curRowData=Object.assign({}, this.formData);
-        this.isShowCreateVisible=true;
-        const params={
-          currentPage:1,
-          pageSize:1000,
+      doCreate() {
+        this.curTaskType = 'create'
+        this.curRowData = Object.assign({}, this.formData)
+        this.isShowCreateVisible = true
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         this.$store.dispatch('getDepartment', params).then(() => {
         }).catch(() => {
@@ -236,25 +235,25 @@
         this.currentChangePage(this.filterTableDataEnd)
       },
       handleUpdate(row) {
-        this.curTaskType="update";
-        this.curRowData=Object.assign({}, row);
-        this.isShowCreateVisible = true;
+        this.curTaskType = 'update'
+        this.curRowData = Object.assign({}, row)
+        this.isShowCreateVisible = true
       },
       deleteUpdate(row) {
-        this.deleteVisible = true;
-        this.curTaskType='delete';
-        this.curRowData=Object.assign({}, row);
-      },
-      handleSubmit(row){
-        this.isShowSubmit = true;
+        this.deleteVisible = true
+        this.curTaskType = 'delete'
         this.curRowData = Object.assign({}, row)
       },
-      handleCompare(row){
-        //调用查看版本的接口
-        this.isShowCompare=true;
+      handleSubmit(row) {
+        this.isShowSubmit = true
+        this.curRowData = Object.assign({}, row)
+      },
+      handleCompare(row) {
+        // 调用查看版本的接口
+        this.isShowCompare = true
         doCreateDisBasics(row.taskId).then(response => {
-          this.isShowCompare=false;
-          this.curRowData=response.data;
+          this.isShowCompare = false
+          this.curRowData = response.data
         })
       },
       handleSizeChange(val) {

@@ -24,8 +24,8 @@
 
   export default {
     name: 'editor',
-    props:{
-      curInputContent:""
+    props: {
+      curInputContent: ''
     },
     data: function() {
       return {
@@ -42,17 +42,17 @@
       onEditorChange({ editor, html, text }) {
         this.content = html
       },
-      cancelBtn(){
-        this.$emit("update:visible",false);
+      cancelBtn() {
+        this.$emit('update:visible', false)
       },
       submit() {
-        this.$emit("update:visible",false);
-        this.$emit("listenToChildquillEditor",this.content);
+        this.$emit('update:visible', false)
+        this.$emit('listenToChildquillEditor', this.content)
       }
     },
-    watch:{
-      curInputContent(newVal,oldVal){
-        this.content=newVal;
+    watch: {
+      curInputContent(newVal, oldVal) {
+        this.content = newVal
       }
     }
   }

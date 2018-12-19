@@ -65,12 +65,11 @@
 
 
 <script>
-  import {getDoctorList, doCreateDisBasics} from '../../api/task'
+  import { getDoctorList, doCreateDisBasics } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
 
   import createCooperationDialog from './dialog/createCooperationDialog'
   import deleteDialog from '../dialog/deleteDialog'
-
 
   import i18n from '../../i18n/local'
 
@@ -78,7 +77,7 @@
   export default {
     components: {
       createCooperationDialog,
-      deleteDialog,
+      deleteDialog
     },
     data() {
       return {
@@ -93,75 +92,75 @@
         deleteVisible: false,
         isShowComResoultDialog: false,
         formData: {
-          "taskStatus": "",
-          "taskType": "",
-          "taskMenuType": "missDoctor",
-          "taskTitle": "",
-          "taskChangeVote": "",
-          "taskChangePoints": "",
-          "taskChangeComments": "",
-          "taskId": "",
-          "jsonStr":{
-            "departmentList":{
-              "id":"",
-              "departmentCode":"",
-              "departmentName":"",
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missDoctor',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'departmentList': {
+              'id': '',
+              'departmentCode': '',
+              'departmentName': ''
             },
-            "institutionList":{
-              "id":"",
-              "institutionName":"",
-              "institutionLevel":"",
-              "institutionAddress":"",
+            'institutionList': {
+              'id': '',
+              'institutionName': '',
+              'institutionLevel': '',
+              'institutionAddress': ''
             },
-            "missDoctor":{
-              "id":"",
-              "name":"",
-              "sex":"",
-              "origin":"",
-              "nation":"",
-              "birthday":"",
-              "dieday":"",
-              "thumbnail":"",
-              "graduate":"",
-              "profession":"",
-              "inauguralInstitution":"",
-              "expertsTime":"",
-              "birthplaceDistrictCode":"",
-              "datastatus":"",
-              "taskId":"",
-              "taskStatus":"",
-              "intro":"",
-              "picturepath":"",
-              "honorary":"",
-              "clinicProfessional":"",
-              "eduProfessional":"",
-              "education":"",
-              "workExperience":"",
-              "treatArea":"",
-              "researchArea":"",
-              "academic":"",
-              "production":"",
-              "awards":"",
-              "science":"",
-              "socialization":"",
-              "thesis":"",
-              "bookmaking":"",
-              "heritageMap":"",
-              "referenceMaterial":"",
-              "taskJson":"",
+            'missDoctor': {
+              'id': '',
+              'name': '',
+              'sex': '',
+              'origin': '',
+              'nation': '',
+              'birthday': '',
+              'dieday': '',
+              'thumbnail': '',
+              'graduate': '',
+              'profession': '',
+              'inauguralInstitution': '',
+              'expertsTime': '',
+              'birthplaceDistrictCode': '',
+              'datastatus': '',
+              'taskId': '',
+              'taskStatus': '',
+              'intro': '',
+              'picturepath': '',
+              'honorary': '',
+              'clinicProfessional': '',
+              'eduProfessional': '',
+              'education': '',
+              'workExperience': '',
+              'treatArea': '',
+              'researchArea': '',
+              'academic': '',
+              'production': '',
+              'awards': '',
+              'science': '',
+              'socialization': '',
+              'thesis': '',
+              'bookmaking': '',
+              'heritageMap': '',
+              'referenceMaterial': '',
+              'taskJson': ''
             }
           }
         },
-        versionData: [{taskId: 1, taskTitle: "测试1", taskVersion: "1.0", taskMenuType: "基础疾病"},
-          {taskId: 2, taskTitle: "测试2", taskVersion: "2.0", taskMenuType: "基础疾病"}, {
+        versionData: [{ taskId: 1, taskTitle: '测试1', taskVersion: '1.0', taskMenuType: '基础疾病' },
+          { taskId: 2, taskTitle: '测试2', taskVersion: '2.0', taskMenuType: '基础疾病' }, {
             taskId: 3,
-            taskTitle: "测试3",
-            taskVersion: "3.0",
-            taskMenuType: "基础疾病"
+            taskTitle: '测试3',
+            taskVersion: '3.0',
+            taskMenuType: '基础疾病'
           }],
-        leftVersionData: {taskId: 1, taskTitle: "测试1", taskVersion: "1.0", taskMenuType: "基础疾病"},
+        leftVersionData: { taskId: 1, taskTitle: '测试1', taskVersion: '1.0', taskMenuType: '基础疾病' },
         leftVersionKeyArr: [],
-        rightVersionData: {taskId: 1, taskTitle: "测试1", taskVersion: "2.0", taskMenuType: "基础疾病"},
+        rightVersionData: { taskId: 1, taskTitle: '测试1', taskVersion: '2.0', taskMenuType: '基础疾病' },
         multipleSelection: [],
         total: 0,
         page: 1,
@@ -179,20 +178,18 @@
         searchName: '',
         filterTableDataEnd: [],
         curRowData: {},
-        curTaskType: "",//作为参数，区分是创建还是更新操作
+        curTaskType: '' // 作为参数，区分是创建还是更新操作
       }
     },
-    created()
-      {
-        if (!this.$i18n.getLocaleMessage('en')[viewName]) {
-          this.$i18n.mergeLocaleMessage('en', i18n.en)
-          this.$i18n.mergeLocaleMessage('zh', i18n.zh)
-        }
-        this.fetchData()
-      },
+    created() {
+      if (!this.$i18n.getLocaleMessage('en')[viewName]) {
+        this.$i18n.mergeLocaleMessage('en', i18n.en)
+        this.$i18n.mergeLocaleMessage('zh', i18n.zh)
+      }
+      this.fetchData()
+    },
     filters: {
-      statusFilter(status)
-      {
+      statusFilter(status) {
         const statusMap = {
           1: 'success',
           2: 'danger'
@@ -201,131 +198,109 @@
       }
     },
     methods: {
-        fetchData()
-        {
-          this.listLoading = false;
-          const params = {
-            currentPage: 1,
-            pageSize: 1000,
-            // chineseName:"",
-            // englishNam:"",
-            // otherName:"",
-          }
-          //this.listQuery
-          getDoctorList(params).then(response => {
-            const limit = 10
-            const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
-            this.total = response.data.total
-            this.tableList = pageList
-            this.listLoading = false
-          })
+      fetchData() {
+        this.listLoading = false
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
+          // chineseName:"",
+          // englishNam:"",
+          // otherName:"",
         }
-      ,
-        doCreate()
-        {
-          this.curTaskType = "create";
-          this.curRowData = Object.assign({}, this.formData);
-          this.isShowCreateVisible = true;
-          const params = {
-            currentPage: 1,
-            pageSize: 1000,
-          }
-          this.$store.dispatch('getDepartment', params).then(() => {
-          }).catch(() => {
-          })
-        }
-      ,
-        doFilter()
-        {
-          if (this.searchName === '') {
-            this.fetchData()
-            // this.$message.warning('查询条件不能为空！')
-            return
-          }
-          // 每次手动将数据置空,因为会出现多次点击搜索情况
-          this.filterTableDataEnd = []
-          this.tableList.forEach((value, index) => {
-            if (value.taskTitle) {
-              if (value.taskTitle.indexOf(this.searchName) >= 0) {
-                this.filterTableDataEnd.push(value)
-              }
-            }
-          })
-          // 页面数据改变重新统计数据数量和当前页
-          this.page = 1
-          this.total = this.filterTableDataEnd.length
-          // 渲染表格,根据值
-          this.currentChangePage(this.filterTableDataEnd)
-        }
-      ,
-        handleUpdate(row)
-        {
-          this.curTaskType = "update";
-          this.curRowData = Object.assign({}, row);
-          this.isShowCreateVisible = true;
-        }
-      ,
-        deleteUpdate(row)
-        {
-          this.deleteVisible = true;
-          this.curTaskType = 'delete';
-          this.curRowData = Object.assign({}, row);
-        }
-      ,
-        handleSubmit(row)
-        {
-          this.isShowSubmit = true;
-          this.curRowData = Object.assign({}, row)
-        }
-      ,
-        handleCompare(row)
-        {
-          //调用查看版本的接口
-          this.isShowCompare = true;
-          doCreateDisBasics(row.taskId).then(response => {
-            this.isShowCompare = false;
-            this.curRowData = response.data;
-          })
-        }
-      ,
-        handleSizeChange(val)
-        {
-          this.page = val
-          this.fetchData()
-        }
-      ,
-        handleCurrentChange(val)
-        {
-          this.page = val
-          this.fetchData()
-        }
-      ,
-        currentChangePage(list)
-        {
-          let from = (this.page - 1) * this.pageSize
-          const to = this.page * this.pageSize
-          this.tableList = []
-          for (; from < to; from++) {
-            if (list[from]) {
-              this.tableList.push(list[from])
-            }
-          }
-        }
+        // this.listQuery
+        getDoctorList(params).then(response => {
+          const limit = 10
+          const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
+          this.total = response.data.total
+          this.tableList = pageList
+          this.listLoading = false
+        })
       },
-    computed: {
-        lang: {
-          get()
-          {
-            return this.$store.state.app.language
+      doCreate() {
+        this.curTaskType = 'create'
+        this.curRowData = Object.assign({}, this.formData)
+        this.isShowCreateVisible = true
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
+        }
+        this.$store.dispatch('getDepartment', params).then(() => {
+        }).catch(() => {
+        })
+      },
+      doFilter() {
+        if (this.searchName === '') {
+          this.fetchData()
+          // this.$message.warning('查询条件不能为空！')
+          return
+        }
+        // 每次手动将数据置空,因为会出现多次点击搜索情况
+        this.filterTableDataEnd = []
+        this.tableList.forEach((value, index) => {
+          if (value.taskTitle) {
+            if (value.taskTitle.indexOf(this.searchName) >= 0) {
+              this.filterTableDataEnd.push(value)
+            }
           }
-        ,
-          set(lang)
-          {
-            this.$i18n.locale = lang
-            this.$store.dispatch('setLanguage', lang)
+        })
+        // 页面数据改变重新统计数据数量和当前页
+        this.page = 1
+        this.total = this.filterTableDataEnd.length
+        // 渲染表格,根据值
+        this.currentChangePage(this.filterTableDataEnd)
+      },
+      handleUpdate(row) {
+        this.curTaskType = 'update'
+        this.curRowData = Object.assign({}, row)
+        this.isShowCreateVisible = true
+      },
+      deleteUpdate(row) {
+        this.deleteVisible = true
+        this.curTaskType = 'delete'
+        this.curRowData = Object.assign({}, row)
+      },
+      handleSubmit(row) {
+        this.isShowSubmit = true
+        this.curRowData = Object.assign({}, row)
+      },
+      handleCompare(row) {
+        // 调用查看版本的接口
+        this.isShowCompare = true
+        doCreateDisBasics(row.taskId).then(response => {
+          this.isShowCompare = false
+          this.curRowData = response.data
+        })
+      },
+      handleSizeChange(val) {
+        this.page = val
+        this.fetchData()
+      },
+      handleCurrentChange(val) {
+        this.page = val
+        this.fetchData()
+      },
+      currentChangePage(list) {
+        let from = (this.page - 1) * this.pageSize
+        const to = this.page * this.pageSize
+        this.tableList = []
+        for (; from < to; from++) {
+          if (list[from]) {
+            this.tableList.push(list[from])
           }
         }
       }
+    },
+    computed: {
+      lang: {
+        get() {
+          return this.$store.state.app.language
+        },
+        set(lang) {
+          this.$i18n.locale = lang
+          this.$store.dispatch('setLanguage', lang)
+        }
+      }
+    }
   }
 </script>
 

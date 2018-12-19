@@ -1,6 +1,6 @@
 import request from '../utils/request'
 
-//基础疾病查询
+// 基础疾病查询
 export function getDisBasicsList(params) {
   return request({
     url: '/api/disease/page',
@@ -8,7 +8,7 @@ export function getDisBasicsList(params) {
     params
   })
 }
-//基础疾病任务新增、编辑、提交、删除
+// 基础疾病任务新增、编辑、提交、删除
 export function doCreateDisBasics(data) {
   return request({
     url: '/api/mission/saveMission',
@@ -16,7 +16,7 @@ export function doCreateDisBasics(data) {
     data
   })
 }
-//科室基本信息查询
+// 科室基本信息查询
 export function getDepartmentList(params) {
   return request({
     url: '/api/department/page',
@@ -25,7 +25,7 @@ export function getDepartmentList(params) {
   })
 }
 
-//发病部位
+// 发病部位
 export function getDislocationList(params) {
   return request({
     url: '/api/dislocation/param',
@@ -33,7 +33,7 @@ export function getDislocationList(params) {
     params
   })
 }
-//版本明细
+// 版本明细
 export function getMissionDetailsList(params) {
   return request({
     url: '/api/mission/missionDetails/page?',
@@ -41,7 +41,7 @@ export function getMissionDetailsList(params) {
     params
   })
 }
-//任务查询
+// 任务查询
 export function getMissionList(params) {
   return request({
     url: '/api/mission/data/page',
@@ -49,7 +49,7 @@ export function getMissionList(params) {
     params
   })
 }
-//草稿箱
+// 草稿箱
 export function getDraftMissionList(params) {
   return request({
     url: '/api/MissionList/findDraftMissionList',
@@ -57,7 +57,7 @@ export function getDraftMissionList(params) {
     params
   })
 }
-//我的任务
+// 我的任务
 export function getMyMissionList(params) {
   return request({
     url: '/api/MissionList/findMyMissionList',
@@ -65,7 +65,7 @@ export function getMyMissionList(params) {
     params
   })
 }
-//待初审任务接口
+// 待初审任务接口
 export function getFirstTrailList(params) {
   return request({
     url: '/api/MissionList/findFirstTrailList',
@@ -73,7 +73,7 @@ export function getFirstTrailList(params) {
     params
   })
 }
-//待二审任务接口
+// 待二审任务接口
 export function getSecondTrailList(params) {
   return request({
     url: '/api/MissionList/findSecondTrailList',
@@ -81,7 +81,7 @@ export function getSecondTrailList(params) {
     params
   })
 }
-//待终审发布任务接口
+// 待终审发布任务接口
 export function getFinalTrailList(params) {
   return request({
     url: '/api/MissionList/findFinalTrailList',
@@ -89,7 +89,7 @@ export function getFinalTrailList(params) {
     params
   })
 }
-//已完成任务接口
+// 已完成任务接口
 export function getFinishMissionList(params) {
   return request({
     url: '/api/MissionList/findFinishMissionList',
@@ -97,7 +97,7 @@ export function getFinishMissionList(params) {
     params
   })
 }
-//已废止任务接口
+// 已废止任务接口
 export function getDesdroyMissionList(params) {
   return request({
     url: '/api/MissionList/findDesdroyMissionList',
@@ -106,7 +106,7 @@ export function getDesdroyMissionList(params) {
   })
 }
 
-//中医疾病查询
+// 中医疾病查询
 export function getChineseDiseaseList(params) {
   return request({
     url: '/api/chineseDisease/page',
@@ -115,7 +115,7 @@ export function getChineseDiseaseList(params) {
   })
 }
 
-//西医疾病查询
+// 西医疾病查询
 export function getWestDiseaseList(params) {
   return request({
     url: '/api/westDisease/page',
@@ -124,7 +124,7 @@ export function getWestDiseaseList(params) {
   })
 }
 
-//中西医疾病查询
+// 中西医疾病查询
 export function getCombinationDiseaseList(params) {
   return request({
     url: '/api/combinationDisease/page',
@@ -133,7 +133,7 @@ export function getCombinationDiseaseList(params) {
   })
 }
 
-//公立医疗机构
+// 公立医疗机构
 export function getInstitutionList(params) {
   return request({
     url: '/api/institution/page',
@@ -142,7 +142,7 @@ export function getInstitutionList(params) {
   })
 }
 
-//医生信息
+// 医生信息
 export function getDoctorList(params) {
   return request({
     url: '/api/doctor/page',
@@ -151,16 +151,16 @@ export function getDoctorList(params) {
   })
 }
 
-//药品信息
+// 药品信息
 export function getEdicilList(params) {
   return request({
-    url: '/api/edicil/page',
+    url: '/api/medical/page',
     method: 'get',
     params
   })
 }
 
-//药品企业
+// 药品企业
 export function getMedicalCompanyList(params) {
   return request({
     url: '/api/medicalCompany/page',
@@ -169,7 +169,7 @@ export function getMedicalCompanyList(params) {
   })
 }
 
-//药品企业
+// 药品企业
 export function getSymptomList(params) {
   return request({
     url: '/api/symptom/page',
@@ -177,7 +177,6 @@ export function getSymptomList(params) {
     params
   })
 }
-
 
 export function getMonth(params) {
   return request({

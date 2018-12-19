@@ -19,37 +19,37 @@
 </template>
 
 <script>
-  import {doCreateDisBasics } from '../../api/task'
+  import { doCreateDisBasics } from '../../api/task'
   export default {
-    props:{
-      rowData:{},
-      curTaskType:"",
+    props: {
+      rowData: {},
+      curTaskType: ''
     },
-    data(){
+    data() {
       return {
-        formData:{
-          "taskStatus":"drafts",
-          "taskType":"",
-          "taskMenuType":"",
-          "taskTitle":"",
-          "taskChangeVote":"",
-          "taskChangePoints":"",
-          "taskChangeComments":"",
-          "taskId":"",
-          "jsonStr":{},
-        },
+        formData: {
+          'taskStatus': 'drafts',
+          'taskType': '',
+          'taskMenuType': '',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {}
+        }
       }
     },
-    methods:{
-      cancelDelete(){
-        this.$emit("update:visible",false)
+    methods: {
+      cancelDelete() {
+        this.$emit('update:visible', false)
       },
       submitDelete() {
-        this.formData.taskType=this.curTaskType;
-        this.formData.taskStatus="drafts";
+        this.formData.taskType = this.curTaskType
+        this.formData.taskStatus = 'drafts'
         doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible",false);
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
           this.$notify({
             title: '成功',
             message: '删除成功',
@@ -57,13 +57,12 @@
             duration: 2000
           })
         })
-      },
+      }
     },
-    watch:{
-      rowData(newVal,oldVal)
-      {
-        this.formData=Object.assign({}, newVal)
-      },
+    watch: {
+      rowData(newVal, oldVal) {
+        this.formData = Object.assign({}, newVal)
+      }
     }
-  };
+  }
 </script>

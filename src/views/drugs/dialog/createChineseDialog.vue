@@ -439,7 +439,7 @@
 
 
 <script>
-  import {getDepartmentList, doCreateDisBasics, getDislocationList} from '../../../api/task'
+  import { getDepartmentList, doCreateDisBasics, getDislocationList } from '../../../api/task'
 
   import searchDepartmentDialog from '../../dialog/searchDepartmentDialog'
   import searchLocationPidDialog from '../../dialog/searchLocationPidDialog'
@@ -454,84 +454,84 @@
     components: {
       searchDepartmentDialog,
       searchLocationPidDialog,
-      quillEditorDialog,
+      quillEditorDialog
     },
     props: {
       rowData: {},
-      curTaskType: "",
+      curTaskType: ''
     },
     data() {
       return {
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         formData: {
-          "taskStatus": "",
-          "taskType": "",
-          "taskMenuType": "missMedical",
-          "taskTitle": "",
-          "taskChangeVote": "",
-          "taskChangePoints": "",
-          "taskChangeComments": "",
-          "taskId": "",
-          "jsonStr": {
-            "medicalCompanyList": {
-              "medicalCompanyId": "",
-              "companyChineseName": "",
-              "companyEnglishName": "",
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missMedical',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'medicalCompanyList': {
+              'medicalCompanyId': '',
+              'companyChineseName': '',
+              'companyEnglishName': ''
             },
-            "missMedical": {
-              "id": "",
-              "medicalType": 1,
-              "comName": "",
-              "chinesePinyin": "",
-              "alisaName": "",
-              "shopName": "",
-              "englishName": "",
-              "drugType": "",
-              "ytime": "",
-              "enterprise": "",
-              "approvalNum": "",
-              "healthType": "",
-              "storageMethod": "",
-              "drugIdentifying": "",
-              "address": "",
-              "recipeType": "",
-              "price": "",
-              "picturePath": "",
-              "datastatus": "",
-              "taskId": "",
-              "taskStatus": "",
-              "constitute": "",
-              "property": "",
-              "func": "",
-              "mainAttend": "",
-              "standard": "",
-              "pharmacology": "",
-              "toxicologicalEffects": "",
-              "clinicalApplication": "",
-              "adverseReactions": "",
-              "taboo": "",
-              "notice": "",
-              "identify": "",
-              "pharmacyCheck": "",
-              "contentPic": "",
-              "medicFormat": "",
-              "notes": "",
-              "component": "",
-              "mainMeffect": "",
-              "analyze": "",
-              "interactions": "",
-              "history": "",
-              "drugIntroduce": "",
-              "awards": "",
-              "research": "",
-              "monograph": "",
-              "messageFrom": "",
-              "productInfo": "",
-              "indication": "",
-              "dosage": "",
-              "introduction": "",
-              "taskJson": "",
+            'missMedical': {
+              'id': '',
+              'medicalType': 1,
+              'comName': '',
+              'chinesePinyin': '',
+              'alisaName': '',
+              'shopName': '',
+              'englishName': '',
+              'drugType': '',
+              'ytime': '',
+              'enterprise': '',
+              'approvalNum': '',
+              'healthType': '',
+              'storageMethod': '',
+              'drugIdentifying': '',
+              'address': '',
+              'recipeType': '',
+              'price': '',
+              'picturePath': '',
+              'datastatus': '',
+              'taskId': '',
+              'taskStatus': '',
+              'constitute': '',
+              'property': '',
+              'func': '',
+              'mainAttend': '',
+              'standard': '',
+              'pharmacology': '',
+              'toxicologicalEffects': '',
+              'clinicalApplication': '',
+              'adverseReactions': '',
+              'taboo': '',
+              'notice': '',
+              'identify': '',
+              'pharmacyCheck': '',
+              'contentPic': '',
+              'medicFormat': '',
+              'notes': '',
+              'component': '',
+              'mainMeffect': '',
+              'analyze': '',
+              'interactions': '',
+              'history': '',
+              'drugIntroduce': '',
+              'awards': '',
+              'research': '',
+              'monograph': '',
+              'messageFrom': '',
+              'productInfo': '',
+              'indication': '',
+              'dosage': '',
+              'introduction': '',
+              'taskJson': ''
             }
           }
         },
@@ -544,10 +544,10 @@
         multipleSelection: [],
         departmentList: [],
         dislocationList: [],
-        curInputKey: "",
-        curInputContent: "",
-        locationPidtoChinese: "",
-        departmentPidtoChinese: "",
+        curInputKey: '',
+        curInputContent: '',
+        locationPidtoChinese: '',
+        departmentPidtoChinese: ''
       }
     },
     created() {
@@ -555,38 +555,38 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
-      this.init();
-    },
+      this.init()
+  },
     methods: {
       init() {
         const params = {
           currentPage: 1,
-          pageSize: 1000,
+          pageSize: 1000
         }
         getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params;
+          this.dislocationList = response.data.params
         })
       },
       showDepartmentDialog() {
-        this.isShowDepartmentDialog = true;
+        this.isShowDepartmentDialog = true
       },
       showLocationPidDialog() {
-        this.isShowLocationPidDialog = true;
+        this.isShowLocationPidDialog = true
       },
       showClinicalTypesDialog(key) {
-        this.curInputKey = key;
-        this.curInputContent = this.formData.jsonStr.missMedical[key];
-        this.isShowquillEditorDialog = true;
+        this.curInputKey = key
+        this.curInputContent = this.formData.jsonStr.missMedical[key]
+        this.isShowquillEditorDialog = true
       },
       cancelBtn() {
-        this.$emit("update:visible", false)
+        this.$emit('update:visible', false)
       },
       doCreate() {
-        this.isShowCreateVisible = true;
+        this.isShowCreateVisible = true
       },
       listenLocationChild(data) {
-        this.formData.jsonStr.missMedical.locationPid = data.jsonStr.id;
-        this.locationPidtoChinese = data.jsonStr.dislocationName;
+        this.formData.jsonStr.missMedical.locationPid = data.jsonStr.id
+        this.locationPidtoChinese = data.jsonStr.dislocationName
         const params = {
           currentPage: 1,
           pageSize: 1000,
@@ -595,11 +595,10 @@
         getDislocationList(params).then(response => {
           this.dislocationList = response.data.params
         })
-
       },
-      listenToChild(data) { //选中父级科室兼听事件
-        this.formData.jsonStr.missChineseDisease.missDisease.departmentPid = data.jsonStr.id;
-        this.departmentPidtoChinese = data.jsonStr.departmentName;
+      listenToChild(data) { // 选中父级科室兼听事件
+        this.formData.jsonStr.missChineseDisease.missDisease.departmentPid = data.jsonStr.id
+        this.departmentPidtoChinese = data.jsonStr.departmentName
         const params = {
           currentPage: 1,
           pageSize: 1000,
@@ -610,69 +609,68 @@
         })
       },
       listenToChildquillEditor(data) {
-        this.formData.jsonStr.missMedical[this.curInputKey] = data;
+        this.formData.jsonStr.missMedical[this.curInputKey] = data
       },
       createOK() {
-        if (this.rowData.taskStatus === "drafts") {
-          this.formData.taskStatus = "drafts";
-        } else if (this.rowData.taskStatus === "toFirAudited") {
-          this.formData.taskStatus = "toFirAudited";
-        } else if (this.rowData.taskStatus === "toSecAudited") {
-          this.formData.taskStatus = "toSecAudited";
-        } else if (this.rowData.taskStatus === "toFinalAudited") {
-          this.formData.taskStatus = "toFinalAudited";
+        if (this.rowData.taskStatus === 'drafts') {
+          this.formData.taskStatus = 'drafts'
+        } else if (this.rowData.taskStatus === 'toFirAudited') {
+          this.formData.taskStatus = 'toFirAudited'
+        } else if (this.rowData.taskStatus === 'toSecAudited') {
+          this.formData.taskStatus = 'toSecAudited'
+        } else if (this.rowData.taskStatus === 'toFinalAudited') {
+          this.formData.taskStatus = 'toFinalAudited'
         } else {
-          this.formData.taskStatus = "drafts";
+          this.formData.taskStatus = 'drafts'
         }
         if (this.curTaskType) {
-          this.formData.taskType = this.curTaskType;
+          this.formData.taskType = this.curTaskType
         }
-        this.formData.taskMenuType = "missMedical"
+        this.formData.taskMenuType = 'missMedical'
         doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible", false)
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
         })
-
       },
       submitOK() {
-        if (this.rowData.taskStatus === "drafts") {
-          this.formData.taskStatus = "toFirAudited";
-        } else if (this.rowData.taskStatus === "toFirAudited") {
-          this.formData.taskStatus = "toSecAudited";
-        } else if (this.rowData.taskStatus === "toSecAudited") {
-          this.formData.taskStatus = "toFinalAudited";
-        } else if (this.rowData.taskStatus === "toFinalAudited") {
-          this.formData.taskStatus = "finished";
+        if (this.rowData.taskStatus === 'drafts') {
+          this.formData.taskStatus = 'toFirAudited'
+        } else if (this.rowData.taskStatus === 'toFirAudited') {
+          this.formData.taskStatus = 'toSecAudited'
+        } else if (this.rowData.taskStatus === 'toSecAudited') {
+          this.formData.taskStatus = 'toFinalAudited'
+        } else if (this.rowData.taskStatus === 'toFinalAudited') {
+          this.formData.taskStatus = 'finished'
         } else {
-          this.formData.taskStatus = "drafts";
+          this.formData.taskStatus = 'drafts'
         }
-        //this.formData.taskStatus="toFirAudited";//此处需要判断当前的状态，然后将下一步的值付给taskStatus
+        // this.formData.taskStatus="toFirAudited";//此处需要判断当前的状态，然后将下一步的值付给taskStatus
         if (this.curTaskType) {
-          this.formData.taskType = this.curTaskType;
+          this.formData.taskType = this.curTaskType
         }
-        this.formData.taskMenuType = "missMedical"
+        this.formData.taskMenuType = 'missMedical'
         doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible", false)
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
         })
-      },
+      }
     },
     watch: {
       rowData(newVal, oldVal) {
         this.formData = Object.assign({}, newVal)
       },
       'formData.jsonStr.missDisease.locationPid'(newVal, oldVal) {
-        var newarr = this.dislocationList.filter(item => item.jsonStr.id == newVal);
+        var newarr = this.dislocationList.filter(item => item.jsonStr.id == newVal)
         if (newarr.length > 0) {
-          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName;
+          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName
         }
       },
       'formData.jsonStr.missDisease.departmentPid'(newVal, oldVal) {
-        var newarr = this.departmentList.filter(item => item.jsonStr.id == newVal);
+        var newarr = this.departmentList.filter(item => item.jsonStr.id == newVal)
         if (newarr.length > 0) {
-          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName;
+          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName
         }
-      },
+      }
     },
     computed: {
       lang: {

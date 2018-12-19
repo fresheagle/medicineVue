@@ -244,7 +244,7 @@
 
 
 <script>
-  import {getDepartmentList, doCreateDisBasics, getDislocationList } from '../../api/task'
+  import { getDepartmentList, doCreateDisBasics, getDislocationList } from '../../api/task'
 
   import searchDepartmentDialog from '../dialog/searchDepartmentDialog'
   import searchLocationPidDialog from '../dialog/searchLocationPidDialog'
@@ -255,257 +255,250 @@
     components: {
       searchDepartmentDialog,
       searchLocationPidDialog,
-      quillEditorDialog,
+      quillEditorDialog
     },
-    props:{
-      rowData:{},
-      curTaskType:"",
+    props: {
+      rowData: {},
+      curTaskType: ''
     },
     data() {
       return {
-        enumerate:enumerate,
+        enumerate: enumerate,
         formData: {
-          "taskStatus": "",
-          "taskType": "",
-          "taskMenuType": "missDisease",
-          "taskTitle": "",
-          "taskChangeVote": "",
-          "taskChangePoints": "",
-          "taskChangeComments": "",
-          "taskId":"",
-          "jsonStr": {
-            "symptomMapDTO": {
-              "symptomId": "",
-              "symptomChineseName": "",
-              "symptomEnglishName": "",
+          'taskStatus': '',
+          'taskType': '',
+          'taskMenuType': 'missDisease',
+          'taskTitle': '',
+          'taskChangeVote': '',
+          'taskChangePoints': '',
+          'taskChangeComments': '',
+          'taskId': '',
+          'jsonStr': {
+            'symptomMapDTO': {
+              'symptomId': '',
+              'symptomChineseName': '',
+              'symptomEnglishName': ''
             },
-            "missDisease": {
-              "taskId":"",
-              "id": "",
-              "chineseName": "",
-              "englishName": "",
-              "otherName": "",
-              "latinName": "",
-              "relatedDiseases": "",
-              "diseaseType": "1",
-              "locationPid": "",
-              "locationDisease": "",
-              "mainCauses": "",
-              "commonSymptom": "",
-              "multiplePopulation": "",
-              "infectivity": 1,
-              "seaCharacteristic": "",
-              "departmentPid": "",
-              "departmentId": "",
-              "clinicalTypesClass": "",
-              "clinicalManifestation": "",
-              "sign": "",
-              "laboratoryExamination": "",
-              "diagnosticPoints": "",
-              "differentialDiagnosis": "",
-              "preventionTreatment": "",
-              "treatmentPrognosis": "",
-              "preventiveNursing": "",
-              "nursing": "",
-              "preventionMeasures": "",
-              "dietaryConditioning": "",
-              "drugResistance": "",
-              "attentionMatter": "",
-              "picturePath": "",
-              "thumbnail": "",
-              "dataStatus": "",
+            'missDisease': {
+              'taskId': '',
+              'id': '',
+              'chineseName': '',
+              'englishName': '',
+              'otherName': '',
+              'latinName': '',
+              'relatedDiseases': '',
+              'diseaseType': '1',
+              'locationPid': '',
+              'locationDisease': '',
+              'mainCauses': '',
+              'commonSymptom': '',
+              'multiplePopulation': '',
+              'infectivity': 1,
+              'seaCharacteristic': '',
+              'departmentPid': '',
+              'departmentId': '',
+              'clinicalTypesClass': '',
+              'clinicalManifestation': '',
+              'sign': '',
+              'laboratoryExamination': '',
+              'diagnosticPoints': '',
+              'differentialDiagnosis': '',
+              'preventionTreatment': '',
+              'treatmentPrognosis': '',
+              'preventiveNursing': '',
+              'nursing': '',
+              'preventionMeasures': '',
+              'dietaryConditioning': '',
+              'drugResistance': '',
+              'attentionMatter': '',
+              'picturePath': '',
+              'thumbnail': '',
+              'dataStatus': ''
             }
-          },
+          }
         },
-        isShowDepartmentDialog:false,
-        isShowquillEditorDialog:false,
-        isShowLocationPidDialog:false,
+        isShowDepartmentDialog: false,
+        isShowquillEditorDialog: false,
+        isShowLocationPidDialog: false,
         total: 0,
         page: 1,
         pageSize: 10,
-        multipleSelection:[],
-        departmentList:[],
-        dislocationList:[],
-        curInputKey:"",
-        curInputContent:"",
-        locationPidtoChinese:"",
-        departmentPidtoChinese:"",
+        multipleSelection: [],
+        departmentList: [],
+        dislocationList: [],
+        curInputKey: '',
+        curInputContent: '',
+        locationPidtoChinese: '',
+        departmentPidtoChinese: ''
       }
     },
     created() {
-      this.init();
-    },
+      this.init()
+  },
     methods: {
-      init(){
-        const params={
-          currentPage:1,
-          pageSize:1000,
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params;
-        })
-      },
-      showDepartmentDialog(){
-        this.isShowDepartmentDialog=true;
-      },
-      showLocationPidDialog(){
-        this.isShowLocationPidDialog=true;
-      },
-      showClinicalTypesDialog(key){
-        this.curInputKey=key;
-        this.curInputContent=this.formData.jsonStr.missDisease[key];
-        this.isShowquillEditorDialog=true;
-      },
-      cancelBtn(){
-        this.$emit("update:visible",false)
-      },
-      doCreate(){
-        this.isShowCreateVisible=true;
-      },
-      listenLocationChild(data){
-        this.formData.jsonStr.missDisease.locationPid=data.jsonStr.key.id;
-        this.locationPidtoChinese=data.jsonStr.key.dislocationName;
-        const params={
-          currentPage:1,
-          pageSize:1000,
-          parentDislocationId:data.jsonStr.id
+      init() {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         getDislocationList(params).then(response => {
           this.dislocationList = response.data.params
         })
-
       },
-      listenToChild(data){ //选中父级科室兼听事件
-        this.formData.jsonStr.missDisease.departmentPid=data.jsonStr.key.id;
-        this.departmentPidtoChinese=data.jsonStr.key.departmentName;
-        const params={
-          currentPage:1,
-          pageSize:1000,
-          parentDepartmentId:data.jsonStr.id
+      showDepartmentDialog() {
+        this.isShowDepartmentDialog = true
+      },
+      showLocationPidDialog() {
+        this.isShowLocationPidDialog = true
+      },
+      showClinicalTypesDialog(key) {
+        this.curInputKey = key
+        this.curInputContent = this.formData.jsonStr.missDisease[key]
+        this.isShowquillEditorDialog = true
+      },
+      cancelBtn() {
+        this.$emit('update:visible', false)
+      },
+      doCreate() {
+        this.isShowCreateVisible = true
+      },
+      listenLocationChild(data) {
+        this.formData.jsonStr.missDisease.locationPid = data.jsonStr.key.id
+        this.locationPidtoChinese = data.jsonStr.key.dislocationName
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
+          parentDislocationId: data.jsonStr.id
+        }
+        getDislocationList(params).then(response => {
+          this.dislocationList = response.data.params
+        })
+      },
+      listenToChild(data) { // 选中父级科室兼听事件
+        this.formData.jsonStr.missDisease.departmentPid = data.jsonStr.key.id
+        this.departmentPidtoChinese = data.jsonStr.key.departmentName
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
+          parentDepartmentId: data.jsonStr.id
         }
         getDepartmentList(params).then(response => {
           this.departmentList = response.data.params
         })
       },
-      listenToChildquillEditor(data){
-        //判断之前典籍的是那个输入框后面得按钮，对应的将值付给那个输入框
+      listenToChildquillEditor(data) {
+        // 判断之前典籍的是那个输入框后面得按钮，对应的将值付给那个输入框
         switch (this.curInputKey) {
           case 'clinicalTypesClass':
-            this.formData.jsonStr.missDisease.clinicalTypesClass=data;
-            break;
+            this.formData.jsonStr.missDisease.clinicalTypesClass = data
+            break
           case 'sign':
-            this.formData.jsonStr.missDisease.sign=data;
-            break;
+            this.formData.jsonStr.missDisease.sign = data
+            break
           case 'laboratoryExamination':
-            this.formData.jsonStr.missDisease.laboratoryExamination=data;
-            break;
+            this.formData.jsonStr.missDisease.laboratoryExamination = data
+            break
           case 'diagnosticPoints':
-            this.formData.jsonStr.missDisease.diagnosticPoints=data;
-            break;
+            this.formData.jsonStr.missDisease.diagnosticPoints = data
+            break
           case 'differentialDiagnosis':
-            this.formData.jsonStr.missDisease.differentialDiagnosis=data;
-            break;
+            this.formData.jsonStr.missDisease.differentialDiagnosis = data
+            break
           case 'preventionTreatment':
-            this.formData.jsonStr.missDisease.preventionTreatment=data;
-            break;
+            this.formData.jsonStr.missDisease.preventionTreatment = data
+            break
           case 'treatmentPrognosis':
-            this.formData.jsonStr.missDisease.treatmentPrognosis=data;
-            break;
+            this.formData.jsonStr.missDisease.treatmentPrognosis = data
+            break
           case 'nursing':
-            this.formData.jsonStr.missDisease.nursing=data;
-            break;
+            this.formData.jsonStr.missDisease.nursing = data
+            break
           case 'preventionMeasures':
-            this.formData.jsonStr.missDisease.treatmentPrognosis=data;
-            break;
+            this.formData.jsonStr.missDisease.treatmentPrognosis = data
+            break
           case 'attentionMatter':
-            this.formData.jsonStr.missDisease.treatmentPrognosis=data;
-            break;
+            this.formData.jsonStr.missDisease.treatmentPrognosis = data
+            break
           default:
-            break;
+            break
         }
-
       },
-      createOK(){
-        if(this.rowData.taskStatus==="drafts"){
-          this.formData.taskStatus="drafts";
-        } else if(this.rowData.taskStatus==="toFirAudited"){
-          this.formData.taskStatus="toFirAudited";
-        } else if(this.rowData.taskStatus==="toSecAudited"){
-          this.formData.taskStatus="toSecAudited";
-        } else if(this.rowData.taskStatus==="toFinalAudited"){
-          this.formData.taskStatus="toFinalAudited";
+      createOK() {
+        if (this.rowData.taskStatus === 'drafts') {
+          this.formData.taskStatus = 'drafts'
+        } else if (this.rowData.taskStatus === 'toFirAudited') {
+          this.formData.taskStatus = 'toFirAudited'
+        } else if (this.rowData.taskStatus === 'toSecAudited') {
+          this.formData.taskStatus = 'toSecAudited'
+        } else if (this.rowData.taskStatus === 'toFinalAudited') {
+          this.formData.taskStatus = 'toFinalAudited'
         } else {
-          this.formData.taskStatus="drafts";
+          this.formData.taskStatus = 'drafts'
         }
-        if(this.curTaskType){
-          this.formData.taskType=this.curTaskType;
+        if (this.curTaskType) {
+          this.formData.taskType = this.curTaskType
         }
-        this.formData.taskMenuType="missDisease"
+        this.formData.taskMenuType = 'missDisease'
         doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible",false)
-        })
-
-      },
-      submitOK(){
-        if(this.rowData.taskStatus==="drafts"){
-          this.formData.taskStatus="toFirAudited";
-        } else if(this.rowData.taskStatus==="toFirAudited"){
-          this.formData.taskStatus="toSecAudited";
-        } else if(this.rowData.taskStatus==="toSecAudited"){
-          this.formData.taskStatus="toFinalAudited";
-        } else if(this.rowData.taskStatus==="toFinalAudited"){
-          this.formData.taskStatus="finished";
-        } else {
-          this.formData.taskStatus="drafts";
-        }
-        //this.formData.taskStatus="toFirAudited";//此处需要判断当前的状态，然后将下一步的值付给taskStatus
-        if(this.curTaskType){
-          this.formData.taskType=this.curTaskType;
-        }
-        this.formData.taskMenuType="missDisease"
-        doCreateDisBasics(this.formData).then(response => {
-          this.$emit("refreshList");
-          this.$emit("update:visible",false)
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
         })
       },
+      submitOK() {
+        if (this.rowData.taskStatus === 'drafts') {
+          this.formData.taskStatus = 'toFirAudited'
+        } else if (this.rowData.taskStatus === 'toFirAudited') {
+          this.formData.taskStatus = 'toSecAudited'
+        } else if (this.rowData.taskStatus === 'toSecAudited') {
+          this.formData.taskStatus = 'toFinalAudited'
+        } else if (this.rowData.taskStatus === 'toFinalAudited') {
+          this.formData.taskStatus = 'finished'
+        } else {
+          this.formData.taskStatus = 'drafts'
+        }
+        // this.formData.taskStatus="toFirAudited";//此处需要判断当前的状态，然后将下一步的值付给taskStatus
+        if (this.curTaskType) {
+          this.formData.taskType = this.curTaskType
+        }
+        this.formData.taskMenuType = 'missDisease'
+        doCreateDisBasics(this.formData).then(response => {
+          this.$emit('refreshList')
+          this.$emit('update:visible', false)
+        })
+      }
     },
-    watch:{
-      rowData(newVal,oldVal)
-      {
-        this.formData=Object.assign({}, newVal)
+    watch: {
+      rowData(newVal, oldVal) {
+        this.formData = Object.assign({}, newVal)
       },
-      'formData.jsonStr.missDisease.locationPid'(newVal,oldVal)
-      {
-        var newarr = this.dislocationList.filter(item => item.jsonStr.id==newVal );
-        if(newarr.length > 0){
-          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName ;
+      'formData.jsonStr.missDisease.locationPid'(newVal, oldVal) {
+        var newarr = this.dislocationList.filter(item => item.jsonStr.id == newVal)
+        if (newarr.length > 0) {
+          this.locationPidtoChinese = newarr[0].jsonStr.dislocationName
         }
       },
-      'formData.jsonStr.missDisease.departmentPid'(newVal,oldVal)
-      {
-        var newarr = this.departmentList.filter(item => item.jsonStr.id==newVal );
-        if(newarr.length > 0){
-          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName ;
+      'formData.jsonStr.missDisease.departmentPid'(newVal, oldVal) {
+        var newarr = this.departmentList.filter(item => item.jsonStr.id == newVal)
+        if (newarr.length > 0) {
+          this.departmentPidtoChinese = newarr[0].jsonStr.departmentName
         }
-      },
+      }
     },
-    computed:{
-      locationPidtoChinese1(){
-        const params={
-          currentPage:1,
-          pageSize:1000,
+    computed: {
+      locationPidtoChinese1() {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000
         }
         getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params;
+          this.dislocationList = response.data.params
         })
-        if(this.formData.jsonStr.missDisease.locationPid ){
-          const newarr  = this.dislocationList;
-          newarr.filter(item => item.jsonStr.id===this.formData.jsonStr.missDisease.locationPid );
-          console.log("newarr[0].departmentName===",newarr[0].departmentName);
-          return newarr[0].departmentName;
+        if (this.formData.jsonStr.missDisease.locationPid) {
+          const newarr = this.dislocationList
+          newarr.filter(item => item.jsonStr.id === this.formData.jsonStr.missDisease.locationPid)
+          console.log('newarr[0].departmentName===', newarr[0].departmentName)
+          return newarr[0].departmentName
         }
-
       }
     }
   }
