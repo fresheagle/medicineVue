@@ -49,11 +49,7 @@ export default {
         ]
       },
       {	path: '/institution', name: '医疗机构',
-        children: [{ path: 'public', name: '公立医疗机构' },
-          { path: 'private', name: '非公立医疗机构' },
-          { path: 'special', name: '非公特型机构' },
-          { path: 'medical', name: '非公医美机构' },
-          { path: 'information', name: '医院科室信息参数维护' }
+        children: [{ path: 'treatment', name: '医疗机构' }
         ]
       },
       { path: '/modernDoctor', name: '现代医生',
@@ -69,13 +65,11 @@ export default {
         ]
       },
       { path: '/drugs', name: '药品',
-        children: [{ path: 'chinese', name: '中成药' },
-          { path: 'western', name: '西药' }
+        children: [{ path: 'chinese', name: '药品' }
         ]
       },
       { path: '/symptom', name: '症状',
-        children: [{ path: 'list', name: '症状参数' },
-          { path: 'western', name: '发病部位参数' }
+        children: [{ path: 'list', name: '症状' }
         ]
       },
       { path: '/enterprise', name: '医药企业',
@@ -83,15 +77,14 @@ export default {
         ]
       },
       { path: '/trash', name: '回收站',
-        children: [{ path: 'prescription', name: '回首数据查询' },
+        children: [{ path: 'prescription', name: '回收数据查询' },
           { path: 'verification', name: '数据删除任务记录查询' },
           { path: 'verification', name: '数据恢复任务' }
         ]
       },
-      { path: '/trash1', name: '配置管理',
-        children: [{ path: 'prescription', name: '回首数据查询' },
-          { path: 'verification', name: '数据删除任务记录查询' },
-          { path: 'verification', name: '数据恢复任务' }
+      { path: '/member', name: '配置管理',
+        children: [{ path: 'user', name: '用户管理' },
+          { path: 'role', name: '角色管理' }
         ]
       }
     ]

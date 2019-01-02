@@ -49,6 +49,15 @@ export function getMissionList(params) {
     params
   })
 }
+
+// 任务查询
+export function getTaskList(data) {
+  return request({
+    url: '/api/mission/data/page',
+    method: 'post',
+    data
+  })
+}
 // 草稿箱
 export function getDraftMissionList(params) {
   return request({

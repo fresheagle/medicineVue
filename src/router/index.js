@@ -4,6 +4,7 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
 
 import Layout from '../views/layout/Layout'
+import CreateLayout from '../views/layout/createLayout'
 
 export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
@@ -50,10 +51,20 @@ export const constantRouterMap = [
     component: Layout,
     name: '医疗机构',
     children: [
+      { path: 'treatment', name: '医疗机构', component: () => import('../views/institution/treatment') },
+      { path: 'create', name: '新建医疗机构', component: () => import('../views/institution/create') },
       { path: 'public', name: '公立医疗机构', component: () => import('../views/institution/public') },
       { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
       { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
       { path: 'chinese-western', name: '中西医疾病', component: () => import('../views/disease/chinese-western') }
+    ]
+  },
+  {
+    path: '/create',
+    component: CreateLayout,
+    name: '新建',
+    children: [
+      { path: 'treatment', name: '新建医疗机构', component: () => import('../views/institution/create') }
     ]
   },
   {
@@ -86,6 +97,15 @@ export const constantRouterMap = [
     name: '症状',
     children: [
       { path: 'list', name: '症状', component: () => import('../views/symptom/list') }
+    ]
+  },
+  {
+    path: '/member',
+    component: Layout,
+    name: '配置管理',
+    children: [
+      { path: 'user', name: '用户管理', component: () => import('../views/member/user') },
+      { path: 'role', name: '角色管理', component: () => import('../views/member/role') }
     ]
   },
   {
@@ -167,19 +187,5 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/task',
-    component: Layout,
-    name: '我的任务',
-    children: [
-      { path: 'drafts', name: '草稿箱', component: () => import('../views/task/drafts') },
-      { path: 'unfinished', name: '未完成任务', component: () => import('../views/task/unfinished'), meta: { title: 'svgicons', roles: ['admin'] }},
-      { path: 'toFirAudited', name: '待初审任务', component: () => import('../views/task/toFirAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
-      { path: 'toSecAudited', name: '待二审任务', component: () => import('../views/task/toSecAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
-      { path: 'toFinalAudited', name: '待终审发布任务', component: () => import('../views/task/toFinalAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
-      { path: 'finished', name: '已完成任务', component: () => import('../views/task/finished'), meta: { title: 'svgicons', roles: ['admin'] }},
-      { path: 'discarded', name: '已废止任务', component: () => import('../views/task/discarded'), meta: { title: 'svgicons', roles: ['admin'] }}
-    ]
-  },
   { path: '*', redirect: '/404', hidden: true }
 ]
