@@ -25,8 +25,8 @@ const enumerate = {
     { id: '9', level: '三级' }, { id: '10', level: '三级丙等' }, { id: '11', level: '三级乙等' }, { id: '12', level: '三级甲等' }
   ], // 机构级别
   hospitalType: [
-    { id: '1', value: '综合医院' }, { id: '2', value: '其他医院' },{ id: '3', value: '妇产医院' }, { id: '4', value: '中医医院' },
-    { id: '5', value: '肿瘤医院' },{ id: '6', value: '传染病医院' }, { id: '7', value: '精神病医院' }, { id: '8', value: '口腔医院' },
+    { id: '1', value: '综合医院' }, { id: '2', value: '其他医院' }, { id: '3', value: '妇产医院' }, { id: '4', value: '中医医院' },
+    { id: '5', value: '肿瘤医院' }, { id: '6', value: '传染病医院' }, { id: '7', value: '精神病医院' }, { id: '8', value: '口腔医院' },
     { id: '9', value: '胸科医院' }, { id: '10', value: '康复医院' }, { id: '11', value: '骨科医院' }, { id: '12', value: '三级甲等' },
     { id: '13', value: '儿童医院' }, { id: '14', value: '美容医院' }, { id: '15', value: '肛肠医院' }, { id: '16', value: '五官医院' }
   ],

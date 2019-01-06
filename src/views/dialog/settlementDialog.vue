@@ -37,7 +37,7 @@
     data() {
       return {
         formData: {
-          settlementResult: '1',
+          settlementResult: '1'
         }
       }
     },

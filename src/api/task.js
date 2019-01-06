@@ -1,5 +1,14 @@
 import request from '../utils/request'
 
+// 检测
+export function doCheck(params) {
+  return request({
+    url: '/api/institution/check',
+    method: 'get',
+    params
+  })
+}
+
 // 基础疾病查询
 export function getDisBasicsList(params) {
   return request({
