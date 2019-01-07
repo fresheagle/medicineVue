@@ -135,7 +135,9 @@
       </el-form>
     </el-col>
     <!--列表-->
-    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中" style="width: 100%;">
+    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中"
+              @selection-change="handleSelectionChange"
+              style="width: 100%;">
       <el-table-column
         type="selection"
         width="40">
@@ -217,7 +219,7 @@
                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-public-dialog>
     <delete-dialog :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
                    @refreshList="fetchData"></delete-dialog>
-    <examine-dialog :visible.sync="isShowExamineVisible"></examine-dialog>
+    <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection"></examine-dialog>
     <settlement-dialog :visible.sync="isShowSettlementVisible"></settlement-dialog>
     <reset-status-dialog :visible.sync="isShowResetStatusVisible"></reset-status-dialog>
     <assign-dialog :visible.sync="isShowAssignVisible"></assign-dialog>
@@ -369,9 +371,11 @@
       // }).catch(() => {
       // })
       },
+      handleSelectionChange(val) {
+        this.multipleSelection = val
+      },
       // 批量删除
       toShowBatchDelete() {
-
       },
       // 批量审核
       toShowExamine() {

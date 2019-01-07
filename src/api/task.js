@@ -9,6 +9,14 @@ export function doCheck(params) {
   })
 }
 
+// 批量审批
+export function doApproval(data) {
+  return request({
+    url: '/api/mission/batch/saveMission',
+    method: 'put',
+    data
+  })
+}
 // 基础疾病查询
 export function getDisBasicsList(params) {
   return request({
