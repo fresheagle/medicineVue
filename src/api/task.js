@@ -17,6 +17,21 @@ export function doApproval(data) {
     data
   })
 }
+// 文件上传
+export function fileUpload(data) {
+  return request({
+    url: '/api/file/upload',
+    method: 'post',
+    data
+  })
+}
+export function getDistrict(params) {
+  return request({
+    url: 'api/district/query',
+    method: 'get',
+    params
+  })
+}
 // 基础疾病查询
 export function getDisBasicsList(params) {
   return request({

@@ -82,7 +82,7 @@
         this.formData.taskType = this.curTaskType
         this.formData.taskStatus = 'drafts'
         const param = {
-          tasks: this.curData, // ['89c839e3314844aebd28b44b20b23e02', '90efde928a224716b604bb5271f5a250'],
+          tasks: this.curData,
           trailStatus: this.formData.examineResult,
           approveMessage: this.formData.approveMessage
         }

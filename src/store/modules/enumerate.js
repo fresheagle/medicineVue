@@ -24,6 +24,11 @@ const enumerate = {
     { id: '6', level: '二级丙等' }, { id: '7', level: '二级乙等' }, { id: '8', level: '二级甲等' },
     { id: '9', level: '三级' }, { id: '10', level: '三级丙等' }, { id: '11', level: '三级乙等' }, { id: '12', level: '三级甲等' }
   ], // 机构级别
+  createRoleList: [{ label: '已结算', value: '0' }, { label: '未结算', value: '1' }],
+  departmentLevel: [{ label: '国家级', value: '0' }, { label: '省级', value: '1' }, { label: '市级', value: '2' }, { label: '院级', value: '3' }, { label: '非重点专科', value: '4' }],
+  institutionMenu: [{ title: '概述' }, { title: '基本信息' }, { title: '领导团队' }, { title: '医院环境' }, { title: '科室设置' }, { title: '特色专科' }, { title: '医疗优势' },
+    { title: '医疗设施' }, { title: '历史发展' }, { title: '乘车路线' }, { title: '临床教学与科研机构' }, { title: '研究成果' }, { title: '学术专注' }, { title: '学术活动' },
+    { title: '获奖情况' }, { title: '就诊须知' }],
   hospitalType: [
     { id: '1', value: '综合医院' }, { id: '2', value: '其他医院' }, { id: '3', value: '妇产医院' }, { id: '4', value: '中医医院' },
     { id: '5', value: '肿瘤医院' }, { id: '6', value: '传染病医院' }, { id: '7', value: '精神病医院' }, { id: '8', value: '口腔医院' },

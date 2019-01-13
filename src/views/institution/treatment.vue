@@ -2,7 +2,7 @@
   <div class="app-container">
     <div>
       <el-form label-width="80px">
-        <el-row>
+        <el-row id="searchBar">
           <el-col :span="4">
             <el-form-item label="标题:">
               <el-input  placeholder="请输入标题"  v-model="searchBody.taskTitle"></el-input>
@@ -24,7 +24,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="编辑组:">
-              <el-select v-model="searchBody.createRole" multiple placeholder="请选择">
+              <el-select v-model="searchBody.createUser" multiple placeholder="请选择">
                 <el-option
                   v-for="item in group"
                   :key="item.value"
@@ -39,20 +39,21 @@
                 multiple
                 filterable
                 allow-create
+                collapse-tags
                 default-first-option
                 placeholder="请选择文章标签">
                 <el-option
-                  v-for="item in group"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  v-for="item in enumerate.taskStatus"
+                  :key="item.key"
+                  :label="item.value"
+                  :value="item.key">
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="结算状态:">
-              <el-select v-model="searchBody.createRole" multiple placeholder="请选择">
+              <el-select v-model="searchBody.createRole" placeholder="请选择">
                 <el-option
-                  v-for="item in group"
+                  v-for="item in enumerate.createRoleList"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -63,9 +64,10 @@
           <el-col :span="6">
             <el-form-item label="创建日期:">
               <el-date-picker
+                class="timeSelect"
                 v-model="searchBody.taskCreateTime"
                 type="daterange"
-                range-separator="至"
+                range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
@@ -74,7 +76,7 @@
               <el-date-picker
                 v-model="searchBody.updateTime"
                 type="daterange"
-                range-separator="至"
+                range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
@@ -83,7 +85,7 @@
               <el-date-picker
                 v-model="searchBody.taskFirstTrialTime"
                 type="daterange"
-                range-separator="至"
+                range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
@@ -94,7 +96,7 @@
               <el-date-picker
                 v-model="searchBody.taskSecondTrialTime"
                 type="daterange"
-                range-separator="至"
+                range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
@@ -103,7 +105,7 @@
               <el-date-picker
                 v-model="searchBody.taskFinalTrialTime"
                 type="daterange"
-                range-separator="至"
+                range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
               </el-date-picker>
@@ -142,63 +144,63 @@
         type="selection"
         width="40">
       </el-table-column>
-      <el-table-column prop="taskTitle" label="标题" sortable>
+      <el-table-column prop="taskTitle" label="标题" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column prop="taskStatus" label="最新进度" sortable>
+      <el-table-column prop="taskStatus" label="最新进度" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column label="作者" sortable>
+      <el-table-column label="作者" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.createUser.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskCreateTime" label="创建日期" sortable>
+      <el-table-column prop="taskCreateTime" label="创建日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{fmtDate(scope.row.taskCreateTime)}}
         </template>
       </el-table-column>
-      <el-table-column prop="createUserRole" label="编辑组" sortable>
+      <el-table-column prop="createUserRole" label="编辑组" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.createUserRole.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="firstTrialUser" label="初审者" sortable>
+      <el-table-column prop="firstTrialUser" label="初审者" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.firstTrialUser.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskFirstTrialPoint" label="初审得分">
+      <el-table-column prop="taskFirstTrialPoint" label="初审得分" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column prop="taskFirstTrialTime" label="初审日期" sortable>
+      <el-table-column prop="taskFirstTrialTime" label="初审日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{fmtDate(scope.row.taskFirstTrialTime)}}
         </template>
       </el-table-column>
-      <el-table-column prop="secondTrialUser" label="二审者" sortable>
+      <el-table-column prop="secondTrialUser" label="二审者" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.secondTrialUser.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskSecondTrialPoint" label="二审得分">
+      <el-table-column prop="taskSecondTrialPoint" label="二审得分" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column prop="taskSecondTrialTime" label="二审日期" sortable>
+      <el-table-column prop="taskSecondTrialTime" label="二审日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{fmtDate(scope.row.taskSecondTrialTime)}}
         </template>
       </el-table-column>
-      <el-table-column prop="finalTrialUser" label="终审者" sortable>
+      <el-table-column prop="finalTrialUser" label="终审者" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.finalTrialUser.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskFinalTrialPint" label="终审得分">
+      <el-table-column prop="taskFinalTrialPint" label="终审得分" :show-overflow-tooltip="true">
       </el-table-column>
-      <el-table-column prop="taskFinalTrialTime" label="终审日期" sortable>
+      <el-table-column prop="taskFinalTrialTime" label="终审日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{fmtDate(scope.row.taskFinalTrialTime)}}
         </template>
       </el-table-column>
 
-      <el-table-column prop="operation" label="操作 ">
+      <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button type="text" @click="deleteUpdate(scope.row)">删除</el-button>
@@ -274,7 +276,7 @@
         searchBody: {
           taskTitle: '',
           createUser: [],
-          createRole: 'all',
+          createRole: '0',
           taskStatus: [],
           taskCreateTime: [],
           updateTime: [],
@@ -319,7 +321,7 @@
         const params = this.searchBody
         params.currentPage = 1
         params.pageSize = 9999
-        params.taskMenuType = 'publicInstitution'
+        params.taskMenuType = 'missInstitution'
         // this.listQuery
         getTaskList(params).then(response => {
           const limit = 10
@@ -500,5 +502,8 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+  #searchBar .el-date-editor--daterange{
+    width: 310px;
   }
 </style>
