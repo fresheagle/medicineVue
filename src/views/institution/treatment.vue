@@ -123,6 +123,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
+          <el-button type="primary" @click="doReceive()">领取任务</el-button><!--该按钮放置到任务页面-->
           <el-button type="primary" @click="doCreate()">创建</el-button>
           <el-button type="primary" @click="doCreate()">上线/下线</el-button>
           <el-button type="primary" @click="toShowBatchDelete()">删除</el-button>
@@ -231,7 +232,7 @@
 
 
 <script>
-  import { getTaskList, getInstitutionList, doCreateDisBasics } from '../../api/task'
+  import { getTaskList, getInstitutionList, doCreateDisBasics, toClaimTask } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
 
   import createPublicDialog from './dialog/createPublicDialog'
@@ -372,6 +373,21 @@
       // this.$store.dispatch('getDepartment', params).then(() => {
       // }).catch(() => {
       // })
+      },
+      // 任务认领
+      doReceive() {
+        const result = []
+        this.multipleSelection.forEach(function(item) {
+          result.push(item.taskId)
+        })
+        const params = {
+          'status': 1,
+          'taskIds': result,
+          'taskStatus': 'toFirAudited'
+        }
+        toClaimTask(params).then(response => {
+
+        })
       },
       handleSelectionChange(val) {
         this.multipleSelection = val

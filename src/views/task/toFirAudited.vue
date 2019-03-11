@@ -1,44 +1,210 @@
 <template>
   <div class="app-container">
+    <div>
+      <el-form label-width="80px">
+        <el-row id="searchBar">
+          <el-col :span="4">
+            <el-form-item label="标题:">
+              <el-input  placeholder="请输入标题"  v-model="searchBody.taskTitle"></el-input>
+            </el-form-item>
+            <el-form-item label="作者:">
+              <el-input placeholder="多个用逗号隔开"  v-model="searchCreateUser"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="初审者:">
+              <el-input placeholder="多个用逗号隔开"  v-model="searchFirstTrialUser"></el-input>
+            </el-form-item>
+            <el-form-item label="二审者:">
+              <el-input placeholder="多个用逗号隔开"  v-model="searchSecondTrialUser"></el-input>
+            </el-form-item>
+            <el-form-item label="终审者:">
+              <el-input placeholder="多个用逗号隔开"  v-model="searchFinalTrialUser"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="编辑组:">
+              <el-select v-model="searchBody.createUser" multiple placeholder="请选择">
+                <el-option
+                  v-for="item in group"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="进度:">
+              <el-select
+                v-model="searchBody.taskStatus"
+                multiple
+                filterable
+                allow-create
+                collapse-tags
+                default-first-option
+                placeholder="请选择文章标签">
+                <el-option
+                  v-for="item in enumerate.taskStatus"
+                  :key="item.key"
+                  :label="item.value"
+                  :value="item.key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="结算状态:">
+              <el-select v-model="searchBody.createRole" placeholder="请选择">
+                <el-option
+                  v-for="item in enumerate.createRoleList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="创建日期:">
+              <el-date-picker
+                class="timeSelect"
+                v-model="searchBody.taskCreateTime"
+                type="daterange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="更新日期:">
+              <el-date-picker
+                v-model="searchBody.updateTime"
+                type="daterange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="初审日期:">
+              <el-date-picker
+                v-model="searchBody.taskFirstTrialTime"
+                type="daterange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="二审日期:">
+              <el-date-picker
+                v-model="searchBody.taskSecondTrialTime"
+                type="daterange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="终审日期:">
+              <el-date-picker
+                v-model="searchBody.taskFinalTrialTime"
+                type="daterange"
+                range-separator="-"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+              </el-date-picker>
+            </el-form-item>
+
+            <el-form-item >
+              <el-button type="primary" @click="doFilter()">搜索</el-button>
+              <el-button type="primary" @click="resetSearchBody()">重置条件</el-button>
+              <el-button type="primary">导出结果</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </div>
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
-          <!--<el-select v-model="value" clearable placeholder="状态">-->
-          <!--<el-option-->
-          <!--v-for="item in status"-->
-          <!--:key="item.statusId"-->
-          <!--:label="item.label"-->
-          <!--:value="item.statusId">-->
-          <!--</el-option>-->
-          <!--</el-select>-->
-        </el-form-item>
-        <el-form-item >
-          <el-input placeholder="名称" v-model="searchName"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="doFilter()"><i class="el-icon-search"></i>搜索</el-button>
+          <el-button type="primary" @click="doReceive()">领取任务</el-button><!--该按钮放置到任务页面-->
+          <el-button type="primary" @click="doCreate()">创建</el-button>
+          <el-button type="primary" @click="doCreate()">上线/下线</el-button>
+          <el-button type="primary" @click="toShowBatchDelete()">删除</el-button>
+          <el-button type="primary" @click="toShowExamine()">审核</el-button>
+          <el-button type="primary" @click="toShowSettlement()">结算</el-button>
+          <el-button type="primary" @click="toShowResetStatus()">重置进度</el-button>
+          <el-button type="primary" @click="toShowAssign()">指派新作者</el-button>
+          <el-button type="text">初审池</el-button>
+          <el-button type="text">二审池</el-button>
+          <el-button type="text">终审池</el-button>
         </el-form-item>
       </el-form>
     </el-col>
     <!--列表-->
-    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中" style="width: 100%;">
-      <el-table-column prop="taskTitle" label="任务名称"></el-table-column>
-      <el-table-column prop="taskMenuType"  label="任务来源"></el-table-column>
-      <el-table-column prop="taskType"  label="任务类型"></el-table-column>
-      <el-table-column prop="taskStatus" label="状态">
+    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中"
+              @selection-change="handleSelectionChange"
+              style="width: 100%;">
+      <el-table-column
+        type="selection"
+        width="40">
+      </el-table-column>
+      <el-table-column prop="taskTitle" label="标题" :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column prop="taskStatus" label="最新进度" :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column label="作者" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          {{i18n[scope.row.taskStatus]}}
+          {{scope.row.createUser.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskChangePoints" label="评分" ></el-table-column>
-      <el-table-column prop="taskChangeComments" label="备注" ></el-table-column>
-      <el-table-column prop="operation" label="操作 ">
-        <template slot-scope="scope" >
-          <!--<el-button  type="text" @click="handleUpdate(scope.row)">查看</el-button>-->
-          <el-button  type="text" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button  type="text" @click="handleSubmit(scope.row)">提交</el-button>
-          <el-button  type="text" @click="handleCompare(scope.row)">对比</el-button>
-          <!--<el-button  type="text" @click="deleteUpdate(scope.row)">删除</el-button>-->
+      <el-table-column prop="taskCreateTime" label="创建日期" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{fmtDate(scope.row.taskCreateTime)}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="createUserRole" label="编辑组" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.createUserRole.userName}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="firstTrialUser" label="初审者" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.firstTrialUser.userName}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="taskFirstTrialPoint" label="初审得分" :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column prop="taskFirstTrialTime" label="初审日期" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{fmtDate(scope.row.taskFirstTrialTime)}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="secondTrialUser" label="二审者" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.secondTrialUser.userName}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="taskSecondTrialPoint" label="二审得分" :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column prop="taskSecondTrialTime" label="二审日期" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{fmtDate(scope.row.taskSecondTrialTime)}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="finalTrialUser" label="终审者" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.finalTrialUser.userName}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="taskFinalTrialPint" label="终审得分" :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column prop="taskFinalTrialTime" label="终审日期" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{fmtDate(scope.row.taskFinalTrialTime)}}
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="operation" label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
+          <el-button type="text" @click="deleteUpdate(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -52,125 +218,93 @@
                    style="text-align:center;">
     </el-pagination>
 
-    <create-basics-dialog  :visible.sync="isShowCreateVisible" :row-data="missDiseaseCurRowData"
-                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-basics-dialog>
-    <create-chinese-dialog :visible.sync="isShowCreateChineseVisible" :row-data="missChineseDiseaseCurRowData"
-                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-chinese-dialog>
-    <create-western-dialog :visible.sync="isShowCreateWesternVisible" :row-data="missWesternCurRowData"
-                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-western-dialog>
-    <create-combination-dialog :visible.sync="isShowCreateCombineVisible" :row-data="missCombineDiseaseCurRowData"
-                               :cur-task-type="curTaskType" @refreshList="fetchData"></create-combination-dialog>
-
-    <create-public-dialog  :visible.sync="isShowCreatePublicVisible" :row-data="missInstitutionCurRowData"
-                           :cur-task-type="curTaskType" @refreshList="fetchData"></create-public-dialog>
-    <create-symptom-dialog  :visible.sync="isShowCreateSymptomVisible" :row-data="missSymptomCurRowData"
-                            :cur-task-type="curTaskType" @refreshList="fetchData"></create-symptom-dialog>
-    <create-enterprise-dialog  :visible.sync="isShowCreateEnterpriseVisible" :row-data="missMedicalCompanyCurRowData"
-                               :cur-task-type="curTaskType" @refreshList="fetchData"></create-enterprise-dialog>
-    <create-drugs-chinese-dialog  :visible.sync="isShowCreateDrugsChineseVisible" :row-data="missMedicalCurRowData"
-                                  :cur-task-type="curTaskType" @refreshList="fetchData"></create-drugs-chinese-dialog>
-
-    <delete-dialog  :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
-                    @refreshList="fetchData"></delete-dialog>
-    <submit-next-dialog  :visible.sync="isShowSubmit" :row-data="curRowData" :cur-task-type="curTaskType"
-                         @refreshList="fetchData"></submit-next-dialog>
-    <first-compare-dialog :visible.sync="isShowCompare" :row-data="curRowData" :cur-task-type="curTaskType"
-                          @refreshList="fetchData"></first-compare-dialog>
+    <create-public-dialog :visible.sync="isShowCreateVisible" :row-data="curRowData"
+                          :cur-task-type="curTaskType" @refreshList="fetchData"></create-public-dialog>
+    <delete-dialog :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
+                   @refreshList="fetchData"></delete-dialog>
+    <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection"></examine-dialog>
+    <settlement-dialog :visible.sync="isShowSettlementVisible"></settlement-dialog>
+    <reset-status-dialog :visible.sync="isShowResetStatusVisible"></reset-status-dialog>
+    <assign-dialog :visible.sync="isShowAssignVisible"></assign-dialog>
 
   </div>
 </template>
 
 
-
 <script>
-  import { getMissionList } from '../../api/task'
+  import { getTaskList, doCreateDisBasics, toClaimTask } from '../../api/task'
+  import enumerate from '../../store/modules/enumerate'
 
-  import createBasicsDialog from '../dialog/createBasicsDialog'
+  import createPublicDialog from './dialog/createPublicDialog'
   import deleteDialog from '../dialog/deleteDialog'
-  import submitNextDialog from '../dialog/submitNextDialog'
-  import firstCompareDialog from '../dialog/firstCompareDialog'
-
-  import createChineseDialog from '../disease/dialog/createChineseDialog'
-  import createWesternDialog from '../disease/dialog/createWesternDialog'
-  import createCombinationDialog from '../disease/dialog/createCombinationDialog'
-  import createPublicDialog from '../institution/dialog/createPublicDialog'
-  import createSymptomDialog from '../symptom/dialog/createSymptomDialog'
-  import createEnterpriseDialog from '../enterprise/dialog/createEnterpriseDialog'
-  import createDrugsChineseDialog from '../drugs/dialog/createChineseDialog'
+  import examineDialog from '../dialog/examineDialog'
+  import settlementDialog from '../dialog/settlementDialog'
+  import resetStatusDialog from '../dialog/resetStatusDialog'
+  import assignDialog from '../dialog/assignDialog'
 
   import i18n from '../../i18n/local'
 
+  const viewName = 'i18nView'
   export default {
     components: {
-      createBasicsDialog,
-      createChineseDialog,
-      createWesternDialog,
-      createCombinationDialog,
       createPublicDialog,
-      createSymptomDialog,
-      createEnterpriseDialog,
-      createDrugsChineseDialog,
       deleteDialog,
-      submitNextDialog,
-      firstCompareDialog
+      examineDialog,
+      settlementDialog,
+      resetStatusDialog,
+      assignDialog
     },
     data() {
       return {
+        enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         tableList: [],
         listLoading: true,
         isShowCreateVisible: false,
-        isShowCreateChineseVisible: false,
-        isShowCreateWesternVisible: false,
-        isShowCreateCombineVisible: false,
-        isShowCreatePublicVisible: false,
-        isShowCreateSymptomVisible: false,
-        isShowCreateEnterpriseVisible: false,
-        isShowCreateDrugsChineseVisible: false,
-        isShowSubmit: false,
+        isShowExamineVisible: false,
+        isShowSettlementVisible: false,
+        isShowResetStatusVisible: false,
+        isShowAssignVisible: false,
+        isShowEditVisible: false,
         isShowCompare: false,
+        isShowSubmit: false,
         deleteVisible: false,
-
-        formData: {
-          'taskStatus': '',
-          'taskType': '',
-          'taskMenuType': '',
-          'taskTitle': '',
-          'taskChangeVote': '',
-          'taskChangePoints': '',
-          'taskChangeComments': '',
-          'taskId': '',
-          'jsonStr': {}
+        isShowComResoultDialog: false,
+        searchCreateUser: '',
+        searchFirstTrialUser: '',
+        searchSecondTrialUser: '',
+        searchFinalTrialUser: '',
+        searchBody: {
+          taskTitle: '',
+          createUser: [],
+          createRole: '0',
+          taskStatus: [],
+          taskCreateTime: [],
+          updateTime: [],
+          firstTrialUser: [],
+          secondTrialUser: [],
+          finalTrialUser: [],
+          taskFirstTrialTime: [],
+          taskSecondTrialTime: [],
+          taskFinalTrialTime: []
         },
+        group: [{ label: '全部', value: 'all' }, { label: '草稿箱', value: 'drafts' }],
+        multipleSelection: [],
         total: 0,
         page: 1,
         pageSize: 10,
-        status: [
-          {
-            statusId: 1,
-            label: '启用'
-          }, {
-            statusId: 0,
-            label: '禁用'
-          }
-        ],
         value: '',
         searchName: '',
         filterTableDataEnd: [],
-
         curRowData: {},
-        missDiseaseCurRowData: {},
-        missChineseDiseaseCurRowData: {},
-        missWesternCurRowData: {},
-        missCombineDiseaseCurRowData: {},
-        missInstitutionCurRowData: {},
-        missSymptomCurRowData: {},
-        missMedicalCompanyCurRowData: {},
-        missMedicalCurRowData: {},
-        curTaskType: ''
+        curTaskType: '' // 作为参数，区分是创建还是更新操作
       }
     },
     created() {
+      if (!this.$i18n.getLocaleMessage('en')[viewName]) {
+        this.$i18n.mergeLocaleMessage('en', i18n.en)
+        this.$i18n.mergeLocaleMessage('zh', i18n.zh)
+      }
       this.fetchData()
     },
     filters: {
@@ -185,25 +319,97 @@
     methods: {
       fetchData() {
         this.listLoading = false
-        const params = {
-          currentPage: 1,
-          pageSize: 1000,
-          taskStatus: 'toFirAudited'
-          // chineseName=XXX&englishName=XXX&otherName=XXX
-        }
-        getMissionList(params).then(response => {
+        const params = this.searchBody
+        params.currentPage = 1
+        params.pageSize = 9999
+        params.taskMenuType = 'missInstitution'
+        // this.listQuery
+        getTaskList(params).then(response => {
           const limit = 10
           const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
-          console.log(pageList)
           this.total = response.data.total
           this.tableList = pageList
           this.listLoading = false
         })
       },
+      fmtDate(obj) {
+        var date = new Date(obj)
+        var y = 1900 + date.getYear()
+        var m = '0' + (date.getMonth() + 1)
+        var d = '0' + date.getDate()
+        return y + '-' + m.substring(m.length - 2, m.length) + '-' + d.substring(d.length - 2, d.length)
+      },
+      resetSearchBody() {
+        this.searchBody = {
+          taskTitle: '',
+          createUser: [],
+          createRole: 'all',
+          taskStatus: [],
+          taskCreateTime: [],
+          updateTime: [],
+          firstTrialUser: [],
+          secondTrialUser: [],
+          finalTrialUser: [],
+          taskFirstTrialTime: [],
+          taskSecondTrialTime: [],
+          taskFinalTrialTime: []
+        }
+        // 调用查询接口
+        this.fetchData()
+      },
       doCreate() {
-        this.isShowCreateVisible = true
+        const { href } = this.$router.resolve({
+          path: '/task/toFirAudited/examine'
+        })
+        window.open(href, '_blank')
+
+        // this.curTaskType = 'create'
+        // this.curRowData = Object.assign({}, this.formData)
+        // this.isShowCreateVisible = true
+        // const params = {
+        //   currentPage: 1,
+        //   pageSize: 1000
+        // }
+        // this.$store.dispatch('getDepartment', params).then(() => {
+        // }).catch(() => {
+        // })
+      },
+      // 任务认领
+      doReceive() {
+        const result = []
+        this.multipleSelection.forEach(function(item) {
+          result.push(item.taskId)
+        })
+        const params = {
+          'status': 1,
+          'taskIds': result,
+          'taskStatus': 'toFirAudited'
+        }
+        toClaimTask(params).then(response => {
+
+        })
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val
+      },
+      // 批量删除
+      toShowBatchDelete() {
+      },
+      // 批量审核
+      toShowExamine() {
+        this.isShowExamineVisible = true
+      },
+      toShowSettlement() {
+        this.isShowSettlementVisible = true
+      },
+      toShowResetStatus() {
+        this.isShowResetStatusVisible = true
+      },
+      toShowAssign() {
+        this.isShowAssignVisible = true
       },
       doFilter() {
+        console.log(this.searchBody)
         if (this.searchName === '') {
           this.fetchData()
           // this.$message.warning('查询条件不能为空！')
@@ -224,49 +430,10 @@
         // 渲染表格,根据值
         this.currentChangePage(this.filterTableDataEnd)
       },
-
       handleUpdate(row) {
-        switch (row.taskMenuType) {
-          case 'missDisease' :
-            this.missDiseaseCurRowData = Object.assign({}, row)
-            this.isShowCreateVisible = true
-            break
-          case 'missChineseDisease' :
-            this.missChineseDiseaseCurRowData = Object.assign({}, row)
-            this.isShowCreateChineseVisible = true
-            break
-          case 'missWestern' :
-            this.missWesternCurRowData = Object.assign({}, row)
-            this.isShowCreateWesternVisible = true
-            break
-          case 'missCombineDisease' :
-            this.missCombineDiseaseCurRowData = Object.assign({}, row)
-            this.isShowCreateCombineVisible = true
-            break
-          case 'missInstitution' :
-            this.missInstitutionCurRowData = Object.assign({}, row)
-            this.isShowCreatePublicVisible = true
-            break
-          case 'missSymptom' :
-            this.missSymptomCurRowData = Object.assign({}, row)
-            this.isShowCreateSymptomVisible = true
-            break
-          case 'missMedicalCompany' :
-            this.missMedicalCompanyCurRowData = Object.assign({}, row)
-            this.isShowCreateEnterpriseVisible = true
-            break
-          case 'missMedical' :
-            this.missMedicalCurRowData = Object.assign({}, row)
-            this.isShowCreateDrugsChineseVisible = true
-            break
-          default :
-            break
-        }
-      },
-      handleCompare(row) {
-        // 调用查看版本的接口
-        this.isShowCompare = true
-        this.curRowData = row
+        this.curTaskType = 'update'
+        this.curRowData = Object.assign({}, row)
+        this.isShowCreateVisible = true
       },
       deleteUpdate(row) {
         this.deleteVisible = true
@@ -277,14 +444,20 @@
         this.isShowSubmit = true
         this.curRowData = Object.assign({}, row)
       },
+      handleCompare(row) {
+        // 调用查看版本的接口
+        this.isShowCompare = true
+        doCreateDisBasics(row.taskId).then(response => {
+          this.isShowCompare = false
+          this.curRowData = response.data
+        })
+      },
       handleSizeChange(val) {
         this.page = val
-        console.log(this.page)
         this.fetchData()
       },
       handleCurrentChange(val) {
         this.page = val
-        console.log(this.page)
         this.fetchData()
       },
       currentChangePage(list) {
@@ -297,6 +470,36 @@
           }
         }
       }
+    },
+    watch: {
+      searchCreateUser(newVal, oldVal) {
+        var createUserStr = newVal.replace('，', ',')
+        this.searchBody.createUser = createUserStr.split(',')
+      },
+      searchFirstTrialUser(newVal, oldVal) {
+        var firstTrialUserStr = newVal.replace('，', ',')
+        this.searchBody.firstTrialUser = firstTrialUserStr.split(',')
+      },
+      searchSecondTrialUser(newVal, oldVal) {
+        var secondTrialUserStr = newVal.replace('，', ',')
+        this.searchBody.secondTrialUser = secondTrialUserStr.split(',')
+      },
+      searchFinalTrialUser(newVal, oldVal) {
+        var finalTrialUserStr = newVal.replace('，', ',')
+        this.searchBody.finalTrialUser = finalTrialUserStr.split(',')
+      }
+    },
+
+    computed: {
+      lang: {
+        get() {
+          return this.$store.state.app.language
+        },
+        set(lang) {
+          this.$i18n.locale = lang
+          this.$store.dispatch('setLanguage', lang)
+        }
+      }
     }
   }
 </script>
@@ -305,13 +508,18 @@
   .demo-table-expand {
     font-size: 0;
   }
+
   .demo-table-expand label {
     width: 120px;
     color: #99a9bf;
   }
+
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+  #searchBar .el-date-editor--daterange{
+    width: 310px;
   }
 </style>

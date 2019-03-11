@@ -100,7 +100,6 @@
           result.push(item.taskId)
         })
         this.curData = result
-        debugger
       }
     }
   }

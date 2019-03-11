@@ -234,3 +234,13 @@ export function updateArticle(data) {
     data
   })
 }
+
+// 认领任务
+export function toClaimTask(data) {
+  return request({
+    url: '/api/mission/claimTask',
+    method: 'post',
+    data
+  })
+}
+

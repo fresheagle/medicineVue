@@ -32,7 +32,8 @@ export const constantRouterMap = [
       { path: 'toSecAudited', name: '待二审任务', component: () => import('../views/task/toSecAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
       { path: 'toFinalAudited', name: '待终审发布任务', component: () => import('../views/task/toFinalAudited'), meta: { title: 'svgicons', roles: ['admin'] }},
       { path: 'finished', name: '已完成任务', component: () => import('../views/task/finished'), meta: { title: 'svgicons', roles: ['admin'] }},
-      { path: 'discarded', name: '已废止任务', component: () => import('../views/task/discarded'), meta: { title: 'svgicons', roles: ['admin'] }}
+      { path: 'discarded', name: '已废止任务', component: () => import('../views/task/discarded'), meta: { title: 'svgicons', roles: ['admin'] }},
+      { path: 'toFirAudited/examine', name: '已废止任务', component: () => import('../views/task/dialog/examine'), meta: { title: 'svgicons', roles: ['admin'] }}
     ]
   },
   {

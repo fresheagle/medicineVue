@@ -3,6 +3,14 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
+          <!--<el-select v-model="value" clearable placeholder="状态">-->
+          <!--<el-option-->
+          <!--v-for="item in status"-->
+          <!--:key="item.statusId"-->
+          <!--:label="item.label"-->
+          <!--:value="item.statusId">-->
+          <!--</el-option>-->
+          <!--</el-select>-->
         </el-form-item>
         <el-form-item >
           <el-input placeholder="名称" v-model="searchName"></el-input>
@@ -91,7 +99,6 @@
   import createDrugsChineseDialog from '../drugs/dialog/createChineseDialog'
 
   import i18n from '../../i18n/local'
-  const viewName = 'i18nView'
 
   export default {
     components: {
@@ -181,7 +188,7 @@
         const params = {
           currentPage: 1,
           pageSize: 1000,
-          taskStatus: 'toFinalAudited'
+          taskStatus: 'toFirAudited'
           // chineseName=XXX&englishName=XXX&otherName=XXX
         }
         getMissionList(params).then(response => {
