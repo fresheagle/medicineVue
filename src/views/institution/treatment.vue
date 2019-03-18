@@ -2,7 +2,7 @@
   <div class="app-container">
     <div>
       <el-form label-width="80px">
-        <el-row id="searchBar">
+        <el-row id="searchBar" style="min-width: 1600px;">
           <el-col :span="4">
             <el-form-item label="标题:">
               <el-input  placeholder="请输入标题"  v-model="searchBody.taskTitle"></el-input>
@@ -131,6 +131,7 @@
           <el-button type="primary" @click="toShowSettlement()">结算</el-button>
           <el-button type="primary" @click="toShowResetStatus()">重置进度</el-button>
           <el-button type="primary" @click="toShowAssign()">指派新作者</el-button>
+          <el-button type="text">草稿箱</el-button>
           <el-button type="text">初审池</el-button>
           <el-button type="text">二审池</el-button>
           <el-button type="text">终审池</el-button>
@@ -140,7 +141,7 @@
     <!--列表-->
     <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中"
               @selection-change="handleSelectionChange"
-              style="width: 100%;">
+              style="width: 100%;min-width: 1600px;">
       <el-table-column
         type="selection"
         width="40">
@@ -431,9 +432,15 @@
         this.currentChangePage(this.filterTableDataEnd)
       },
       handleUpdate(row) {
-        this.curTaskType = 'update'
-        this.curRowData = Object.assign({}, row)
-        this.isShowCreateVisible = true
+        const curTrearment = Object.assign({}, row)
+        localStorage.setItem('curTrearment', JSON.stringify(curTrearment))
+        const { href } = this.$router.resolve({
+          path: '/institution/edit'
+        })
+        window.open(href, '_blank')
+        // this.curTaskType = 'update'
+        // this.curRowData = Object.assign({}, row)
+        // this.isShowCreateVisible = true
       },
       deleteUpdate(row) {
         this.deleteVisible = true

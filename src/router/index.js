@@ -54,6 +54,7 @@ export const constantRouterMap = [
     children: [
       { path: 'treatment', name: '医疗机构', component: () => import('../views/institution/treatment') },
       { path: 'create', name: '新建医疗机构', component: () => import('../views/institution/create') },
+      { path: 'edit', name: '修改医疗机构', component: () => import('../views/institution/edit') },
       { path: 'public', name: '公立医疗机构', component: () => import('../views/institution/public') },
       { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
       { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },

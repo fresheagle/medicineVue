@@ -1,28 +1,6 @@
 <template>
   <div class="app-container" id="institutionCreate">
-    <div v-if="!isCheck">
-      <el-row >
-        <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">数据校验</div>
-            <div class="body">
-              <el-form :model="formData" label-width="80px">
-                <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missInstitution.name" placeholder="请输入任务标题"></el-input>
-                </el-form-item>
-                <el-form-item label="官方网站">
-                  <el-input v-model="formData.jsonStr.missInstitution.website" placeholder="请输入官方网站"></el-input>
-                </el-form-item>
-                <el-form-item >
-                  <el-button @click="doCheck">校验</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div v-if="isCheck" style="top:0px;position: relative;">
+    <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
           <div class="card">
@@ -516,7 +494,7 @@
         </el-col>
       </el-row>
     </div>
-    <div v-if="isCheck" class="footer">
+    <div class="footer">
       <el-row>
         <el-col :span="12" style="padding: 10px;">
           <div>
@@ -529,7 +507,7 @@
           <div style="margin-right: 20%;">
             <!--<el-button>预览</el-button>-->
             <el-button @click="doSubmit('approveSuccess')">提交进入审核</el-button>
-            <!--<el-button>重置所有字段</el-button>-->
+            <!--<el-button @click="resetForm('formData')">重置所有字段</el-button>-->
             <el-button  @click="doSubmit('save')">保存并关闭</el-button>
           </div>
         </el-col>
@@ -763,12 +741,15 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
+      this.formData = JSON.parse(localStorage.getItem('curTrearment'))
       const params = {
         currentPage: 1,
         pageSize: 9999,
         parentDepartmentId: 0
       }
       this.getDistrict(100000, 1)
+      this.getDistrict(this.formData.jsonStr.missInstitution.provinceCode, 2)
+      this.getDistrict(this.formData.jsonStr.missInstitution.cityCode, 3)
       this.getDepartmentList(params)
     },
     filters: {
@@ -968,6 +949,9 @@
             this.$router.push('/institution/treatment')
           }
         })
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields()
       },
       fnGetCpmisWords(str) {
         var sLen = 0
