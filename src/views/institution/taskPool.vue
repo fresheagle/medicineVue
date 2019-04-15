@@ -123,17 +123,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
-          <el-button type="primary" @click="doCreate()">创建</el-button>
-          <el-button type="primary" @click="doCreate()">上线/下线</el-button>
-          <el-button type="primary" @click="toShowBatchDelete()">删除</el-button>
-          <el-button type="primary" @click="toShowExamine()">批量审核</el-button>
-          <el-button type="primary" @click="toShowSettlement()">结算</el-button>
-          <el-button type="primary" @click="toShowResetStatus()">重置进度</el-button>
-          <el-button type="primary" @click="toShowAssign()">指派新作者</el-button>
-          <el-button type="text" @click="toTaskPool('drafts')">草稿箱</el-button>
-          <el-button type="text" @click="toTaskPool('toFirAudited')">初审池</el-button>
-          <el-button type="text" @click="toTaskPool('toSecAudited')">二审池</el-button>
-          <el-button type="text" @click="toTaskPool('toFinalAudited')">终审池</el-button>
+          <el-button type="primary" @click="doReceive()">领取任务</el-button><!--该按钮放置到任务页面-->
         </el-form-item>
       </el-form>
     </el-col>
@@ -201,9 +191,8 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="operation" label="操作" width="150px">
+      <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="handleExamine(scope.row)">审核</el-button>
           <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button type="text" @click="deleteUpdate(scope.row)">删除</el-button>
         </template>
@@ -306,6 +295,7 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
+      this.searchBody.taskStatus[0] = this.$route.params.taskProgress
       this.fetchData()
     },
     filters: {
@@ -364,16 +354,16 @@
         })
         window.open(href, '_blank')
 
-      // this.curTaskType = 'create'
-      // this.curRowData = Object.assign({}, this.formData)
-      // this.isShowCreateVisible = true
-      // const params = {
-      //   currentPage: 1,
-      //   pageSize: 1000
-      // }
-      // this.$store.dispatch('getDepartment', params).then(() => {
-      // }).catch(() => {
-      // })
+        // this.curTaskType = 'create'
+        // this.curRowData = Object.assign({}, this.formData)
+        // this.isShowCreateVisible = true
+        // const params = {
+        //   currentPage: 1,
+        //   pageSize: 1000
+        // }
+        // this.$store.dispatch('getDepartment', params).then(() => {
+        // }).catch(() => {
+        // })
       },
       // 任务认领
       doReceive() {
@@ -409,9 +399,9 @@
       toShowAssign() {
         this.isShowAssignVisible = true
       },
-      toTaskPool(taskStatus) {
+      toDraftPool() {
         const { href } = this.$router.resolve({
-          path: '/institution/treatment/pool/' + taskStatus
+          path: '/institution/treatment/pool/drafts',
         })
         window.open(href, '_blank')
       },
@@ -436,14 +426,6 @@
         this.total = this.filterTableDataEnd.length
         // 渲染表格,根据值
         this.currentChangePage(this.filterTableDataEnd)
-      },
-      handleExamine(row) {
-        const curTrearment = Object.assign({}, row)
-        localStorage.setItem('curTrearment', JSON.stringify(curTrearment))
-        const { href } = this.$router.resolve({
-          path: '/institution/examine'
-        })
-        window.open(href, '_blank')
       },
       handleUpdate(row) {
         const curTrearment = Object.assign({}, row)

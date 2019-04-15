@@ -53,8 +53,10 @@ export const constantRouterMap = [
     name: '医疗机构',
     children: [
       { path: 'treatment', name: '医疗机构', component: () => import('../views/institution/treatment') },
+      { path: 'treatment/pool/:taskProgress', name: '医疗机构', component: () => import('../views/institution/taskPool') },
       { path: 'create', name: '新建医疗机构', component: () => import('../views/institution/create') },
       { path: 'edit', name: '修改医疗机构', component: () => import('../views/institution/edit') },
+      { path: 'examine', name: '审核医疗机构', component: () => import('../views/institution/examine') },
       { path: 'public', name: '公立医疗机构', component: () => import('../views/institution/public') },
       { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
       { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
