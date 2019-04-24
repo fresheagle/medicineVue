@@ -99,8 +99,8 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="医院性质">
-                      <el-radio v-model="formData.jsonStr.missInstitution.nature" label="1">盈利</el-radio>
-                      <el-radio v-model="formData.jsonStr.missInstitution.nature" label="0">非盈利</el-radio>
+                      <el-radio v-model="formData.jsonStr.missInstitution.nature" label="1">营利性</el-radio>
+                      <el-radio v-model="formData.jsonStr.missInstitution.nature" label="0">非营利性</el-radio>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -112,11 +112,12 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="成立时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.foundDate"
-                        type="date"
-                        placeholder="选择日期">
-                      </el-date-picker>
+                      <el-input v-model="formData.jsonStr.missInstitution.foundDate" placeholder="成立时间"></el-input>
+                      <!--<el-date-picker-->
+                        <!--v-model="formData.jsonStr.missInstitution.foundDate"-->
+                        <!--type="date"-->
+                        <!--placeholder="选择日期">-->
+                      <!--</el-date-picker>-->
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -249,8 +250,12 @@
             <div class="title">科室设置</div>
             <div class="body">
               <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
+
               <div v-for="(itemd, index) in formData.jsonStr.missInstitution.departmentMapDTO" style="margin-bottom: 5px;">
                 <el-row >
+                  <el-col :span="7" style="padding-right:40px;">
+                    <el-input  v-model="itemd.office"></el-input>
+                  </el-col>
                   <el-col :span="7" style="padding-right:40px;">
                     <el-select  v-model="itemd.departmentPid" @change="changePdepartment">
                       <el-option
@@ -380,37 +385,15 @@
             <div class="title">就诊需知</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="挂号时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.registrationTime"
-                        type="datetime"
-                        placeholder="选择日期时间">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="就诊时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.outpatientTime"
-                        type="datetime"
-                        placeholder="选择日期时间">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="急诊时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.emergencyTime"
-                        type="datetime"
-                        placeholder="选择日期时间">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
+                <el-form-item label="挂号时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.registrationTime" placeholder="挂号时间"></el-input>
+                </el-form-item>
+                <el-form-item label="就诊时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.outpatientTime" placeholder="就诊时间"></el-input>
+                </el-form-item>
+                <el-form-item label="急诊时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.emergencyTime" placeholder="急诊时间"></el-input>
+                </el-form-item>
               </el-form>
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>

@@ -2824,7 +2824,7 @@
             firstSuggestion: '',
             secondSuggestion: '',
             finalSuggestion: ''
-          },
+          }
         },
         leadteamInfoObj: {
           name: '',

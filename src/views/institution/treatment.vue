@@ -233,7 +233,7 @@
 
 
 <script>
-  import { getTaskList, getInstitutionList, doCreateDisBasics, toClaimTask } from '../../api/task'
+  import { getTaskList, doCreateDisBasics, toClaimTask } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
 
   import createPublicDialog from './dialog/createPublicDialog'
