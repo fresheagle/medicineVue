@@ -124,12 +124,13 @@
       <el-form :inline="true">
         <el-form-item>
           <el-button type="primary" @click="doCreate()">创建</el-button>
-          <el-button type="primary" @click="doCreate()">上线/下线</el-button>
-          <el-button type="primary" @click="toShowBatchDelete()">删除</el-button>
-          <el-button type="primary" @click="toShowExamine()">批量审核</el-button>
-          <el-button type="primary" @click="toShowSettlement()">结算</el-button>
-          <el-button type="primary" @click="toShowResetStatus()">重置进度</el-button>
-          <el-button type="primary" @click="toShowAssign()">指派新作者</el-button>
+          <el-button type="primary" @click="doOnline()" :disabled="!(multipleSelection.length > 0)">上线</el-button>
+          <el-button type="primary" @click="doOffline()" :disabled="!(multipleSelection.length > 0)">下线</el-button>
+          <el-button type="primary" @click="toShowBatchDelete()" :disabled="!(multipleSelection.length > 0)">删除</el-button>
+          <el-button type="primary" @click="toShowExamine()" :disabled="!(multipleSelection.length > 0)">批量审核</el-button>
+          <el-button type="primary" @click="toShowSettlement()" :disabled="!(multipleSelection.length > 0)">结算</el-button>
+          <el-button type="primary" @click="toShowResetStatus()" :disabled="!(multipleSelection.length > 0)">重置进度</el-button>
+          <el-button type="primary" @click="toShowAssign()" :disabled="!(multipleSelection.length > 0)">指派新作者</el-button>
           <el-button type="text" @click="toTaskPool('drafts')">草稿箱</el-button>
           <el-button type="text" @click="toTaskPool('toFirAudited')">初审池</el-button>
           <el-button type="text" @click="toTaskPool('toSecAudited')">二审池</el-button>
@@ -224,6 +225,8 @@
     <delete-dialog :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
                    @refreshList="fetchData"></delete-dialog>
     <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection"></examine-dialog>
+    <online-dialog :visible.sync="isShowOnlineVisible" :cur-select-data="multipleSelection"></online-dialog>
+    <offline-dialog :visible.sync="isShowOfflineVisible" :cur-select-data="multipleSelection"></offline-dialog>
     <settlement-dialog :visible.sync="isShowSettlementVisible"></settlement-dialog>
     <reset-status-dialog :visible.sync="isShowResetStatusVisible"></reset-status-dialog>
     <assign-dialog :visible.sync="isShowAssignVisible"></assign-dialog>
@@ -242,6 +245,8 @@
   import settlementDialog from '../dialog/settlementDialog'
   import resetStatusDialog from '../dialog/resetStatusDialog'
   import assignDialog from '../dialog/assignDialog'
+  import onlineDialog from '../dialog/onlineDialog'
+  import offlineDialog from '../dialog/offlineDialog'
 
   import i18n from '../../i18n/local'
 
@@ -253,7 +258,9 @@
       examineDialog,
       settlementDialog,
       resetStatusDialog,
-      assignDialog
+      assignDialog,
+      onlineDialog,
+      offlineDialog
     },
     data() {
       return {
@@ -267,6 +274,8 @@
         isShowResetStatusVisible: false,
         isShowAssignVisible: false,
         isShowEditVisible: false,
+        isShowOfflineVisible: false,
+        isShowOnlineVisible: false,
         isShowCompare: false,
         isShowSubmit: false,
         deleteVisible: false,
@@ -360,20 +369,9 @@
       },
       doCreate() {
         const { href } = this.$router.resolve({
-          path: '/institution/create'
+          path: '/disease/chinese-create'
         })
         window.open(href, '_blank')
-
-        // this.curTaskType = 'create'
-        // this.curRowData = Object.assign({}, this.formData)
-        // this.isShowCreateVisible = true
-        // const params = {
-        //   currentPage: 1,
-        //   pageSize: 1000
-        // }
-        // this.$store.dispatch('getDepartment', params).then(() => {
-        // }).catch(() => {
-        // })
       },
       // 任务认领
       doReceive() {
@@ -392,6 +390,14 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val
+      },
+      // 上线
+      doOnline() {
+        this.isShowOnlineVisible = true
+      },
+      //  下线
+      doOffline() {
+        this.isShowOfflineVisible = true
       },
       // 批量删除
       toShowBatchDelete() {
