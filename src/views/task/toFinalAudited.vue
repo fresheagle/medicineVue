@@ -86,7 +86,6 @@
   import createWesternDialog from '../disease/dialog/createWesternDialog'
   import createCombinationDialog from '../disease/dialog/createCombinationDialog'
   import createPublicDialog from '../institution/dialog/createPublicDialog'
-  import createSymptomDialog from '../symptom/dialog/createSymptomDialog'
   import createEnterpriseDialog from '../enterprise/dialog/createEnterpriseDialog'
   import createDrugsChineseDialog from '../drugs/dialog/createChineseDialog'
 
@@ -100,7 +99,6 @@
       createWesternDialog,
       createCombinationDialog,
       createPublicDialog,
-      createSymptomDialog,
       createEnterpriseDialog,
       createDrugsChineseDialog,
       deleteDialog,

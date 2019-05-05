@@ -41,11 +41,10 @@ export const constantRouterMap = [
     component: Layout,
     name: '疾病',
     children: [
-      { path: 'basics', name: '基础疾病', component: () => import('../views/disease/basics') },
       { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
       { path: 'chinese-create', name: '中医疾病', component: () => import('../views/disease/chinese-create') },
       { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
-      { path: 'chinese-western', name: '中西医疾病', component: () => import('../views/disease/chinese-western') }
+      { path: 'western-create', name: '西医疾病', component: () => import('../views/disease/western-create') }
     ]
   },
   {
@@ -77,7 +76,17 @@ export const constantRouterMap = [
     component: Layout,
     name: '医生信息',
     children: [
-      { path: 'cooperation', name: '医生信息', component: () => import('../views/modernDoctor/cooperation') }
+      { path: 'cooperation', name: '医生信息', component: () => import('../views/modernDoctor/cooperation') },
+      { path: 'cooperation-create', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-create') }
+    ]
+  },
+  {
+    path: '/article',
+    component: Layout,
+    name: '文章',
+    children: [
+      { path: 'list', name: '文章', component: () => import('../views/article/list') },
+      { path: 'article-create', name: '文章', component: () => import('../views/article/article-create') }
     ]
   },
   {
@@ -85,23 +94,29 @@ export const constantRouterMap = [
     component: Layout,
     name: '药品',
     children: [
-      { path: 'chinese', name: '中成药', component: () => import('../views/drugs/chinese') }
+      { path: 'chinese', name: '中成药', component: () => import('../views/drugs/chinese') },
+      { path: 'chinese-create', name: '中成药', component: () => import('../views/drugs/chinese-create') },
+      { path: 'western', name: '西医制剂', component: () => import('../views/drugs/western') },
+      { path: 'western-create', name: '西医制剂', component: () => import('../views/drugs/western-create') }
     ]
   },
-  {
-    path: '/enterprise',
-    component: Layout,
-    name: '药品企业',
-    children: [
-      { path: 'list', name: '药品企业', component: () => import('../views/enterprise/list') }
-    ]
-  },
+  // {
+  //   path: '/enterprise',
+  //   component: Layout,
+  //   name: '药品企业',
+  //   children: [
+  //     { path: 'list', name: '药品企业', component: () => import('../views/enterprise/list') }
+  //   ]
+  // },
   {
     path: '/symptom',
     component: Layout,
     name: '症状',
     children: [
-      { path: 'list', name: '症状', component: () => import('../views/symptom/list') }
+      { path: 'chinese', name: '中医症状', component: () => import('../views/symptom/chinese') },
+      { path: 'chinese-create', name: '中医症状', component: () => import('../views/symptom/chinese-create') },
+      { path: 'western', name: '西医症状', component: () => import('../views/symptom/western') },
+      { path: 'western-create', name: '西医症状', component: () => import('../views/symptom/western-create') }
     ]
   },
   {

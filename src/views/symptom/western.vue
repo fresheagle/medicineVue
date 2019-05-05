@@ -11,7 +11,7 @@
     },
     data() {
       return {
-        curTaskMenuType: 'missWsetDisease'
+        curTaskMenuType: 'missWesternSymptom'
       }
     },
     created() {

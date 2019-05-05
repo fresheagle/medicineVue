@@ -250,14 +250,13 @@
             <div class="title">科室设置</div>
             <div class="body">
               <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
-
               <div v-for="(itemd, index) in formData.jsonStr.missInstitution.departmentMapDTO" style="margin-bottom: 5px;">
                 <el-row >
                   <el-col :span="7" style="padding-right:40px;">
                     <el-input  v-model="itemd.office"></el-input>
                   </el-col>
                   <el-col :span="7" style="padding-right:40px;">
-                    <el-select  v-model="itemd.departmentPid" @change="changePdepartment">
+                    <el-select  v-model="itemd.parentDepartmentId" @change="changePdepartment">
                       <el-option
                         v-for="item in pdepartmentList"
                         :key="item.id"
@@ -267,7 +266,7 @@
                     </el-select>
                   </el-col>
                   <el-col :span="7">
-                    <el-select  v-model="itemd.departmentCode">
+                    <el-select  v-model="itemd.departmentId">
                       <el-option
                         v-for="item in departmentList"
                         :key="item.id"
@@ -792,6 +791,7 @@
         })
       },
       changePdepartment(val) {
+        debugger
         const params = {
           currentPage: 1,
           pageSize: 9999,
@@ -890,8 +890,9 @@
        * */
       doAdddepartment() {
         const param = {
-          departmentPid: '',
-          departmentCode: '',
+          office: '',
+          parentDepartmentId: '',
+          departmentId: '',
           departmentName: '',
           departmentLevel: ''
         }

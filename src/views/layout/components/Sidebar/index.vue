@@ -58,24 +58,30 @@ export default {
       },
       { path: '/disease', name: '疾病',
         children: [
-          { path: 'basics', name: '基础疾病' },
           { path: 'chinese', name: '中医疾病' },
-          { path: 'western', name: '西医疾病' },
-          { path: 'chinese-western', name: '中西医疾病' }
+          { path: 'western', name: '西医疾病' }
         ]
       },
       { path: '/drugs', name: '药品',
-        children: [{ path: 'chinese', name: '药品' }
+        children: [
+          { path: 'chinese', name: '中成药' },
+          { path: 'western', name: '西医制剂' }
         ]
       },
       { path: '/symptom', name: '症状',
-        children: [{ path: 'list', name: '症状' }
+        children: [
+          { path: 'chinese', name: '中医症状' },
+          { path: 'western', name: '西医症状' }
         ]
       },
-      { path: '/enterprise', name: '医药企业',
-        children: [{ path: 'list', name: '药品企业信息' }
+      { path: '/article', name: '文章',
+        children: [{ path: 'list', name: '文章' }
         ]
       },
+      // { path: '/enterprise', name: '医药企业',
+      //   children: [{ path: 'list', name: '药品企业信息' }
+      //   ]
+      // },
       { path: '/trash', name: '回收站',
         children: [{ path: 'prescription', name: '回收数据查询' },
           { path: 'verification', name: '数据删除任务记录查询' },
@@ -83,7 +89,8 @@ export default {
         ]
       },
       { path: '/member', name: '配置管理',
-        children: [{ path: 'user', name: '用户管理' },
+        children: [
+          { path: 'user', name: '用户管理' },
           { path: 'role', name: '角色管理' }
         ]
       }

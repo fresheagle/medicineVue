@@ -243,4 +243,27 @@ export function toClaimTask(data) {
     data
   })
 }
-
+// 结算
+export function getAccounts(data) {
+  return request({
+    url: '/api/mission/batch/acounts',
+    method: 'put',
+    data
+  })
+}
+// 重置进度
+export function resetBatch(data) {
+  return request({
+    url: '/api/mission/batch/reset',
+    method: 'put',
+    data
+  })
+}
+// 指派新作者
+export function createuser(data) {
+  return request({
+    url: '/api/mission/batch/new/createuser ',
+    method: 'put',
+    data
+  })
+}

@@ -123,7 +123,18 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
-          <el-button type="primary" @click="doReceive()">领取任务</el-button><!--该按钮放置到任务页面-->
+          <el-button type="primary" @click="doCreate()">创建</el-button>
+          <el-button type="primary" @click="doOnline()" :disabled="!(multipleSelection.length > 0)">上线</el-button>
+          <el-button type="primary" @click="doOffline()" :disabled="!(multipleSelection.length > 0)">下线</el-button>
+          <el-button type="primary" @click="toShowBatchDelete()" :disabled="!(multipleSelection.length > 0)">删除</el-button>
+          <el-button type="primary" @click="toShowExamine()" :disabled="!(multipleSelection.length > 0)">批量审核</el-button>
+          <el-button type="primary" @click="toShowSettlement()" :disabled="!(multipleSelection.length > 0)">结算</el-button>
+          <el-button type="primary" @click="toShowResetStatus()" :disabled="!(multipleSelection.length > 0)">重置进度</el-button>
+          <el-button type="primary" @click="toShowAssign()" :disabled="!(multipleSelection.length > 0)">指派新作者</el-button>
+          <el-button type="text" @click="toTaskPool('drafts')">草稿箱</el-button>
+          <el-button type="text" @click="toTaskPool('toFirAudited')">初审池</el-button>
+          <el-button type="text" @click="toTaskPool('toSecAudited')">二审池</el-button>
+          <el-button type="text" @click="toTaskPool('toFinalAudited')">终审池</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -138,6 +149,9 @@
       <el-table-column prop="taskTitle" label="标题" :show-overflow-tooltip="true">
       </el-table-column>
       <el-table-column prop="taskStatus" label="最新进度" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.taskStatus | statusFilter}}
+        </template>
       </el-table-column>
       <el-table-column label="作者" :show-overflow-tooltip="true">
         <template slot-scope="scope">
@@ -190,9 +204,19 @@
           {{fmtDate(scope.row.taskFinalTrialTime)}}
         </template>
       </el-table-column>
-
-      <el-table-column prop="operation" label="操作">
+      <el-table-column prop="taskFinalTrialPint" label="更新日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
+          {{fmtDate(scope.row.updateTime)}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="detailCount" label="版本" :show-overflow-tooltip="true">
+      </el-table-column>
+      <el-table-column prop="accounts" label="其他状态" :show-overflow-tooltip="true">
+      </el-table-column>
+
+      <el-table-column prop="operation" label="操作" width="150px">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleExamine(scope.row)">审核</el-button>
           <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button type="text" @click="deleteUpdate(scope.row)">删除</el-button>
         </template>
@@ -208,14 +232,14 @@
                    style="text-align:center;">
     </el-pagination>
 
-    <create-public-dialog :visible.sync="isShowCreateVisible" :row-data="curRowData"
-                          :cur-task-type="curTaskType" @refreshList="fetchData"></create-public-dialog>
     <delete-dialog :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
                    @refreshList="fetchData"></delete-dialog>
-    <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection"></examine-dialog>
-    <settlement-dialog :visible.sync="isShowSettlementVisible"></settlement-dialog>
-    <reset-status-dialog :visible.sync="isShowResetStatusVisible"></reset-status-dialog>
-    <assign-dialog :visible.sync="isShowAssignVisible"></assign-dialog>
+    <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></examine-dialog>
+    <online-dialog :visible.sync="isShowOnlineVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></online-dialog>
+    <offline-dialog :visible.sync="isShowOfflineVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></offline-dialog>
+    <settlement-dialog :visible.sync="isShowSettlementVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></settlement-dialog>
+    <reset-status-dialog :visible.sync="isShowResetStatusVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></reset-status-dialog>
+    <assign-dialog :visible.sync="isShowAssignVisible" :cur-select-data="multipleSelection"></assign-dialog>
 
   </div>
 </template>
@@ -225,24 +249,30 @@
   import { getTaskList, doCreateDisBasics, toClaimTask } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
 
-  import createPublicDialog from './dialog/createPublicDialog'
+  // import createPublicDialog from './dialog/createPublicDialog'
   import deleteDialog from '../dialog/deleteDialog'
   import examineDialog from '../dialog/examineDialog'
   import settlementDialog from '../dialog/settlementDialog'
   import resetStatusDialog from '../dialog/resetStatusDialog'
   import assignDialog from '../dialog/assignDialog'
+  import onlineDialog from '../dialog/onlineDialog'
+  import offlineDialog from '../dialog/offlineDialog'
 
   import i18n from '../../i18n/local'
 
   const viewName = 'i18nView'
   export default {
     components: {
-      createPublicDialog,
       deleteDialog,
       examineDialog,
       settlementDialog,
       resetStatusDialog,
-      assignDialog
+      assignDialog,
+      onlineDialog,
+      offlineDialog
+    },
+    props: {
+      curTaskMenuType: ''
     },
     data() {
       return {
@@ -256,6 +286,8 @@
         isShowResetStatusVisible: false,
         isShowAssignVisible: false,
         isShowEditVisible: false,
+        isShowOfflineVisible: false,
+        isShowOnlineVisible: false,
         isShowCompare: false,
         isShowSubmit: false,
         deleteVisible: false,
@@ -295,25 +327,33 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
-      this.searchBody.taskStatus[0] = this.$route.params.taskProgress
-      this.fetchData()
+      this.fetchData(this.curTaskMenuType)
     },
     filters: {
       statusFilter(status) {
         const statusMap = {
-          1: 'success',
-          2: 'danger'
+          'drafts': '草稿',
+          'toFirAudited': '待初审',
+          'firAuditeding': '初审中',
+          'firAuditedFailed': '初审未通过',
+          'toSecAudited': '待二审',
+          'secAuditeding': '二审中',
+          'secAuditedFailed': '二审未通过',
+          'toFinalAudited': '待终审',
+          'finalAuditeding': '终审中',
+          'finalAuditedFailed': '终审未通过',
+          'finished': '终审通过'
         }
         return statusMap[status]
       }
     },
     methods: {
-      fetchData() {
+      fetchData(cruTaskMenuType) {
         this.listLoading = false
         const params = this.searchBody
         params.currentPage = 1
         params.pageSize = 9999
-        params.taskMenuType = 'missInstitution'
+        params.taskMenuType = cruTaskMenuType
         // this.listQuery
         getTaskList(params).then(response => {
           const limit = 10
@@ -349,21 +389,40 @@
         this.fetchData()
       },
       doCreate() {
+        var curPath = ''
+        switch (this.curTaskMenuType) {
+          case 'missInstitution':
+            curPath = '/institution/create'
+            break
+          case 'missDoctor':
+            curPath = '/modernDoctor/cooperation-create'
+            break
+          case 'missChineseDisease':
+            curPath = '/disease/chinese-create'
+            break
+          case 'missWsetDisease':
+            curPath = '/disease/western-create'
+            break
+          case 'missChineseMedical':
+            curPath = '/drugs/chinese-create'
+            break
+          case 'missWesternMedical':
+            curPath = '/drugs/western-create'
+            break
+          case 'missChineseSymptom':
+            curPath = '/symptom/chinese-create'
+            break
+          case 'missWesternSymptom':
+            curPath = '/symptom/western-create'
+            break
+          case 'missArticle':
+            curPath = '/article/article-create'
+            break
+        }
         const { href } = this.$router.resolve({
-          path: '/institution/create'
+          path: curPath
         })
         window.open(href, '_blank')
-
-        // this.curTaskType = 'create'
-        // this.curRowData = Object.assign({}, this.formData)
-        // this.isShowCreateVisible = true
-        // const params = {
-        //   currentPage: 1,
-        //   pageSize: 1000
-        // }
-        // this.$store.dispatch('getDepartment', params).then(() => {
-        // }).catch(() => {
-        // })
       },
       // 任务认领
       doReceive() {
@@ -383,6 +442,14 @@
       handleSelectionChange(val) {
         this.multipleSelection = val
       },
+      // 上线
+      doOnline() {
+        this.isShowOnlineVisible = true
+      },
+      //  下线
+      doOffline() {
+        this.isShowOfflineVisible = true
+      },
       // 批量删除
       toShowBatchDelete() {
       },
@@ -399,9 +466,9 @@
       toShowAssign() {
         this.isShowAssignVisible = true
       },
-      toDraftPool() {
+      toTaskPool(taskStatus) {
         const { href } = this.$router.resolve({
-          path: '/institution/treatment/pool/drafts',
+          path: '/institution/treatment/pool/' + taskStatus
         })
         window.open(href, '_blank')
       },
@@ -426,6 +493,14 @@
         this.total = this.filterTableDataEnd.length
         // 渲染表格,根据值
         this.currentChangePage(this.filterTableDataEnd)
+      },
+      handleExamine(row) {
+        const curTrearment = Object.assign({}, row)
+        localStorage.setItem('curTrearment', JSON.stringify(curTrearment))
+        const { href } = this.$router.resolve({
+          path: '/institution/examine'
+        })
+        window.open(href, '_blank')
       },
       handleUpdate(row) {
         const curTrearment = Object.assign({}, row)

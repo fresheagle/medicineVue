@@ -2,7 +2,7 @@
   <!-- 删除弹框 -->
   <el-dialog
     id="examineId"
-    title="上线"
+    title="下线"
     v-bind="$attrs"
     v-on="$listeners"
     :append-to-body="true"
@@ -43,11 +43,10 @@
       },
       submit() {
         this.formData.taskType = this.curTaskType
-        this.formData.taskStatus = 'online'
+        this.formData.taskStatus = 'offline'
         const param = {
           tasks: this.curData,
-          trailStatus: this.formData.examineResult,
-          approveMessage: this.formData.approveMessage
+          trailStatus: 'offline'
         }
         doApproval(param).then(response => {
           this.$emit('refreshList')

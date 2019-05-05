@@ -46,9 +46,9 @@
         this.formData.taskStatus = 'online'
         const param = {
           tasks: this.curData,
-          trailStatus: this.formData.examineResult,
-          approveMessage: this.formData.approveMessage
+          trailStatus: 'online'
         }
+        debugger
         doApproval(param).then(response => {
           this.$emit('refreshList')
           this.$emit('update:visible', false)

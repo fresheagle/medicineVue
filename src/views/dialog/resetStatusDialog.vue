@@ -34,17 +34,18 @@
       </div>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="submitDelete">确 定</el-button>
-      <el-button @click="cancelDelete">取 消</el-button>
+      <el-button type="primary" @click="submit">确 定</el-button>
+      <el-button @click="cancel">取 消</el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
-  import { doCreateDisBasics } from '../../api/task'
+  import { resetBatch } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   export default {
     props: {
+      curSelectData: {},
       rowData: {},
       curTaskType: ''
     },
@@ -55,31 +56,34 @@
         formData: {
           resetStatusResult: 'drafts',
           trialUser: []
-        }
+        },
+        curData: []
       }
     },
     methods: {
-      cancelDelete() {
+      cancel() {
         this.$emit('update:visible', false)
       },
-      submitDelete() {
-        this.formData.taskType = this.curTaskType
-        this.formData.taskStatus = 'drafts'
-        doCreateDisBasics(this.formData).then(response => {
+      submit() {
+        const params = {
+          tasks: this.curData,
+          resetStatus: this.formData.resetStatusResult,
+          trialUser: this.formData.trialUser
+        }
+        resetBatch(params).then(response => {
           this.$emit('refreshList')
           this.$emit('update:visible', false)
-          this.$notify({
-            title: '成功',
-            message: '删除成功',
-            type: 'success',
-            duration: 2000
-          })
         })
       }
     },
     watch: {
-      rowData(newVal, oldVal) {
-        this.formData = Object.assign({}, newVal)
+      curSelectData(newVal, oldVal) {
+        const data = newVal
+        const result = []
+        data.forEach(function(item) {
+          result.push(item.taskId)
+        })
+        this.curData = result
       }
     }
   }

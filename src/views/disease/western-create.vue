@@ -8,11 +8,8 @@
             <div class="body">
               <el-form :model="formData" label-width="80px">
                 <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name" placeholder="请输入任务标题"></el-input>
+                  <el-input v-model="formData.jsonStr.missWsetDisease.name" placeholder="请输入任务标题"></el-input>
                 </el-form-item>
-                <!--<el-form-item label="官方网站">-->
-                <!--<el-input v-model="formData.jsonStr.missChineseDisease.website" placeholder="请输入官方网站"></el-input>-->
-                <!--</el-form-item>-->
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -40,7 +37,7 @@
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
                 <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name"></el-input>
+                  <el-input v-model="formData.jsonStr.missWsetDisease.name"></el-input>
                 </el-form-item>
                 <el-form-item label="概述图">
                   <el-upload
@@ -49,7 +46,7 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missChineseDisease.picturepath" :src="formData.jsonStr.missChineseDisease.picturepath" class="avatar">
+                    <img v-if="formData.jsonStr.missWsetDisease.picturepath" :src="formData.jsonStr.missWsetDisease.picturepath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
@@ -59,7 +56,7 @@
                     type="textarea"
                     :rows="4"
                     placeholder="请输入内容"
-                    v-model="formData.jsonStr.missChineseDisease.introduction">
+                    v-model="formData.jsonStr.missWsetDisease.introduction">
                   </el-input>
                 </el-form-item>
               </el-form>
@@ -72,48 +69,48 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="中文名称">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.chineseName" placeholder="中文名称"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.chineseName" placeholder="中文名称"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="英文名称">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.englishName" placeholder="英文名称"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.englishName" placeholder="英文名称"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="别名">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.otherName" placeholder="别名"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.otherName" placeholder="别名"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="相关西医疾病">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.relatedDiseases" placeholder="英文名称"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.relatedDiseases" placeholder="英文名称"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="主要病因">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.mainCauses" placeholder="主要病因"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.mainCauses" placeholder="主要病因"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="常见症状">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.commonSymptom" placeholder="常见症状"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.commonSymptom" placeholder="常见症状"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="多发群体">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.multiplePopulation" placeholder="多发群体"></el-input>
+                      <el-input v-model="formData.jsonStr.missWsetDisease.multiplePopulation" placeholder="多发群体"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="传染性" >
-                      <el-select v-model="formData.jsonStr.missChineseDisease.infectivity" >
+                      <el-select v-model="formData.jsonStr.missWsetDisease.infectivity" >
                         <el-option
                           v-for="item in enumerate.infectivityList"
                           :key="item.id"
@@ -127,7 +124,7 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="疾病分类">
-                      <el-select v-model="formData.jsonStr.missChineseDisease.diseaseType" disabled>
+                      <el-select v-model="formData.jsonStr.missWsetDisease.diseaseType" disabled >
                         <el-option
                           v-for="item in enumerate.diseaseTypeList"
                           :key="item.id"
@@ -139,7 +136,7 @@
                   </el-col>
                   <!--<el-col :span="12">-->
                   <!--<el-form-item label="发病部位">-->
-                  <!--<el-select v-model="formData.jsonStr.missChineseDisease.locationDisease" >-->
+                  <!--<el-select v-model="formData.jsonStr.missWsetDisease.locationDisease" >-->
                   <!--<el-option-->
                   <!--v-for="item in dislocationList"-->
                   <!--:key="item.jsonStr.key.id"-->
@@ -157,7 +154,7 @@
             <div class="title">发病部位</div>
             <div class="body">
               <div  style="padding-bottom: 10px;"><el-button @click="doAddDislocation" type="primary">新增发病部位</el-button></div>
-              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.dislocationList" style="margin-bottom: 5px;">
+              <div v-for="(itemd, index) in formData.jsonStr.missWsetDisease.dislocationList" style="margin-bottom: 5px;">
                 <el-row >
                   <el-col :span="7" style="padding-right:40px;">
                     <el-select  v-model="itemd.parentDislocationId" @change="changeDisLocation">
@@ -190,7 +187,7 @@
             <div class="title">就诊科室</div>
             <div class="body">
               <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
-              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.departmentMapDTO" style="margin-bottom: 5px;">
+              <div v-for="(itemd, index) in formData.jsonStr.missWsetDisease.departmentMapDTO" style="margin-bottom: 5px;">
                 <el-row >
                   <el-col :span="7" style="padding-right:40px;">
                     <el-select  v-model="itemd.parentDepartmentId" @change="changePdepartment">
@@ -220,123 +217,115 @@
             </div>
           </div>
           <div class="card">
-            <div class="title">名词解释</div>
+            <div class="title">流行病学</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.nounInterpretation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.epidemiology" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">历史沿革</div>
+            <div class="title">相关疾病</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.history" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.tRelatedDisease" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">与西医病名关系</div>
+            <div class="title">病因与发病机制</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.relationshipWestern" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.etiologyPathogenesis" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病因</div>
+            <div class="title">病理</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.pathogeny" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.pathology" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病机</div>
+            <div class="title">临床分型与分类</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.pathogenesis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.clinicalTypesClass" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">临床表现</div>
+            <div class="title">症状体征</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.clinicalManifestation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.symptom" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">诊断依据</div>
+            <div class="title">实验室检查</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.diagnosisBasis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.laboratoryExamination" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病症鉴别</div>
+            <div class="title">其他辅助检查</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.diseaseIdentification" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.text_otherCheck" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">相关检查</div>
+            <div class="title">并发症</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.relatedExaminations" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.preventionTreatment" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">辨证要点</div>
+            <div class="title">诊断要点</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.examinationPoints" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.diagnosticPoints" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">治疗原则</div>
+            <div class="title">鉴别诊断</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.treatmentPrinciples" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.differentialDiagnosis" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
 
           <div class="card">
-            <div class="title">外治法</div>
+            <div class="title">治疗</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.externalTherapy" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.treatmentPrognosis" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">其他疗法</div>
+            <div class="title">护理</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.otherTherapies" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.nursing" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">转归预后</div>
+            <div class="title">预防措施</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.textPrognosis" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">预防调护</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.preventiveNursing" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.preventionMeasures" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -344,47 +333,15 @@
             <div class="title">膳食调理</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.textDietaryConditioning" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.dietaryConditioning" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">临证备要</div>
+            <div class="title">注意事项</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.clinicalPreparation" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">文献摘要</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.literatureAbstract" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">现代研究</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.modernResearch" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">医案选读</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.medicalRead" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">治疗费用参考</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.treatmentCost" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.attentionMatter" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -392,7 +349,7 @@
             <div class="title">急诊（120）指征</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.consultation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.consultation" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -400,7 +357,23 @@
             <div class="title">门诊指征</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.section" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.section" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">现代研究</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.modernResearch" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">治疗费用参考</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.treatmentCost" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -495,8 +468,8 @@
             <div class="body" style="height: 800px;overflow-y: auto;">
               <div v-for="item in keyArr" style="margin-bottom: 15px;">
                 <span style="margin-right: 20px;">{{item.value}} </span>
-                <span style="color: red;" v-if="formData.jsonStr.missChineseDisease[item.key] === '' ||formData.jsonStr.missChineseDisease[item.key].length ===0">（空） </span>
-                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseDisease[item.key])}}</span>
+                <span style="color: red;" v-if="formData.jsonStr.missWsetDisease[item.key] === '' ||formData.jsonStr.missWsetDisease[item.key].length ===0">（空） </span>
+                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missWsetDisease[item.key])}}</span>
               </div>
             </div>
           </div>
@@ -597,14 +570,14 @@
         formData: {
           'taskStatus': 'drafts',
           'taskType': 'create',
-          'taskMenuType': 'missChineseDisease',
+          'taskMenuType': 'missWsetDisease',
           'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
           'taskSecondTrialPoint': '',
           'jsonStr': {
-            'missChineseDisease': { // missChineseDisease
+            'missWsetDisease': { // missWsetDisease
               name: '',
               picturepath: '',
               introduction: '',
@@ -612,36 +585,33 @@
               englishName: '',
               otherName: '',
               relatedDiseases: '',
-              diseaseType: '1',
+              diseaseType: '2',
               locationPid: '',
               locationDisease: '',
               mainCauses: '',
               commonSymptom: '',
               multiplePopulation: '',
               infectivity: 1,
-              nounInterpretation: '',
-              history: '',
-              relationshipWestern: '',
-              pathogeny: '',
-              pathogenesis: '',
-              clinicalManifestation: '',
-              diagnosisBasis: '',
-              diseaseIdentification: '',
-              relatedExaminations: '',
-              examinationPoints: '',
-              treatmentPrinciples: '',
-              externalTherapy: '',
-              otherTherapies: '',
-              textPrognosis: '',
-              preventiveNursing: '',
-              textDietaryConditioning: '',
-              clinicalPreparation: '',
-              literatureAbstract: '',
-              modernResearch: '',
-              medicalRead: '',
-              treatmentCost: '',
+              epidemiology: '',
+              tRelatedDisease: '',
+              etiologyPathogenesis: '',
+              pathology: '',
+              clinicalTypesClass: '',
+              symptom: '',
+              laboratoryExamination: '',
+              text_otherCheck: '',
+              preventionTreatment: '',
+              diagnosticPoints: '',
+              differentialDiagnosis: '',
+              treatmentPrognosis: '',
+              nursing: '',
+              preventionMeasures: '',
+              dietaryConditioning: '',
+              attentionMatter: '',
               consultation: '',
               section: '',
+              modernResearch: '',
+              treatmentCost: '',
               departmentMapDTO: [],
               dislocationList: []
             },
@@ -652,8 +622,8 @@
             approvsls: []// 各模块评审结果
           }
         },
-        dislocationList: [], // 发病部位
         dislocationPList: [], // 发病部位
+        dislocationList: [], // 发病部位
         refrencesObj: {
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
@@ -703,8 +673,8 @@
       },
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missChineseDisease.name,
-          website: this.formData.jsonStr.missChineseDisease.website
+          name: this.formData.jsonStr.missWsetDisease.name,
+          website: this.formData.jsonStr.missWsetDisease.website
         }
         doCheck(params).then(response => {
           if (response && response.meta.success) {
@@ -719,6 +689,7 @@
         })
       },
       changePdepartment(val) {
+        debugger
         const params = {
           currentPage: 1,
           pageSize: 9999,
@@ -726,16 +697,6 @@
         }
         getDepartmentList(params).then(response => {
           this.departmentList = response.data.params
-        })
-      },
-      changeDisLocation(val) {
-        const params = {
-          currentPage: 1,
-          pageSize: 1000,
-          parentDislocationId: val
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params
         })
       },
       handleChange(file, fileList) {
@@ -746,7 +707,7 @@
       * */
       upSummarySuccess(res, file) {
         // this.imageUrl = URL.createObjectURL(file.raw)
-        this.formData.jsonStr.missChineseDisease.picturepath = URL.createObjectURL(file.raw)
+        this.formData.jsonStr.missWsetDisease.picturepath = URL.createObjectURL(file.raw)
       },
       beSummaryUpload(file) {
         const isJPG = file.type === 'image/jpeg'
@@ -770,10 +731,10 @@
           departmentName: '',
           departmentLevel: ''
         }
-        this.formData.jsonStr.missChineseDisease.departmentMapDTO.push(param)
+        this.formData.jsonStr.missWsetDisease.departmentMapDTO.push(param)
       },
       doDeleteDepartment(index) {
-        this.formData.jsonStr.missChineseDisease.departmentMapDTO.splice(index, 1)
+        this.formData.jsonStr.missWsetDisease.departmentMapDTO.splice(index, 1)
       },
       /**
        * 发病部位设置
@@ -784,10 +745,20 @@
           dislocationName: '',
           parentDislocationId: ''
         }
-        this.formData.jsonStr.missChineseDisease.dislocationList.push(param)
+        this.formData.jsonStr.missWsetDisease.dislocationList.push(param)
       },
       doDeleteDislocation(index) {
-        this.formData.jsonStr.missChineseDisease.dislocationList.splice(index, 1)
+        this.formData.jsonStr.missWsetDisease.dislocationList.splice(index, 1)
+      },
+      changeDisLocation(val) {
+        const params = {
+          currentPage: 1,
+          pageSize: 1000,
+          parentDislocationId: val
+        }
+        getDislocationList(params).then(response => {
+          this.dislocationList = response.data.params
+        })
       },
       /**
        * 参考资料
@@ -837,7 +808,7 @@
         this.formData.operateCode = key
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
-            this.$router.push('/disease/chinese')
+            this.$router.push('/disease/western')
           }
         })
       },
@@ -871,7 +842,7 @@
         }
       },
       leadteamInfoLength() {
-        if (this.formData.jsonStr.missChineseDisease.leadteamInfo.length > 0) {
+        if (this.formData.jsonStr.missWsetDisease.leadteamInfo.length > 0) {
           return true
         } else {
           return false

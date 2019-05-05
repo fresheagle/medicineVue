@@ -7,12 +7,15 @@
             <div class="title">数据校验</div>
             <div class="body">
               <el-form :model="formData" label-width="80px">
-                <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name" placeholder="请输入任务标题"></el-input>
+                <el-form-item label="通用名称">
+                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="请输入医生姓名"></el-input>
                 </el-form-item>
-                <!--<el-form-item label="官方网站">-->
-                <!--<el-input v-model="formData.jsonStr.missChineseDisease.website" placeholder="请输入官方网站"></el-input>-->
-                <!--</el-form-item>-->
+                <el-form-item label="商品名称">
+                  <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
+                </el-form-item>
+                <el-form-item label="汉语拼音">
+                  <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="请输入医生出生日期"></el-input>
+                </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -39,8 +42,8 @@
             <div class="title">概述</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name"></el-input>
+                <el-form-item label="药品类型">
+                  <el-input v-model="formData.jsonStr.missMedical.medicalType"></el-input>
                 </el-form-item>
                 <el-form-item label="概述图">
                   <el-upload
@@ -49,7 +52,7 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missChineseDisease.picturepath" :src="formData.jsonStr.missChineseDisease.picturepath" class="avatar">
+                    <img v-if="formData.jsonStr.missMedical.picturePath" :src="formData.jsonStr.missMedical.picturePath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
@@ -59,7 +62,7 @@
                     type="textarea"
                     :rows="4"
                     placeholder="请输入内容"
-                    v-model="formData.jsonStr.missChineseDisease.introduction">
+                    v-model="formData.jsonStr.missMedical.introduction">
                   </el-input>
                 </el-form-item>
               </el-form>
@@ -68,57 +71,53 @@
           <div class="card">
             <div class="title">基本信息</div>
             <div class="body">
-              <el-form ref="formData" :model="formData" label-width="120px">
+              <el-form ref="formData" :model="formData" label-width="90px">
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="中文名称">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.chineseName" placeholder="中文名称"></el-input>
+                    <el-form-item label="药品类型">
+                      <el-input v-model="formData.jsonStr.missMedical.drugType" placeholder="药品类型"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="英文名称">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.englishName" placeholder="英文名称"></el-input>
+                    <el-form-item label="医保类型">
+                      <el-input v-model="formData.jsonStr.missMedical.healthType" placeholder="医保类型"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="别名">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.otherName" placeholder="别名"></el-input>
+                    <el-form-item label="处方类型">
+                      <el-radio v-model="formData.jsonStr.missMedical.recipeType" label="1">处方</el-radio>
+                      <el-radio v-model="formData.jsonStr.missMedical.recipeType" label="2">非处方</el-radio>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="相关西医疾病">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.relatedDiseases" placeholder="英文名称"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="主要病因">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.mainCauses" placeholder="主要病因"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="常见症状">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.commonSymptom" placeholder="常见症状"></el-input>
+                    <el-form-item label="参考价格">
+                      <el-input v-model="formData.jsonStr.missMedical.price" placeholder="参考价格"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="多发群体">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.multiplePopulation" placeholder="多发群体"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="传染性" >
-                      <el-select v-model="formData.jsonStr.missChineseDisease.infectivity" >
+                    <el-form-item label="中成药类型">
+                      <el-select v-model="formData.jsonStr.missMedical.chineseMedicalType" placeholder="请选择">
                         <el-option
-                          v-for="item in enumerate.infectivityList"
-                          :key="item.id"
+                          v-for="item in enumerate.chineseDrugsType"
+                          :key="item.value"
                           :label="item.value"
-                          :value="item.id">
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="中成药科室">
+                      <el-select v-model="formData.jsonStr.missMedical.chineseMedicalDepartment" placeholder="请选择">
+                        <el-option
+                          v-for="item in enumerate.chineseDrugsDepartment"
+                          :key="item.value"
+                          :label="item.value"
+                          :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -126,281 +125,282 @@
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="疾病分类">
-                      <el-select v-model="formData.jsonStr.missChineseDisease.diseaseType" disabled>
-                        <el-option
-                          v-for="item in enumerate.diseaseTypeList"
-                          :key="item.id"
-                          :label="item.value"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
+                    <el-form-item label="编辑医生">
+                      <el-input v-model="formData.jsonStr.missMedical.editDoctor" placeholder="编辑医生"></el-input>
                     </el-form-item>
                   </el-col>
-                  <!--<el-col :span="12">-->
-                  <!--<el-form-item label="发病部位">-->
-                  <!--<el-select v-model="formData.jsonStr.missChineseDisease.locationDisease" >-->
-                  <!--<el-option-->
-                  <!--v-for="item in dislocationList"-->
-                  <!--:key="item.jsonStr.key.id"-->
-                  <!--:label="item.jsonStr.key.dislocationName"-->
-                  <!--:value="item.jsonStr.key.id">-->
-                  <!--</el-option>-->
-                  <!--</el-select>-->
-                  <!--</el-form-item>-->
-                  <!--</el-col>-->
+                  <el-col :span="12">
+                    <el-form-item label="审核医生">
+                      <el-input v-model="formData.jsonStr.missMedical.auditDoctor" placeholder="审核医生"></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </el-form>
             </div>
           </div>
           <div class="card">
-            <div class="title">发病部位</div>
-            <div class="body">
-              <div  style="padding-bottom: 10px;"><el-button @click="doAddDislocation" type="primary">新增发病部位</el-button></div>
-              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.dislocationList" style="margin-bottom: 5px;">
-                <el-row >
-                  <el-col :span="7" style="padding-right:40px;">
-                    <el-select  v-model="itemd.parentDislocationId" @change="changeDisLocation">
-                      <el-option
-                        v-for="item in dislocationPList"
-                        :key="item.jsonStr.key.id"
-                        :label="item.jsonStr.key.dislocationName"
-                        :value="item.jsonStr.key.id">
-                      </el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="7">
-                    <el-select  v-model="itemd.dislocationId">
-                      <el-option
-                        v-for="item in dislocationList"
-                        :key="item.jsonStr.key.id"
-                        :label="item.jsonStr.key.dislocationName"
-                        :value="item.jsonStr.key.id">
-                      </el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="3">
-                    <el-button @click="doDeleteDislocation(index)">删除</el-button>
-                  </el-col>
-                </el-row>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">就诊科室</div>
-            <div class="body">
-              <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
-              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.departmentMapDTO" style="margin-bottom: 5px;">
-                <el-row >
-                  <el-col :span="7" style="padding-right:40px;">
-                    <el-select  v-model="itemd.parentDepartmentId" @change="changePdepartment">
-                      <el-option
-                        v-for="item in pdepartmentList"
-                        :key="item.id"
-                        :label="item.departmentName"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="7">
-                    <el-select  v-model="itemd.departmentId">
-                      <el-option
-                        v-for="item in departmentList"
-                        :key="item.id"
-                        :label="item.departmentName"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="3">
-                    <el-button @click="doDeleteDepartment(index)">删除</el-button>
-                  </el-col>
-                </el-row>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">名词解释</div>
+            <div class="title">主要成分</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.nounInterpretation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.component" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">历史沿革</div>
+            <div class="title">性状</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.history" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.property" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">与西医病名关系</div>
+            <div class="title">组成</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.relationshipWestern" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.constitute" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病因</div>
+            <div class="title">主要功效</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.pathogeny" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.mainMeffect" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病机</div>
+            <div class="title">适应病症</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.pathogenesis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.indication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">临床表现</div>
+            <div class="title">规格</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.clinicalManifestation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.medicFormat" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">诊断依据</div>
+            <div class="title">用法用量</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.diagnosisBasis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.dosage" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病症鉴别</div>
+            <div class="title">临床应用及指南</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.diseaseIdentification" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.clinicalApplication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">相关检查</div>
+            <div class="title">不良反应</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.relatedExaminations" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.adverseReaction" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">辨证要点</div>
+            <div class="title">禁忌</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.examinationPoints" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.taboo" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">治疗原则</div>
+            <div class="title">注意事项</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.treatmentPrinciples" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="title">外治法</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.externalTherapy" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.notice" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">其他疗法</div>
+            <div class="title">药物相互作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.otherTherapies" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.interactions" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">转归预后</div>
+            <div class="title">药性分析</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.textPrognosis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.analyze" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">预防调护</div>
+            <div class="title">药理作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.preventiveNursing" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacology" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">膳食调理</div>
+            <div class="title">毒理作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.textDietaryConditioning" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.toxicologicalEffects" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">临证备要</div>
+            <div class="title">贮藏</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.clinicalPreparation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.storageMethod" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">文献摘要</div>
+            <div class="title">有效期</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.literatureAbstract" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.ytime" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">现代研究</div>
+            <div class="title">执行标准</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.modernResearch" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.standard" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">医案选读</div>
+            <div class="title">执行文号</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.medicalRead" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.approvaNum" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">治疗费用参考</div>
+            <div class="title">联合用药</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.treatmentCost" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.combinedMedication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">急诊（120）指征</div>
+            <div class="title">医师建议</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.consultation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.physicianAdvice" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">门诊指征</div>
+            <div class="title">鉴别</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.section" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.identify" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">检查</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacyCheck" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">含量测定</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.contentPic" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">附注</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.notes" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <!--药品标识需要配图 -->
+          <div class="card">
+            <div class="title">药品标识</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.drugIdentifying" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">药品介绍</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.drugIntroduc" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">历史发展</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.history" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">获奖情况</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.awards" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">生产地址</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.address" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">生产企业</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.enterprise" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <!--产品信息需要配图 -->
+          <div class="card">
+            <div class="title">产品信息</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.productInfo" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">信息来源</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.messageFrom" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -412,7 +412,9 @@
               <el-tabs>
                 <el-tab-pane label="文本或网站">
                   <div class="body">
-                    <div  style="padding-bottom: 10px;"><el-button @click="doAddRefrences" type="primary">新增</el-button></div>
+                    <div  style="padding-bottom: 10px;">
+                      <el-button @click="doAddRefrences" type="primary">新增</el-button>
+                    </div>
                     <div v-for="(item, index) in formData.jsonStr.refrences.textcontent" style="margin-bottom: 5px;">
                       <el-row >
                         <el-col :span="8" style="padding-right:10px;">
@@ -493,11 +495,11 @@
           <div class="card">
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
-              <div v-for="item in keyArr" style="margin-bottom: 15px;">
-                <span style="margin-right: 20px;">{{item.value}} </span>
-                <span style="color: red;" v-if="formData.jsonStr.missChineseDisease[item.key] === '' ||formData.jsonStr.missChineseDisease[item.key].length ===0">（空） </span>
-                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseDisease[item.key])}}</span>
-              </div>
+              <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
+                <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
+                <!--<span style="color: red;" v-if="formData.jsonStr.missMedical[item.key] === '' ||formData.jsonStr.missMedical[item.key].length ===0">（空） </span>-->
+                <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missMedical[item.key])}}</span>-->
+              <!--</div>-->
             </div>
           </div>
         </el-col>
@@ -522,6 +524,7 @@
         </el-col>
       </el-row>
     </div>
+
     <!--参考资料弹框-->
     <el-dialog
       title="添加参考资料"
@@ -561,16 +564,17 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="doAddRefrencesImage">确 定</el-button>
-         <el-button @click="cancelRefrencesImage">取 消</el-button>
-      </span>
+					<el-button type="primary" @click="doAddRefrencesImage">确 定</el-button>
+					<el-button @click="cancelRefrencesImage">取 消</el-button>
+				</span>
     </el-dialog>
   </div>
 </template>
 
 
+
 <script>
-  import { doCheck, doCreateDisBasics, getDepartmentList, getDislocationList } from '../../api/task'
+  import { doCheck, doCreateDisBasics, getDepartmentList } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import i18n from '../../i18n/local'
   import 'quill/dist/quill.core.css'
@@ -597,53 +601,62 @@
         formData: {
           'taskStatus': 'drafts',
           'taskType': 'create',
-          'taskMenuType': 'missChineseDisease',
+          'taskMenuType': 'missMedical',
           'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
           'taskSecondTrialPoint': '',
           'jsonStr': {
-            'missChineseDisease': { // missChineseDisease
-              name: '',
-              picturepath: '',
+            'missMedical': {
+              id: '',
               introduction: '',
-              chineseName: '',
-              englishName: '',
-              otherName: '',
-              relatedDiseases: '',
-              diseaseType: '1',
-              locationPid: '',
-              locationDisease: '',
-              mainCauses: '',
-              commonSymptom: '',
-              multiplePopulation: '',
-              infectivity: 1,
-              nounInterpretation: '',
+              picturePath: '',
+              medicalType: '',
+              comName: '',
+              chinesePinyin: '',
+              drugType: '',
+              recipeType: '',
+              healthType: '',
+              price: '',
+              component: '',
+              property: '',
+              constitute: '',
+              mainMeffect: '',
+              indication: '',
+              clinicalApplication: '',
+              adverseReaction: '',
+              analyze: '',
+              medicFormat: '',
+              dosage: '',
+              adverseReactions: '',
+              taboo: '',
+              notice: '',
+              interactions: '',
+              pharmacology: '',
+              toxicologicalEffects: '',
+              storageMethod: '',
+              ytime: '',
+              standard: '',
+              approvalNum: '',
+              identify: '',
+              pharmacyCheck: '',
+              contentPic: '',
+              notes: '',
+              combinedMedication: '',
+              physicianAdvice: '',
+              drugIdentifying: '',
+              drugIntroduc: '',
               history: '',
-              relationshipWestern: '',
-              pathogeny: '',
-              pathogenesis: '',
-              clinicalManifestation: '',
-              diagnosisBasis: '',
-              diseaseIdentification: '',
-              relatedExaminations: '',
-              examinationPoints: '',
-              treatmentPrinciples: '',
-              externalTherapy: '',
-              otherTherapies: '',
-              textPrognosis: '',
-              preventiveNursing: '',
-              textDietaryConditioning: '',
-              clinicalPreparation: '',
-              literatureAbstract: '',
-              modernResearch: '',
-              medicalRead: '',
-              treatmentCost: '',
-              consultation: '',
-              section: '',
-              departmentMapDTO: [],
-              dislocationList: []
+              awards: '',
+              address: '',
+              enterprise: '',
+              productInfo: '',
+              messageFrom: '',
+              chineseMedicalType: '',
+              chineseMedicalDepartment: '',
+              editDoctor: '',
+              auditDoctor: ''
             },
             refrences: {
               textcontent: [],
@@ -652,8 +665,7 @@
             approvsls: []// 各模块评审结果
           }
         },
-        dislocationList: [], // 发病部位
-        dislocationPList: [], // 发病部位
+
         refrencesObj: {
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
@@ -663,12 +675,23 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'chineseName', value: '中文名称' }, { key: 'englishName', value: '英文名称' },
-          { key: 'otherName', value: '别名' }, { key: 'relatedDiseases', value: '相关西医疾病' }
+        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'component', value: '成分' }, { key: 'property', value: '教育经历' },
+          { key: 'indication', value: '适应症' }, { key: 'medicFormat', value: '规格' }, { key: 'dosage', value: '用法用量' },
+          { key: 'clinicalApplication', value: '临床应用及指南' },
+          { key: 'adverseReaction', value: '不良反应' }, { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' },
+          { key: 'gravidaDurg', value: '孕妇及哺乳期妇女用药' },
+          { key: 'childrenDurg', value: '儿童用药' }, { key: 'elderlyDurg', value: '老人用药' }, { key: 'interactions', value: '药物相互作用' },
+          { key: 'analyze', value: '药性分析' }, { key: 'pharmacology', value: '药理作用' }, { key: 'toxicologicalEffects', value: '毒理作用' },
+          { key: 'storageMethod', value: '贮藏' }, { key: 'ytime', value: '有效期' },
+          { key: 'standard', value: '执行标准' }, { key: 'approvaNum', value: '执行文号' }, { key: 'combinedMedication', value: '联合用药' },
+          { key: 'physicianAdvice', value: '医师建议' }, { key: 'identify', value: '鉴别' }, { key: 'pharmacyCheck', value: '检查' },
+          { key: 'contentPic', value: '含量测定' }, { key: 'notes', value: '附注' }, { key: 'drugIdentifying', value: '药品标识' },
+          { key: 'drugIntroduc', value: '药品介绍' }, { key: 'history', value: '历史发展' }, { key: 'awards', value: '获奖情况' },
+          { key: 'address', value: '生产地址' }, { key: 'enterprise', value: '生产企业' }, { key: 'productInfo', value: '产品信息' },
+          { key: 'messageFrom', value: '信息来源' }
         ],
-        provinceList: [],
+        institutionList: [],
         departmentList: [],
-        pdepartmentList: [],
         editorOption: {
           placeholder: '请输入内容'
         },
@@ -680,31 +703,14 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
-      const params = {
-        currentPage: 1,
-        pageSize: 9999,
-        parentDepartmentId: 0
-      }
-      this.initDislocationList()
-      this.getDepartmentList(params)
     },
     filters: {
     },
     methods: {
-      initDislocationList() {
-        const params = {
-          currentPage: 1,
-          pageSize: 1000,
-          parentDislocationId: 0
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationPList = response.data.params
-        })
-      },
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missChineseDisease.name,
-          website: this.formData.jsonStr.missChineseDisease.website
+          name: this.formData.jsonStr.missMedical.name,
+          birthday: this.formData.jsonStr.missMedical.birthday
         }
         doCheck(params).then(response => {
           if (response && response.meta.success) {
@@ -713,31 +719,17 @@
           }
         })
       },
-      getDepartmentList(params) {
-        getDepartmentList(params).then(response => {
-          this.pdepartmentList = response.data.params
-        })
-      },
-      changePdepartment(val) {
+      changeInstitutionId(val) {
         const params = {
           currentPage: 1,
           pageSize: 9999,
-          parentDepartmentId: val
+          InstitutionId: val
         }
         getDepartmentList(params).then(response => {
           this.departmentList = response.data.params
         })
       },
-      changeDisLocation(val) {
-        const params = {
-          currentPage: 1,
-          pageSize: 1000,
-          parentDislocationId: val
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params
-        })
-      },
+
       handleChange(file, fileList) {
         this.fileList3 = fileList.slice(-3)
       },
@@ -746,7 +738,7 @@
       * */
       upSummarySuccess(res, file) {
         // this.imageUrl = URL.createObjectURL(file.raw)
-        this.formData.jsonStr.missChineseDisease.picturepath = URL.createObjectURL(file.raw)
+        this.formData.jsonStr.missMedical.picturepath = URL.createObjectURL(file.raw)
       },
       beSummaryUpload(file) {
         const isJPG = file.type === 'image/jpeg'
@@ -761,33 +753,20 @@
         return isJPG && isLt2M
       },
       /**
-       * 科室设置
+       * 执业机构及部门设置
        * */
-      doAdddepartment() {
+      doAddInstitution() {
         const param = {
-          parentDepartmentId: '',
+          institutionId: '',
+          institutionName: '',
           departmentId: '',
           departmentName: '',
-          departmentLevel: ''
+          expertsTime: ''
         }
-        this.formData.jsonStr.missChineseDisease.departmentMapDTO.push(param)
+        this.formData.jsonStr.missMedical.institutionList.push(param)
       },
-      doDeleteDepartment(index) {
-        this.formData.jsonStr.missChineseDisease.departmentMapDTO.splice(index, 1)
-      },
-      /**
-       * 发病部位设置
-       * */
-      doAddDislocation() {
-        const param = {
-          dislocationId: '',
-          dislocationName: '',
-          parentDislocationId: ''
-        }
-        this.formData.jsonStr.missChineseDisease.dislocationList.push(param)
-      },
-      doDeleteDislocation(index) {
-        this.formData.jsonStr.missChineseDisease.dislocationList.splice(index, 1)
+      doDeleteInstitution(index) {
+        this.formData.jsonStr.missMedical.institutionList.splice(index, 1)
       },
       /**
        * 参考资料
@@ -837,7 +816,7 @@
         this.formData.operateCode = key
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
-            this.$router.push('/disease/chinese')
+            this.$router.push('/drugs/chinese')
           }
         })
       },
@@ -871,7 +850,7 @@
         }
       },
       leadteamInfoLength() {
-        if (this.formData.jsonStr.missChineseDisease.leadteamInfo.length > 0) {
+        if (this.formData.jsonStr.missMedical.leadteamInfo.length > 0) {
           return true
         } else {
           return false

@@ -24,16 +24,17 @@
       </div>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="submitDelete">确 定</el-button>
-      <el-button @click="cancelDelete">取 消</el-button>
+      <el-button type="primary" @click="submit">确 定</el-button>
+      <el-button @click="cancel">取 消</el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
-  import { doCreateDisBasics } from '../../api/task'
+  import { createuser } from '../../api/task'
   export default {
     props: {
+      curSelectData: {},
       rowData: {},
       curTaskType: ''
     },
@@ -45,21 +46,17 @@
       }
     },
     methods: {
-      cancelDelete() {
+      cancel() {
         this.$emit('update:visible', false)
       },
-      submitDelete() {
-        this.formData.taskType = this.curTaskType
-        this.formData.taskStatus = 'drafts'
-        doCreateDisBasics(this.formData).then(response => {
+      submit() {
+        const params = {
+          tasks: this.curData,
+          userCode: this.formData.assignUser
+        }
+        createuser(params).then(response => {
           this.$emit('refreshList')
           this.$emit('update:visible', false)
-          this.$notify({
-            title: '成功',
-            message: '删除成功',
-            type: 'success',
-            duration: 2000
-          })
         })
       },
       querySearchAsync() {},
@@ -67,8 +64,13 @@
 
     },
     watch: {
-      rowData(newVal, oldVal) {
-        this.formData = Object.assign({}, newVal)
+      curSelectData(newVal, oldVal) {
+        const data = newVal
+        const result = []
+        data.forEach(function(item) {
+          result.push(item.taskId)
+        })
+        this.curData = result
       }
     }
   }

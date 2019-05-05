@@ -8,11 +8,11 @@
             <div class="body">
               <el-form :model="formData" label-width="80px">
                 <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name" placeholder="请输入任务标题"></el-input>
+                  <el-input v-model="formData.jsonStr.missInstitution.name" placeholder="请输入任务标题"></el-input>
                 </el-form-item>
-                <!--<el-form-item label="官方网站">-->
-                <!--<el-input v-model="formData.jsonStr.missChineseDisease.website" placeholder="请输入官方网站"></el-input>-->
-                <!--</el-form-item>-->
+                <el-form-item label="官方网站">
+                  <el-input v-model="formData.jsonStr.missInstitution.website" placeholder="请输入官方网站"></el-input>
+                </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -40,7 +40,7 @@
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
                 <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name"></el-input>
+                  <el-input v-model="formData.jsonStr.missInstitution.name"></el-input>
                 </el-form-item>
                 <el-form-item label="概述图">
                   <el-upload
@@ -49,7 +49,7 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missChineseDisease.picturepath" :src="formData.jsonStr.missChineseDisease.picturepath" class="avatar">
+                    <img v-if="formData.jsonStr.missInstitution.picturepath" :src="formData.jsonStr.missInstitution.picturepath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
@@ -59,7 +59,7 @@
                     type="textarea"
                     :rows="4"
                     placeholder="请输入内容"
-                    v-model="formData.jsonStr.missChineseDisease.introduction">
+                    v-model="formData.jsonStr.missInstitution.intro">
                   </el-input>
                 </el-form-item>
               </el-form>
@@ -68,54 +68,77 @@
           <div class="card">
             <div class="title">基本信息</div>
             <div class="body">
-              <el-form ref="formData" :model="formData" label-width="120px">
+              <el-form ref="formData" :model="formData" label-width="80px">
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="中文名称">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.chineseName" placeholder="中文名称"></el-input>
+                    <el-form-item label="医保定点">
+                      <el-radio-group v-model="formData.jsonStr.missInstitution.insurance">
+                        <el-radio-button label="1">是</el-radio-button>
+                        <el-radio-button label="0">否</el-radio-button>
+                      </el-radio-group>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="英文名称">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.englishName" placeholder="英文名称"></el-input>
+                    <el-form-item label="医院类别">
+                      <el-input v-model="formData.jsonStr.missInstitution.category" placeholder="按照医疗机构职业证填写"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="别名">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.otherName" placeholder="别名"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="相关西医疾病">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.relatedDiseases" placeholder="英文名称"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="主要病因">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.mainCauses" placeholder="主要病因"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="常见症状">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.commonSymptom" placeholder="常见症状"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="多发群体">
-                      <el-input v-model="formData.jsonStr.missChineseDisease.multiplePopulation" placeholder="多发群体"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="传染性" >
-                      <el-select v-model="formData.jsonStr.missChineseDisease.infectivity" >
+                    <el-form-item label="医院等级">
+                      <el-select v-model="formData.jsonStr.missInstitution.level" >
                         <el-option
-                          v-for="item in enumerate.infectivityList"
+                          v-for="item in enumerate.institutionLevel"
+                          :key="item.id"
+                          :label="item.level"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="医院性质">
+                      <el-radio v-model="formData.jsonStr.missInstitution.nature" label="1">营利性</el-radio>
+                      <el-radio v-model="formData.jsonStr.missInstitution.nature" label="0">非营利性</el-radio>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="主管部门">
+                      <el-input v-model="formData.jsonStr.missInstitution.manageDepartment" placeholder="按照医疗机构职业证填写"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="成立时间">
+                      <el-input v-model="formData.jsonStr.missInstitution.foundDate" placeholder="成立时间"></el-input>
+                      <!--<el-date-picker-->
+                        <!--v-model="formData.jsonStr.missInstitution.foundDate"-->
+                        <!--type="date"-->
+                        <!--placeholder="选择日期">-->
+                      <!--</el-date-picker>-->
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="医院电话">
+                      <el-input v-model="formData.jsonStr.missInstitution.telephone" placeholder="010-64801818"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="医院官网">
+                      <el-input v-model="formData.jsonStr.missInstitution.website" placeholder="http://www.dayi.org.cn"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="医院分类">
+                      <el-select v-model="formData.jsonStr.missInstitution.type" >
+                        <el-option
+                          v-for="item in enumerate.hospitalType"
                           :key="item.id"
                           :label="item.value"
                           :value="item.id">
@@ -123,77 +146,118 @@
                       </el-select>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="医院院长">
+                      <el-input v-model="formData.jsonStr.missInstitution.dean" ></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="疾病分类">
-                      <el-select v-model="formData.jsonStr.missChineseDisease.diseaseType" disabled>
+                  <el-col :span="24">
+                    <el-form-item label="医院地址">
+                      <el-select v-model="formData.jsonStr.missInstitution.provinceCode" placeholder="省" @change="changeProvinceCode">
                         <el-option
-                          v-for="item in enumerate.diseaseTypeList"
-                          :key="item.id"
-                          :label="item.value"
-                          :value="item.id">
+                          v-for="item in provinceList"
+                          :key="item.districtCode"
+                          :label="item.districtName"
+                          :value="item.districtCode">
+                        </el-option>
+                      </el-select>
+                      <el-select v-model="formData.jsonStr.missInstitution.cityCode"  placeholder="市"  @change="changeCityCode">
+                        <el-option
+                          v-for="item in cityList"
+                          :key="item.districtCode"
+                          :label="item.districtName"
+                          :value="item.districtCode">
+                        </el-option>
+                      </el-select>
+                      <el-select v-model="formData.jsonStr.missInstitution.districtCode" placeholder="区" >
+                        <el-option
+                          v-for="item in districtList"
+                          :key="item.districtCode"
+                          :label="item.districtName"
+                          :value="item.districtCode">
                         </el-option>
                       </el-select>
                     </el-form-item>
                   </el-col>
-                  <!--<el-col :span="12">-->
-                  <!--<el-form-item label="发病部位">-->
-                  <!--<el-select v-model="formData.jsonStr.missChineseDisease.locationDisease" >-->
-                  <!--<el-option-->
-                  <!--v-for="item in dislocationList"-->
-                  <!--:key="item.jsonStr.key.id"-->
-                  <!--:label="item.jsonStr.key.dislocationName"-->
-                  <!--:value="item.jsonStr.key.id">-->
-                  <!--</el-option>-->
-                  <!--</el-select>-->
-                  <!--</el-form-item>-->
-                  <!--</el-col>-->
+                </el-row>
+                <el-row>
+                  <el-col :span="24">
+                    <el-form-item>
+                      <el-input v-model="formData.jsonStr.missInstitution.address"  placeholder="街道与门牌号"></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </el-form>
             </div>
           </div>
           <div class="card">
-            <div class="title">发病部位</div>
+            <div class="title">领导团队</div>
             <div class="body">
-              <div  style="padding-bottom: 10px;"><el-button @click="doAddDislocation" type="primary">新增发病部位</el-button></div>
-              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.dislocationList" style="margin-bottom: 5px;">
-                <el-row >
-                  <el-col :span="7" style="padding-right:40px;">
-                    <el-select  v-model="itemd.parentDislocationId" @change="changeDisLocation">
-                      <el-option
-                        v-for="item in dislocationPList"
-                        :key="item.jsonStr.key.id"
-                        :label="item.jsonStr.key.dislocationName"
-                        :value="item.jsonStr.key.id">
-                      </el-option>
-                    </el-select>
+              <el-button type="primary" @click="showLeaderDialog">添加领导信息</el-button>
+              <div style="padding-top: 10px;" v-if="leadteamInfoLength"
+                   v-for="(item,index) in formData.jsonStr.missInstitution.leadteamInfo">
+                <el-row>
+                  <el-col :span="6">
+                    <div>
+                      <picture-slider :picture-list="item.picture"></picture-slider>
+                    </div>
                   </el-col>
-                  <el-col :span="7">
-                    <el-select  v-model="itemd.dislocationId">
-                      <el-option
-                        v-for="item in dislocationList"
-                        :key="item.jsonStr.key.id"
-                        :label="item.jsonStr.key.dislocationName"
-                        :value="item.jsonStr.key.id">
-                      </el-option>
-                    </el-select>
+                  <el-col :span="12">
+                    <div style="padding-bottom: 10px;">
+                      <el-input  v-model="item.name"></el-input>
+                    </div>
+                    <div >
+                      <el-input type="textarea" :rows="4" v-model="item.desc"></el-input>
+                    </div>
                   </el-col>
-                  <el-col :span="3">
-                    <el-button @click="doDeleteDislocation(index)">删除</el-button>
+                  <el-col :span="6">
+                    <el-button @click="deleteLeadteamInfo(index)">删除</el-button>
                   </el-col>
                 </el-row>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">就诊科室</div>
+            <div class="title">医院环境</div>
+            <div class="body">
+              <el-button type="primary" @click="showEnvironmentDialog">添加医院信息</el-button>
+              <div style="padding-top: 10px;" v-if="formData.jsonStr.missInstitution.environment.length"
+                   v-for="(item,index) in formData.jsonStr.missInstitution.environment">
+                <el-row>
+                  <el-col :span="6">
+                    <div>
+                      <picture-slider :picture-list="item.picture"></picture-slider>
+                    </div>
+                  </el-col>
+                  <el-col :span="12">
+                    <div style="padding-bottom: 10px;">
+                      <el-input  v-model="item.name"></el-input>
+                    </div>
+                    <div >
+                      <el-input type="textarea" :rows="4" v-model="item.desc"></el-input>
+                    </div>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-button @click="deleteEnvironment(index)">删除</el-button>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">科室设置</div>
             <div class="body">
               <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
-              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.departmentMapDTO" style="margin-bottom: 5px;">
+
+              <div v-for="(itemd, index) in formData.jsonStr.missInstitution.departmentMapDTO" style="margin-bottom: 5px;">
                 <el-row >
                   <el-col :span="7" style="padding-right:40px;">
-                    <el-select  v-model="itemd.parentDepartmentId" @change="changePdepartment">
+                    <el-input  v-model="itemd.office"></el-input>
+                  </el-col>
+                  <el-col :span="7" style="padding-right:40px;">
+                    <el-select  v-model="itemd.departmentPid" @change="changePdepartment">
                       <el-option
                         v-for="item in pdepartmentList"
                         :key="item.id"
@@ -203,12 +267,22 @@
                     </el-select>
                   </el-col>
                   <el-col :span="7">
-                    <el-select  v-model="itemd.departmentId">
+                    <el-select  v-model="itemd.departmentCode">
                       <el-option
                         v-for="item in departmentList"
                         :key="item.id"
                         :label="item.departmentName"
                         :value="item.id">
+                      </el-option>
+                    </el-select>
+                  </el-col>
+                  <el-col :span="7">
+                    <el-select v-model="itemd.departmentLevel">
+                      <el-option
+                        v-for="item in enumerate.departmentLevel"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
                       </el-option>
                     </el-select>
                   </el-col>
@@ -220,187 +294,109 @@
             </div>
           </div>
           <div class="card">
-            <div class="title">名词解释</div>
+            <div class="title">特色专科</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.nounInterpretation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.special" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">历史沿革</div>
+            <div class="title">医疗优势</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.history" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.advantage" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">与西医病名关系</div>
+            <div class="title">医疗设施</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.relationshipWestern" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.equipment" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病因</div>
+            <div class="title">历史发展</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.pathogeny" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.history" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病机</div>
+            <div class="title">乘车路线</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.pathogenesis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.busLines" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">临床表现</div>
+            <div class="title">临床教学与科研机构</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.clinicalManifestation" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.clinicalTeaching" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">诊断依据</div>
+            <div class="title">研究成果</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.diagnosisBasis" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.researchResult" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">病症鉴别</div>
+            <div class="title">学术专著</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.diseaseIdentification" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.academicMonograph" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">相关检查</div>
+            <div class="title">学术活动</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.relatedExaminations" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.academicActivity" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">辨证要点</div>
+            <div class="title">获奖情况</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.examinationPoints" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.honor" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">治疗原则</div>
+            <div class="title">分支机构</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.treatmentPrinciples" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="title">外治法</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.externalTherapy" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.affgroup" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
           <div class="card">
-            <div class="title">其他疗法</div>
+            <div class="title">就诊需知</div>
             <div class="body">
+              <el-form ref="formData" :model="formData" label-width="80px">
+                <el-form-item label="挂号时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.registrationTime" placeholder="挂号时间"></el-input>
+                </el-form-item>
+                <el-form-item label="就诊时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.outpatientTime" placeholder="就诊时间"></el-input>
+                </el-form-item>
+                <el-form-item label="急诊时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.emergencyTime" placeholder="急诊时间"></el-input>
+                </el-form-item>
+              </el-form>
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.otherTherapies" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">转归预后</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.textPrognosis" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">预防调护</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.preventiveNursing" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">膳食调理</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.textDietaryConditioning" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">临证备要</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.clinicalPreparation" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">文献摘要</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.literatureAbstract" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">现代研究</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.modernResearch" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">医案选读</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.medicalRead" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">治疗费用参考</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.treatmentCost" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">急诊（120）指征</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.consultation" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">门诊指征</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.section" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -495,8 +491,8 @@
             <div class="body" style="height: 800px;overflow-y: auto;">
               <div v-for="item in keyArr" style="margin-bottom: 15px;">
                 <span style="margin-right: 20px;">{{item.value}} </span>
-                <span style="color: red;" v-if="formData.jsonStr.missChineseDisease[item.key] === '' ||formData.jsonStr.missChineseDisease[item.key].length ===0">（空） </span>
-                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseDisease[item.key])}}</span>
+                <span style="color: red;" v-if="formData.jsonStr.missInstitution[item.key] === '' ||formData.jsonStr.missInstitution[item.key].length ===0">（空） </span>
+                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missInstitution[item.key])}}</span>
               </div>
             </div>
           </div>
@@ -522,7 +518,67 @@
         </el-col>
       </el-row>
     </div>
-    <!--参考资料弹框-->
+    <!--添加领导信息弹框-->
+    <el-dialog
+      title="添加领导信息"
+      :append-to-body="true"
+      :visible.sync="isShowLeaderDiaolg"
+      width="30%">
+      <div>
+        <el-form label-width="80px" :model="leadteamInfoObj">
+          <el-form-item label="姓名">
+            <el-input v-model="leadteamInfoObj.name"></el-input>
+          </el-form-item>
+          <el-form-item label="描述">
+            <el-input type="textarea" :rows="4" v-model="leadteamInfoObj.desc"></el-input>
+          </el-form-item>
+          <el-form-item label="图片">
+            <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              :on-success="upLeaderPicSuccess"
+              list-type="picture">
+              <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doAddLeaderMsg">确 定</el-button>
+         <el-button @click="cancelLeaderMsg">取 消</el-button>
+      </span>
+    </el-dialog>
+    <!--医院环境信息弹框-->
+    <el-dialog
+      title="添加医院环境"
+      :append-to-body="true"
+      :visible.sync="isShowEnvironmentDialog"
+      width="30%">
+      <div>
+        <el-form label-width="80px" :model="environmentObj">
+          <el-form-item label="姓名">
+            <el-input v-model="environmentObj.name"></el-input>
+          </el-form-item>
+          <el-form-item label="描述">
+            <el-input type="textarea" :rows="4" v-model="environmentObj.desc"></el-input>
+          </el-form-item>
+          <el-form-item label="图片">
+            <el-upload
+              class="upload-demo"
+              action="/api/file/upload"
+              :on-success="upEnvironmentPicSuccess"
+              list-type="picture">
+              <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doAddEnvironmentMsg">确 定</el-button>
+         <el-button @click="cancelEnvironmentMsg">取 消</el-button>
+      </span>
+    </el-dialog>
+     <!--参考资料弹框-->
     <el-dialog
       title="添加参考资料"
       :append-to-body="true"
@@ -570,7 +626,7 @@
 
 
 <script>
-  import { doCheck, doCreateDisBasics, getDepartmentList, getDislocationList } from '../../api/task'
+  import { doCheck, doCreateDisBasics, getDistrict, getDepartmentList } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import i18n from '../../i18n/local'
   import 'quill/dist/quill.core.css'
@@ -590,60 +646,56 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: true,
+        isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
         formData: {
           'taskStatus': 'drafts',
           'taskType': 'create',
-          'taskMenuType': 'missChineseDisease',
+          'taskMenuType': 'missInstitution',
           'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
           'taskSecondTrialPoint': '',
           'jsonStr': {
-            'missChineseDisease': { // missChineseDisease
+            'missInstitution': {
               name: '',
               picturepath: '',
-              introduction: '',
-              chineseName: '',
-              englishName: '',
-              otherName: '',
-              relatedDiseases: '',
-              diseaseType: '1',
-              locationPid: '',
-              locationDisease: '',
-              mainCauses: '',
-              commonSymptom: '',
-              multiplePopulation: '',
-              infectivity: 1,
-              nounInterpretation: '',
-              history: '',
-              relationshipWestern: '',
-              pathogeny: '',
-              pathogenesis: '',
-              clinicalManifestation: '',
-              diagnosisBasis: '',
-              diseaseIdentification: '',
-              relatedExaminations: '',
-              examinationPoints: '',
-              treatmentPrinciples: '',
-              externalTherapy: '',
-              otherTherapies: '',
-              textPrognosis: '',
-              preventiveNursing: '',
-              textDietaryConditioning: '',
-              clinicalPreparation: '',
-              literatureAbstract: '',
-              modernResearch: '',
-              medicalRead: '',
-              treatmentCost: '',
-              consultation: '',
-              section: '',
+              intro: '',
+              insurance: '0',
+              category: '',
+              level: '0',
+              nature: '0',
+              manageDepartment: '',
+              foundDate: '',
+              telephone: '',
+              website: '',
+              type: '1',
+              dean: '',
+              provinceCode: '',
+              cityCode: '',
+              districtCode: '',
+              address: '',
+              leadteamInfo: [],
+              environment: [],
               departmentMapDTO: [],
-              dislocationList: []
+              special: '',
+              advantage: '',
+              equipment: '',
+              history: '',
+              busLines: '',
+              clinicalTeaching: '',
+              researchResult: '',
+              academicMonograph: '',
+              academicActivity: '',
+              honor: '',
+              affgroup: '',
+              registrationTime: '',
+              outpatientTime: '',
+              emergencyTime: '',
+              treatGuide: ''
             },
             refrences: {
               textcontent: [],
@@ -652,8 +704,16 @@
             approvsls: []// 各模块评审结果
           }
         },
-        dislocationList: [], // 发病部位
-        dislocationPList: [], // 发病部位
+        leadteamInfoObj: {
+          name: '',
+          desc: '',
+          picture: []
+        },
+        environmentObj: {
+          name: '',
+          desc: '',
+          picture: []
+        },
         refrencesObj: {
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
@@ -662,13 +722,19 @@
           comment: '', // 描述
           imageName: '' // 图片名称
         },
+        leaderPicList: [],
+        environmentPicList: [],
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'chineseName', value: '中文名称' }, { key: 'englishName', value: '英文名称' },
-          { key: 'otherName', value: '别名' }, { key: 'relatedDiseases', value: '相关西医疾病' }
+        keyArr: [{ key: 'intro', value: '简介' }, { key: 'leadteamInfo', value: '领导团队' }, { key: 'environment', value: '医院环境' },
+          { key: 'departmentMapDTO', value: '科室设置' }, { key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
+          { key: 'history', value: '历史发展' }, { key: 'busLines', value: '乘车路线' }, { key: 'clinicalTeaching', value: '临床教学与研究机构' }, { key: 'researchResult', value: '研究成果' },
+          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' }
         ],
         provinceList: [],
         departmentList: [],
         pdepartmentList: [],
+        cityList: [],
+        districtList: [],
         editorOption: {
           placeholder: '请输入内容'
         },
@@ -685,31 +751,38 @@
         pageSize: 9999,
         parentDepartmentId: 0
       }
-      this.initDislocationList()
+      this.getDistrict(100000, 1)
       this.getDepartmentList(params)
     },
     filters: {
     },
     methods: {
-      initDislocationList() {
-        const params = {
-          currentPage: 1,
-          pageSize: 1000,
-          parentDislocationId: 0
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationPList = response.data.params
-        })
-      },
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missChineseDisease.name,
-          website: this.formData.jsonStr.missChineseDisease.website
+          name: this.formData.jsonStr.missInstitution.name,
+          website: this.formData.jsonStr.missInstitution.website
         }
         doCheck(params).then(response => {
           if (response && response.meta.success) {
             this.formData.taskId = response.data
             this.isCheck = true
+          }
+        })
+      },
+      getDistrict(pid, level) {
+        const params = {
+          parentDistrictCode: pid,
+          level: level
+        }
+        getDistrict(params).then(response => {
+          if (response && response.data) {
+            if (level === 1) {
+              this.provinceList = response.data
+            } else if (level === 2) {
+              this.cityList = response.data
+            } else if (level === 3) {
+              this.districtList = response.data
+            }
           }
         })
       },
@@ -728,15 +801,11 @@
           this.departmentList = response.data.params
         })
       },
-      changeDisLocation(val) {
-        const params = {
-          currentPage: 1,
-          pageSize: 1000,
-          parentDislocationId: val
-        }
-        getDislocationList(params).then(response => {
-          this.dislocationList = response.data.params
-        })
+      changeProvinceCode(val) {
+        this.getDistrict(val, 2)
+      },
+      changeCityCode(val) {
+        this.getDistrict(val, 3)
       },
       handleChange(file, fileList) {
         this.fileList3 = fileList.slice(-3)
@@ -746,7 +815,7 @@
       * */
       upSummarySuccess(res, file) {
         // this.imageUrl = URL.createObjectURL(file.raw)
-        this.formData.jsonStr.missChineseDisease.picturepath = URL.createObjectURL(file.raw)
+        this.formData.jsonStr.missInstitution.picturepath = URL.createObjectURL(file.raw)
       },
       beSummaryUpload(file) {
         const isJPG = file.type === 'image/jpeg'
@@ -760,34 +829,76 @@
         }
         return isJPG && isLt2M
       },
+      /*
+       *领导信息
+       * */
+      showLeaderDialog() {
+        this.isShowLeaderDiaolg = true
+        this.leaderPicList = []
+      },
+      upLeaderPicSuccess(response, file, fileList) {
+        if (response.meta.success) {
+          this.leaderPicList.push(response.data[0].thumbnailUrl)
+        }
+      },
+      doAddLeaderMsg() {
+        this.leadteamInfoObj.picture = this.leaderPicList
+        const param = {
+          name: this.leadteamInfoObj.name,
+          desc: this.leadteamInfoObj.desc,
+          picture: this.leadteamInfoObj.picture
+        }
+        this.formData.jsonStr.missInstitution.leadteamInfo.push(param)
+        this.isShowLeaderDiaolg = false
+      },
+      cancelLeaderMsg() {
+        this.isShowLeaderDiaolg = false
+      },
+      deleteLeadteamInfo(index) {
+        this.formData.jsonStr.missInstitution.leadteamInfo.splice(index, 1)
+      },
+      /*
+       *医院环境信息
+       * */
+      showEnvironmentDialog() {
+        this.isShowEnvironmentDialog = true
+        this.environmentPicList = []
+      },
+      upEnvironmentPicSuccess(response, file, fileList) {
+        if (response.meta.success) {
+          this.environmentPicList.push(response.data[0].thumbnailUrl)
+        }
+      },
+      doAddEnvironmentMsg() {
+        this.environmentObj.picture = this.environmentPicList
+        const param = {
+          name: this.environmentObj.name,
+          desc: this.environmentObj.desc,
+          picture: this.environmentObj.picture
+        }
+        this.formData.jsonStr.missInstitution.environment.push(param)
+        this.isShowEnvironmentDialog = false
+      },
+      cancelEnvironmentMsg() {
+        this.isShowEnvironmentDialog = false
+      },
+      deleteEnvironment(index) {
+        this.formData.jsonStr.missInstitution.environment.splice(index, 1)
+      },
       /**
        * 科室设置
        * */
       doAdddepartment() {
         const param = {
-          parentDepartmentId: '',
-          departmentId: '',
+          departmentPid: '',
+          departmentCode: '',
           departmentName: '',
           departmentLevel: ''
         }
-        this.formData.jsonStr.missChineseDisease.departmentMapDTO.push(param)
+        this.formData.jsonStr.missInstitution.departmentMapDTO.push(param)
       },
       doDeleteDepartment(index) {
-        this.formData.jsonStr.missChineseDisease.departmentMapDTO.splice(index, 1)
-      },
-      /**
-       * 发病部位设置
-       * */
-      doAddDislocation() {
-        const param = {
-          dislocationId: '',
-          dislocationName: '',
-          parentDislocationId: ''
-        }
-        this.formData.jsonStr.missChineseDisease.dislocationList.push(param)
-      },
-      doDeleteDislocation(index) {
-        this.formData.jsonStr.missChineseDisease.dislocationList.splice(index, 1)
+        this.formData.jsonStr.missInstitution.departmentMapDTO.splice(index, 1)
       },
       /**
        * 参考资料
@@ -837,7 +948,7 @@
         this.formData.operateCode = key
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
-            this.$router.push('/disease/chinese')
+            this.$router.push('/institution/treatment')
           }
         })
       },
@@ -871,7 +982,7 @@
         }
       },
       leadteamInfoLength() {
-        if (this.formData.jsonStr.missChineseDisease.leadteamInfo.length > 0) {
+        if (this.formData.jsonStr.missInstitution.leadteamInfo.length > 0) {
           return true
         } else {
           return false

@@ -13,8 +13,8 @@
         <el-form label-width="100px" :model="formData" ref="formData" label-position="top">
           <el-form-item prop="taskTitle">
             <el-form-item >
-              <el-radio v-model="formData.settlementResult" label="1">结算</el-radio>
-              <el-radio v-model="formData.settlementResult" label="2">不结算</el-radio>
+              <el-radio v-model="formData.settlementResult" label="accounts">结算</el-radio>
+              <el-radio v-model="formData.settlementResult" label="unaccounts">不结算</el-radio>
             </el-form-item>
           </el-form-item>
         </el-form>
@@ -28,17 +28,19 @@
 </template>
 
 <script>
-  import { doCreateDisBasics } from '../../api/task'
+  import { getAccounts } from '../../api/task'
   export default {
     props: {
+      curSelectData: {},
       rowData: {},
       curTaskType: ''
     },
     data() {
       return {
         formData: {
-          settlementResult: '1'
-        }
+          settlementResult: 'accounts'
+        },
+        curData: []
       }
     },
     methods: {
@@ -46,9 +48,11 @@
         this.$emit('update:visible', false)
       },
       submitDelete() {
-        this.formData.taskType = this.curTaskType
-        this.formData.taskStatus = 'drafts'
-        doCreateDisBasics(this.formData).then(response => {
+        const param = {
+          tasks: this.curData,
+          accounts: this.formData.settlementResult
+        }
+        getAccounts(param).then(response => {
           this.$emit('refreshList')
           this.$emit('update:visible', false)
           this.$notify({
@@ -61,8 +65,13 @@
       }
     },
     watch: {
-      rowData(newVal, oldVal) {
-        this.formData = Object.assign({}, newVal)
+      curSelectData(newVal, oldVal) {
+        const data = newVal
+        const result = []
+        data.forEach(function(item) {
+          result.push(item.taskId)
+        })
+        this.curData = result
       }
     }
   }
