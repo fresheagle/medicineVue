@@ -43,8 +43,12 @@ export const constantRouterMap = [
     children: [
       { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
       { path: 'chinese-create', name: '中医疾病', component: () => import('../views/disease/chinese-create') },
+      { path: 'chinese-edit', name: '中医疾病', component: () => import('../views/disease/chinese-edit') },
+      { path: 'chinese/pool/:taskProgress', name: '中医疾病', component: () => import('../views/institution/taskPool') },
       { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
-      { path: 'western-create', name: '西医疾病', component: () => import('../views/disease/western-create') }
+      { path: 'western-create', name: '西医疾病', component: () => import('../views/disease/western-create') },
+      { path: 'western-edit', name: '西医疾病', component: () => import('../views/disease/western-edit') },
+      { path: 'western/pool/:taskProgress', name: '西医疾病', component: () => import('../views/institution/taskPool') }
     ]
   },
   {
@@ -64,20 +68,14 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/create',
-    component: CreateLayout,
-    name: '新建',
-    children: [
-      { path: 'treatment', name: '新建医疗机构', component: () => import('../views/institution/create') }
-    ]
-  },
-  {
     path: '/modernDoctor',
     component: Layout,
     name: '医生信息',
     children: [
       { path: 'cooperation', name: '医生信息', component: () => import('../views/modernDoctor/cooperation') },
-      { path: 'cooperation-create', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-create') }
+      { path: 'cooperation/pool/:taskProgress', name: '医生信息', component: () => import('../views/modernDoctor/taskPool') },
+      { path: 'cooperation-create', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-create') },
+      { path: 'cooperation-edit', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-edit') }
     ]
   },
   {
@@ -86,7 +84,9 @@ export const constantRouterMap = [
     name: '文章',
     children: [
       { path: 'list', name: '文章', component: () => import('../views/article/list') },
-      { path: 'article-create', name: '文章', component: () => import('../views/article/article-create') }
+      { path: 'article/pool/:taskProgress', name: '文章', component: () => import('../views/article/taskPool') },
+      { path: 'article-create', name: '文章', component: () => import('../views/article/article-create') },
+      { path: 'article-edit', name: '文章', component: () => import('../views/article/article-edit') }
     ]
   },
   {
@@ -96,18 +96,14 @@ export const constantRouterMap = [
     children: [
       { path: 'chinese', name: '中成药', component: () => import('../views/drugs/chinese') },
       { path: 'chinese-create', name: '中成药', component: () => import('../views/drugs/chinese-create') },
+      { path: 'chinese-edit', name: '中成药', component: () => import('../views/drugs/chinese-edit') },
+      { path: 'chinese/pool/:taskProgress', name: '中成药', component: () => import('../views/drugs/chineseTaskPool') },
       { path: 'western', name: '西医制剂', component: () => import('../views/drugs/western') },
-      { path: 'western-create', name: '西医制剂', component: () => import('../views/drugs/western-create') }
+      { path: 'western-create', name: '西医制剂', component: () => import('../views/drugs/western-create') },
+      { path: 'western-edit', name: '西医制剂', component: () => import('../views/drugs/western-edit') },
+      { path: 'western/pool/:taskProgress', name: '西医制剂', component: () => import('../views/drugs/westernTaskPool') }
     ]
   },
-  // {
-  //   path: '/enterprise',
-  //   component: Layout,
-  //   name: '药品企业',
-  //   children: [
-  //     { path: 'list', name: '药品企业', component: () => import('../views/enterprise/list') }
-  //   ]
-  // },
   {
     path: '/symptom',
     component: Layout,
@@ -115,8 +111,12 @@ export const constantRouterMap = [
     children: [
       { path: 'chinese', name: '中医症状', component: () => import('../views/symptom/chinese') },
       { path: 'chinese-create', name: '中医症状', component: () => import('../views/symptom/chinese-create') },
+      { path: 'chinese-edit', name: '中医症状', component: () => import('../views/symptom/chinese-edit') },
+      { path: 'chinese/pool/:taskProgress', name: '中医症状', component: () => import('../views/drugs/chineseTaskPool') },
       { path: 'western', name: '西医症状', component: () => import('../views/symptom/western') },
-      { path: 'western-create', name: '西医症状', component: () => import('../views/symptom/western-create') }
+      { path: 'western-create', name: '西医症状', component: () => import('../views/symptom/western-create') },
+      { path: 'western-edit', name: '西医症状', component: () => import('../views/symptom/western-edit') },
+      { path: 'western/pool/:taskProgress', name: '西医症状', component: () => import('../views/drugs/westernTaskPool') }
     ]
   },
   {
@@ -126,78 +126,6 @@ export const constantRouterMap = [
     children: [
       { path: 'user', name: '用户管理', component: () => import('../views/member/user') },
       { path: 'role', name: '角色管理', component: () => import('../views/member/role') }
-    ]
-  },
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Table', icon: 'table' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'complexTable' }
-      },
-      {
-        path: 'fullcalendar',
-        name: 'Fullcalendar',
-        component: () => import('@/views/fullcalendar/fullcalendar'),
-        meta: { title: 'calendar' }
-      }
-    ]
-  },
-  {
-    path: '/tab',
-    name: 'tab',
-    component: Layout,
-    meta: { icon: 'example' },
-    children: [
-      {
-        path: 'Tabs',
-        name: 'Tabs',
-        component: () => import('@/views/tab/index'),
-        meta: { title: 'Tabs', icon: 'tab' }
-      }
-    ]
-  },
-  // 表单
-  {
-    path: '/form',
-    component: Layout,
-    redirect: '/table/BaseForm',
-    name: 'form',
-    meta: {
-      title: 'form',
-      icon: 'form'
-    },
-    children: [
-      {
-        path: 'Form',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'BaseForm' }
-      },
-      {
-        path: 'qiniu',
-        name: 'qiniu',
-        component: () => import('@/views/form/qiniu'),
-        meta: { title: 'qiniu' }
-      },
-      {
-        path: 'quillEditor',
-        name: 'quillEditor',
-        component: () => import('@/views/form/quillEditor'),
-        meta: { title: 'quillEditor' }
-      },
-      {
-        path: 'tinymce',
-        name: 'tinymce',
-        component: () => import('@/views/form/tinymce'),
-        meta: { title: 'tinymce' }
-      }
     ]
   }
 ]

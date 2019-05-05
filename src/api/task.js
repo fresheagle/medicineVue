@@ -1,6 +1,9 @@
 import request from '../utils/request'
 
-// 检测
+/**
+ * 创建检测
+ * */
+// 医疗机构
 export function doCheck(params) {
   return request({
     url: '/api/institution/check',
@@ -8,6 +11,55 @@ export function doCheck(params) {
     params
   })
 }
+// 西医疾病创建检测
+export function doWestDiseaseCheck(params) {
+  return request({
+    url: '/api/westDisease/check',
+    method: 'get',
+    params
+  })
+}
+// 中医疾病创建
+export function doChineseDiseaseCheck(params) {
+  return request({
+    url: '/api/chineseDisease/check',
+    method: 'get',
+    params
+  })
+}
+// 医生检查
+export function doDoctorCheck(params) {
+  return request({
+    url: '/api/doctor/check',
+    method: 'get',
+    params
+  })
+}
+// 药品检查
+export function doMedicalCheck(params) {
+  return request({
+    url: '/api/medical/check',
+    method: 'get',
+    params
+  })
+}
+// 文章检查
+export function doArtcileCheck(params) {
+  return request({
+    url: '/api/artcile/check',
+    method: 'get',
+    params
+  })
+}
+// 症状检查
+export function doSymptomCheck(params) {
+  return request({
+    url: '/api/symptom/check',
+    method: 'get',
+    params
+  })
+}
+
 
 // 批量审批
 export function doApproval(data) {

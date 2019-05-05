@@ -7,8 +7,14 @@
             <div class="title">数据校验</div>
             <div class="body">
               <el-form :model="formData" label-width="80px">
+                <el-form-item label="中文名称">
+                  <el-input v-model="formData.jsonStr.missWesternSymptom.chineseName" placeholder="请输入中文名称"></el-input>
+                </el-form-item>
                 <el-form-item label="英文名称">
-                  <el-input v-model="formData.jsonStr.missWesternSymptom.englishName" placeholder="请输入任务标题"></el-input>
+                  <el-input v-model="formData.jsonStr.missWesternSymptom.englishName" placeholder="请输入英文名称"></el-input>
+                </el-form-item>
+                <el-form-item label="别名">
+                  <el-input v-model="formData.jsonStr.missWesternSymptom.otherName" placeholder="请输入别名"></el-input>
                 </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
@@ -105,7 +111,8 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="相关疾病(old)">
-                      <el-input v-model="formData.jsonStr.missWesternSymptom.commonDiseasesOld" placeholder="相关疾病(old)"></el-input>
+                      <span>formData.jsonStr.missWesternSymptom.commonDiseasesOld</span>
+                      <!--<el-input v-model="formData.jsonStr.missWesternSymptom.commonDiseasesOld" placeholder="相关疾病(old)"></el-input>-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
@@ -520,7 +527,7 @@
   </div>
 </template>
 <script>
-  import { doCheck, doCreateDisBasics, getDepartmentList, getDislocationList } from '../../api/task'
+  import { doSymptomCheck, doCreateDisBasics, getDepartmentList, getDislocationList } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import i18n from '../../i18n/local'
   import 'quill/dist/quill.core.css'
@@ -657,9 +664,11 @@
       },
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missWesternSymptom.englishName
+          chineseName: this.formData.jsonStr.missChineseSymptom.chineseName,
+          englishName: this.formData.jsonStr.missChineseSymptom.englishName,
+          otherName: this.formData.jsonStr.missChineseSymptom.otherName
         }
-        doCheck(params).then(response => {
+        doSymptomCheck(params).then(response => {
           if (response && response.meta.success) {
             this.formData.taskId = response.data
             this.isCheck = true

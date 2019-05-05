@@ -1,38 +1,6 @@
 <template>
   <div class="app-container" id="institutionCreate">
-    <div v-if="!isCheck">
-      <el-row >
-        <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">数据校验</div>
-            <div class="body">
-              <el-form :model="formData" label-width="80px">
-                <el-form-item label="医生姓名">
-                  <el-input v-model="formData.jsonStr.missDoctor.name" placeholder="请输入医生姓名"></el-input>
-                </el-form-item>
-                <el-form-item label="性别">
-                  <el-select v-model="formData.jsonStr.missDoctor.sex" >
-                    <el-option
-                      v-for="item in enumerate.sexList"
-                      :key="item.id"
-                      :label="item.value"
-                      :value="item.id">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="出生日期">
-                  <el-input v-model="formData.jsonStr.missDoctor.birthday" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item >
-                  <el-button @click="doCheck">校验</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div v-if="isCheck" style="top:0px;position: relative;">
+    <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
           <div class="card">
@@ -49,8 +17,8 @@
             <div class="title">概述</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="医生类型">
-                  <el-input v-model="formData.jsonStr.missDoctor.type"></el-input>
+                <el-form-item label="名称">
+                  <el-input v-model="formData.jsonStr.missArticle.name"></el-input>
                 </el-form-item>
                 <el-form-item label="概述图">
                   <el-upload
@@ -59,7 +27,7 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missDoctor.picturepath" :src="formData.jsonStr.missDoctor.picturepath" class="avatar">
+                    <img v-if="formData.jsonStr.missArticle.picturepath" :src="formData.jsonStr.missArticle.picturepath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
@@ -69,7 +37,7 @@
                     type="textarea"
                     :rows="4"
                     placeholder="请输入内容"
-                    v-model="formData.jsonStr.missDoctor.intro">
+                    v-model="formData.jsonStr.missArticle.intro">
                   </el-input>
                 </el-form-item>
               </el-form>
@@ -78,226 +46,74 @@
           <div class="card">
             <div class="title">基本信息</div>
             <div class="body">
-              <el-form ref="formData" :model="formData" label-width="80px">
+              <el-form ref="formData" :model="formData" label-width="120px">
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="性别">
-                      <el-select v-model="formData.jsonStr.missDoctor.sex" >
-                        <el-option
-                          v-for="item in enumerate.sexList"
-                          :key="item.id"
-                          :label="item.value"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
+                    <el-form-item label="作者">
+                      <el-input v-model="formData.jsonStr.missArticle.author" placeholder="作者"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="籍贯">
-                      <el-input v-model="formData.jsonStr.missDoctor.origin" placeholder="籍贯"></el-input>
+                    <el-form-item label="关键字">
+                      <el-input v-model="formData.jsonStr.missArticle.keyword" placeholder="关键字"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="民族">
-                      <el-input v-model="formData.jsonStr.missDoctor.nation" placeholder="民族"></el-input>
+                    <el-form-item label="发布时间">
+                      <el-input v-model="formData.jsonStr.missArticle.publish_time" placeholder="发布时间"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="专业">
-                      <el-input v-model="formData.jsonStr.missDoctor.profession" placeholder="专业"></el-input>
+                    <el-form-item label="阅读量">
+                      <el-input v-model="formData.jsonStr.missArticle.reading" placeholder="阅读量"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="出生日期">
-                      <el-input v-model="formData.jsonStr.missDoctor.birthday" placeholder="出生日期"></el-input>
+                    <el-form-item label="编辑医生">
+                      <el-input v-model="formData.jsonStr.missArticle.edit_doctor" placeholder="编辑医生"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="逝世日期">
-                      <el-input v-model="formData.jsonStr.missDoctor.dieday" placeholder="逝世日期"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="荣誉称号">
-                      <el-input v-model="formData.jsonStr.missDoctor.honorary" placeholder="荣誉称号"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="临床职称">
-                      <el-input v-model="formData.jsonStr.missDoctor.clinicProfessional" placeholder="临床职称"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="教学职称">
-                      <el-input v-model="formData.jsonStr.missDoctor.eduProfessional" placeholder="教学职称"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="毕业院校">
-                      <el-input v-model="formData.jsonStr.missDoctor.graduate" placeholder="毕业院校"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="毕业院校">
-                      <el-input v-model="formData.jsonStr.missDoctor.graduate" placeholder="毕业院校"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="创建医生">
-                      <el-input v-model="formData.jsonStr.missDoctor.editDoctor" placeholder="创建医生ID"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="12">
                     <el-form-item label="审核医生">
-                      <el-input v-model="formData.jsonStr.missDoctor.auditDoctor" placeholder="审核医生ID"></el-input>
+                      <el-input v-model="formData.jsonStr.missArticle.audit_doctor" placeholder="审核医生"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="描述">
+                      <el-input v-model="formData.jsonStr.missArticle.description" placeholder="描述"
+                      type="textarea" :rows="4"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="正文">
+                      <el-input v-model="formData.jsonStr.missArticle.content" placeholder="正文"
+                                type="textarea" :rows="4"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col>
+                    <el-form-item label="缩略图">
+                      <el-upload
+                        class="avatar-uploader"
+                        action="/api/file/upload"
+                        :show-file-list="false"
+                        :on-success="upSummarySuccess"
+                        :before-upload="beSummaryUpload">
+                        <img v-if="formData.jsonStr.missArticle.thumbnail" :src="formData.jsonStr.missArticle.thumbnail" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                      </el-upload>
+                      <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
                     </el-form-item>
                   </el-col>
                 </el-row>
               </el-form>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">执业机构</div>
-            <div class="body">
-              <div  style="padding-bottom: 10px;">
-                <el-button @click="doAddInstitution" type="primary">新增执业机构</el-button>
-              </div>
-
-              <div v-for="(itemd, index) in formData.jsonStr.missDoctor.institutionList" style="margin-bottom: 5px;">
-                <el-row >
-                  <el-col :span="7" style="padding-right:40px;">
-                    <el-select  v-model="itemd.institutionId" @change="changeInstitutionId">
-                      <el-option
-                        v-for="item in institutionId"
-                        :key="item.id"
-                        :label="item.institutionName"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="7">
-                    <el-select  v-model="itemd.departmentId">
-                      <el-option
-                        v-for="item in departmentList"
-                        :key="item.id"
-                        :label="item.departmentName"
-                        :value="item.id">
-                      </el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="3">
-                    <el-button @click="doDeleteInstitution(index)">删除</el-button>
-                  </el-col>
-                </el-row>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">教育经历</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.education" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">工作经历</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.workExperience" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">诊疗范围</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.treatArea" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">研究方向</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.researchArea" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">学术思想</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.academi" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">科研成果</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.production" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">获奖情况</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.awards" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">学术兼职</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.science" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">社会活动</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.socialization" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">主要论文</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.thesis" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">出版著作</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.bookmaking" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">传承图谱</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missDoctor.heritageMap" :options="editorOption"></quill-editor>
-              </div>
             </div>
           </div>
         </el-col>
@@ -308,9 +124,7 @@
               <el-tabs>
                 <el-tab-pane label="文本或网站">
                   <div class="body">
-                    <div  style="padding-bottom: 10px;">
-                      <el-button @click="doAddRefrences" type="primary">新增</el-button>
-                    </div>
+                    <div  style="padding-bottom: 10px;"><el-button @click="doAddRefrences" type="primary">新增</el-button></div>
                     <div v-for="(item, index) in formData.jsonStr.refrences.textcontent" style="margin-bottom: 5px;">
                       <el-row >
                         <el-col :span="8" style="padding-right:10px;">
@@ -393,15 +207,15 @@
             <div class="body" style="height: 800px;overflow-y: auto;">
               <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
                 <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-                <!--<span style="color: red;" v-if="formData.jsonStr.missDoctor[item.key] === '' ||formData.jsonStr.missDoctor[item.key].length ===0">（空） </span>-->
-                <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missDoctor[item.key])}}</span>-->
+                <!--<span style="color: red;" v-if="formData.jsonStr.missArticle[item.key] === '' ||formData.jsonStr.missArticle[item.key].length ===0">（空） </span>-->
+                <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missArticle[item.key])}}</span>-->
               <!--</div>-->
             </div>
           </div>
         </el-col>
       </el-row>
     </div>
-    <div v-if="isCheck" class="footer">
+    <div class="footer">
       <el-row>
         <el-col :span="12" style="padding: 10px;">
           <div>
@@ -420,7 +234,6 @@
         </el-col>
       </el-row>
     </div>
-
     <!--参考资料弹框-->
     <el-dialog
       title="添加参考资料"
@@ -460,15 +273,16 @@
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
-					<el-button type="primary" @click="doAddRefrencesImage">确 定</el-button>
-					<el-button @click="cancelRefrencesImage">取 消</el-button>
-				</span>
+        <el-button type="primary" @click="doAddRefrencesImage">确 定</el-button>
+         <el-button @click="cancelRefrencesImage">取 消</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
 
+
 <script>
-  import { doDoctorCheck, doCreateDisBasics, getDepartmentList } from '../../api/task'
+  import { doArtcileCheck, doCreateDisBasics } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import i18n from '../../i18n/local'
   import 'quill/dist/quill.core.css'
@@ -495,48 +309,26 @@
         formData: {
           'taskStatus': 'drafts',
           'taskType': 'create',
-          'taskMenuType': 'missDoctor',
+          'taskMenuType': 'missArticle',
           'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
           'taskSecondTrialPoint': '',
           'jsonStr': {
-            'missDoctor': {
-              id: '',
+            'missArticle': { // missArticle
               name: '',
-              sex: '0',
-              origin: '',
-              nation: '',
-              birthday: '',
-              dieday: '',
-              intro: '',
               picturepath: '',
-              thumbnail: '',
-              honorary: '',
-              clinicProfessional: '',
-              eduProfessional: '',
-              graduate: '',
-              profession: '',
-              inauguralInstitution: '',
-              education: '',
-              workExperience: '',
-              expertsTime: '',
-              treatArea: '',
-              researchArea: '',
-              academic: '',
-              production: '',
-              awards: '',
-              science: '',
-              socialization: '',
-              thesis: '',
-              bookmaking: '',
-              heritageMap: '',
-              referenceMaterial: '',
-              birthplaceDistrictCode: '',
-              editDoctor: '',
-              auditDoctor: '',
-              institutionList: []
+              intro: '',
+              author: '',
+              keyword: '',
+              publish_time: '',
+              reading: '',
+              edit_doctor: '',
+              audit_doctor: '',
+              content: '',
+              description: '',
+              thumbnail: ''
             },
             refrences: {
               textcontent: [],
@@ -545,7 +337,6 @@
             approvsls: []// 各模块评审结果
           }
         },
-
         refrencesObj: {
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
@@ -555,13 +346,9 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'intro', value: '简介' }, { key: 'institutionList', value: '执业机构' }, { key: 'education', value: '教育经历' },
-          { key: 'workExperience', value: '工作经历' }, { key: 'treatArea', value: '诊疗范围' }, { key: 'researchArea', value: '研究方向' }, { key: 'academi', value: '学术思想' },
-          { key: 'production', value: '科研成果' }, { key: 'awards', value: '获奖情况' }, { key: 'science', value: '学术兼职' }, { key: 'socialization', value: '社会活动' },
-          { key: 'thesis', value: '主要论文' }, { key: 'bookmaking', value: '出版著作' }, { key: 'heritageMap', value: '传承图谱' }
+        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'chineseName', value: '中文名称' }, { key: 'englishName', value: '英文名称' },
+          { key: 'otherName', value: '别名' }, { key: 'relatedDiseases', value: '相关西医疾病' }
         ],
-        institutionList: [],
-        departmentList: [],
         editorOption: {
           placeholder: '请输入内容'
         },
@@ -573,43 +360,21 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
-      const params = {
-        currentPage: 1,
-        pageSize: 9999,
-        parentDepartmentId: 0
-      }
-      this.getDepartmentList(params)
+      this.formData = JSON.parse(localStorage.getItem('curTrearment'))
     },
     methods: {
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missDoctor.name,
-          sex: this.formData.jsonStr.missDoctor.sex,
-          birthday: this.formData.jsonStr.missDoctor.birthday
+          name: this.formData.jsonStr.missArticle.name,
+          author: this.formData.jsonStr.missArticle.author
         }
-        doDoctorCheck(params).then(response => {
+        doArtcileCheck(params).then(response => {
           if (response && response.meta.success) {
             this.formData.taskId = response.data
             this.isCheck = true
           }
         })
       },
-      getDepartmentList(params) {
-        getDepartmentList(params).then(response => {
-          this.institutionList = response.data.params
-        })
-      },
-      changeInstitutionId(val) {
-        const params = {
-          currentPage: 1,
-          pageSize: 9999,
-          InstitutionId: val
-        }
-        getDepartmentList(params).then(response => {
-          this.departmentList = response.data.params
-        })
-      },
-
       handleChange(file, fileList) {
         this.fileList3 = fileList.slice(-3)
       },
@@ -618,7 +383,7 @@
       * */
       upSummarySuccess(res, file) {
         // this.imageUrl = URL.createObjectURL(file.raw)
-        this.formData.jsonStr.missDoctor.picturepath = URL.createObjectURL(file.raw)
+        this.formData.jsonStr.missArticle.picturepath = URL.createObjectURL(file.raw)
       },
       beSummaryUpload(file) {
         const isJPG = file.type === 'image/jpeg'
@@ -631,22 +396,6 @@
           this.$message.error('上传头像图片大小不能超过 2MB!')
         }
         return isJPG && isLt2M
-      },
-      /**
-       * 执业机构及部门设置
-       * */
-      doAddInstitution() {
-        const param = {
-          institutionId: '',
-          institutionName: '',
-          departmentId: '',
-          departmentName: '',
-          expertsTime: ''
-        }
-        this.formData.jsonStr.missDoctor.institutionList.push(param)
-      },
-      doDeleteInstitution(index) {
-        this.formData.jsonStr.missDoctor.institutionList.splice(index, 1)
       },
       /**
        * 参考资料
@@ -696,7 +445,7 @@
         this.formData.operateCode = key
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
-            this.$router.push('/modernDoctor/cooperation')
+            this.$router.push('/article/list')
           }
         })
       },
@@ -730,7 +479,7 @@
         }
       },
       leadteamInfoLength() {
-        if (this.formData.jsonStr.missDoctor.leadteamInfo.length > 0) {
+        if (this.formData.jsonStr.missArticle.leadteamInfo.length > 0) {
           return true
         } else {
           return false

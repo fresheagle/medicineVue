@@ -71,6 +71,14 @@ export function getUserAndRoleList(userCode) {
     method: 'get'
   })
 }
+// 查询全部角色
+export function getAllRoleList(params) {
+  return request({
+    url: '/api/role/page',
+    method: 'get',
+    params
+  })
+}
 
 // 用户添加角色
 export function toAddUserRole(data) {

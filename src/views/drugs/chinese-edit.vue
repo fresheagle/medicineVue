@@ -1,31 +1,6 @@
 <template>
   <div class="app-container" id="institutionCreate">
-    <div v-if="!isCheck">
-      <el-row >
-        <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">数据校验</div>
-            <div class="body">
-              <el-form :model="formData" label-width="80px">
-                <el-form-item label="通用名称">
-                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="请输入医生姓名"></el-input>
-                </el-form-item>
-                <el-form-item label="商品名称">
-                  <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item label="英文名称">
-                  <el-input v-model="formData.jsonStr.missMedical.englishName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item >
-                  <el-button @click="doCheck">校验</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div v-if="isCheck" style="top:0px;position: relative;">
+    <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
           <div class="card">
@@ -52,7 +27,7 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missMedical.picturepath" :src="formData.jsonStr.missMedical.picturepath" class="avatar">
+                    <img v-if="formData.jsonStr.missMedical.picturePath" :src="formData.jsonStr.missMedical.picturePath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
@@ -71,16 +46,16 @@
           <div class="card">
             <div class="title">基本信息</div>
             <div class="body">
-              <el-form ref="formData" :model="formData" label-width="80px">
+              <el-form ref="formData" :model="formData" label-width="90px">
                 <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="汉语拼音">
-                      <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="汉语拼音"></el-input>
-                    </el-form-item>
-                  </el-col>
                   <el-col :span="12">
                     <el-form-item label="药品类型">
                       <el-input v-model="formData.jsonStr.missMedical.drugType" placeholder="药品类型"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="医保类型">
+                      <el-input v-model="formData.jsonStr.missMedical.healthType" placeholder="医保类型"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -92,27 +67,39 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="医保类型">
-                      <el-input v-model="formData.jsonStr.missMedical.healthType" placeholder="医保类型"></el-input>
+                    <el-form-item label="参考价格">
+                      <el-input v-model="formData.jsonStr.missMedical.price" placeholder="参考价格"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
-                    <el-form-item label="参考价格">
-                      <el-input v-model="formData.jsonStr.missMedical.price" placeholder="参考价格"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="西药科室">
+                    <el-form-item label="中成药类型">
                       <el-select
-                        v-model="formData.jsonStr.missMedical.westMedicalDepartment"
+                        v-model="formData.jsonStr.missMedical.chineseMedicalType"
                         multiple
                         collapse-tags
                         style="margin-left: 20px;"
                         placeholder="请选择">
                         <el-option
-                          v-for="item in enumerate.westernDrugsDepartment"
+                          v-for="item in enumerate.chineseDrugsType"
+                          :key="item.value"
+                          :label="item.value"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="中成药科室">
+                      <el-select
+                        v-model="formData.jsonStr.missMedical.chineseMedicalDepartment"
+                        multiple
+                        collapse-tags
+                        style="margin-left: 20px;"
+                        placeholder="请选择">
+                        <el-option
+                          v-for="item in enumerate.chineseDrugsDepartment"
                           :key="item.value"
                           :label="item.value"
                           :value="item.value">
@@ -137,7 +124,7 @@
             </div>
           </div>
           <div class="card">
-            <div class="title">成分</div>
+            <div class="title">主要成分</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.component" :options="editorOption"></quill-editor>
@@ -153,7 +140,23 @@
             </div>
           </div>
           <div class="card">
-            <div class="title">适应症</div>
+            <div class="title">组成</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.constitute" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">主要功效</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.mainMeffect" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">适应病症</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.indication" :options="editorOption"></quill-editor>
@@ -209,30 +212,6 @@
             </div>
           </div>
           <div class="card">
-            <div class="title">孕妇及哺乳期妇女用药</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.gravidaDurg" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">儿童用药</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.childrenDurg" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">老人用药</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.elderlyDurg" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
             <div class="title">药物相互作用</div>
             <div class="body">
               <div>
@@ -241,10 +220,10 @@
             </div>
           </div>
           <div class="card">
-            <div class="title">药物过量</div>
+            <div class="title">药性分析</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.durgOverdose" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.analyze" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -261,14 +240,6 @@
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.toxicologicalEffects" :options="editorOption"></quill-editor>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="title">药代动力学</div>
-            <div class="body">
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacokinetics" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -519,7 +490,7 @@
         </el-col>
       </el-row>
     </div>
-    <div v-if="isCheck" class="footer">
+    <div class="footer">
       <el-row>
         <el-col :span="12" style="padding: 10px;">
           <div>
@@ -585,6 +556,8 @@
   </div>
 </template>
 
+
+
 <script>
   import { doMedicalCheck, doCreateDisBasics, getDepartmentList } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
@@ -606,7 +579,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: false,
+        isCheck: true,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -626,8 +599,6 @@
               picturePath: '',
               medicalType: '',
               comName: '',
-              shopName: '',
-              englishName: '',
               chinesePinyin: '',
               drugType: '',
               recipeType: '',
@@ -635,31 +606,30 @@
               price: '',
               component: '',
               property: '',
+              constitute: '',
+              mainMeffect: '',
               indication: '',
-              medicFormat: '',
-              dosage: '',
               clinicalApplication: '',
               adverseReaction: '',
+              analyze: '',
+              medicFormat: '',
+              dosage: '',
+              adverseReactions: '',
               taboo: '',
               notice: '',
-              gravidaDurg: '',
-              childrenDurg: '',
-              elderlyDurg: '',
               interactions: '',
-              durgOverdose: '',
               pharmacology: '',
               toxicologicalEffects: '',
-              pharmacokinetics: '',
               storageMethod: '',
               ytime: '',
               standard: '',
-              approvaNum: '',
-              combinedMedication: '',
-              physicianAdvice: '',
+              approvalNum: '',
               identify: '',
               pharmacyCheck: '',
               contentPic: '',
               notes: '',
+              combinedMedication: '',
+              physicianAdvice: '',
               drugIdentifying: '',
               drugIntroduc: '',
               history: '',
@@ -668,7 +638,8 @@
               enterprise: '',
               productInfo: '',
               messageFrom: '',
-              westMedicalDepartment: [],
+              chineseMedicalType: [],
+              chineseMedicalDepartment: '',
               editDoctor: '',
               auditDoctor: ''
             },
@@ -695,8 +666,8 @@
           { key: 'adverseReaction', value: '不良反应' }, { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' },
           { key: 'gravidaDurg', value: '孕妇及哺乳期妇女用药' },
           { key: 'childrenDurg', value: '儿童用药' }, { key: 'elderlyDurg', value: '老人用药' }, { key: 'interactions', value: '药物相互作用' },
-          { key: 'durgOverdose', value: '药物过量' }, { key: 'pharmacology', value: '药理作用' }, { key: 'toxicologicalEffects', value: '毒理作用' },
-          { key: 'pharmacokinetics', value: '药代动力学' }, { key: 'storageMethod', value: '贮藏' }, { key: 'ytime', value: '有效期' },
+          { key: 'analyze', value: '药性分析' }, { key: 'pharmacology', value: '药理作用' }, { key: 'toxicologicalEffects', value: '毒理作用' },
+          { key: 'storageMethod', value: '贮藏' }, { key: 'ytime', value: '有效期' },
           { key: 'standard', value: '执行标准' }, { key: 'approvaNum', value: '执行文号' }, { key: 'combinedMedication', value: '联合用药' },
           { key: 'physicianAdvice', value: '医师建议' }, { key: 'identify', value: '鉴别' }, { key: 'pharmacyCheck', value: '检查' },
           { key: 'contentPic', value: '含量测定' }, { key: 'notes', value: '附注' }, { key: 'drugIdentifying', value: '药品标识' },
@@ -717,6 +688,7 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
+      this.formData = JSON.parse(localStorage.getItem('curTrearment'))
     },
     filters: {
     },
@@ -725,7 +697,7 @@
         const params = {
           comName: this.formData.jsonStr.missMedical.comName,
           shopName: this.formData.jsonStr.missMedical.shopName,
-          englishName: this.formData.jsonStr.missMedical.englishName
+          chinesePinyin: this.formData.jsonStr.missMedical.chinesePinyin
         }
         doMedicalCheck(params).then(response => {
           if (response && response.meta.success) {
@@ -831,7 +803,7 @@
         this.formData.operateCode = key
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
-            this.$router.push('/drugs/western')
+            this.$router.push('/drugs/chinese')
           }
         })
       },

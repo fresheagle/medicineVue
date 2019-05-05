@@ -123,18 +123,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
-          <el-button type="primary" @click="doCreate()">创建</el-button>
-          <el-button type="primary" @click="doOnline()" :disabled="!(multipleSelection.length > 0)">上线</el-button>
-          <el-button type="primary" @click="doOffline()" :disabled="!(multipleSelection.length > 0)">下线</el-button>
-          <el-button type="primary" @click="toShowBatchDelete()" :disabled="!(multipleSelection.length > 0)">删除</el-button>
-          <el-button type="primary" @click="toShowExamine()" :disabled="!(multipleSelection.length > 0)">批量审核</el-button>
-          <el-button type="primary" @click="toShowSettlement()" :disabled="!(multipleSelection.length > 0)">结算</el-button>
-          <el-button type="primary" @click="toShowResetStatus()" :disabled="!(multipleSelection.length > 0)">重置进度</el-button>
-          <el-button type="primary" @click="toShowAssign()" :disabled="!(multipleSelection.length > 0)">指派新作者</el-button>
-          <el-button type="text" @click="toTaskPool('drafts')">草稿箱</el-button>
-          <el-button type="text" @click="toTaskPool('toFirAudited')">初审池</el-button>
-          <el-button type="text" @click="toTaskPool('toSecAudited')">二审池</el-button>
-          <el-button type="text" @click="toTaskPool('toFinalAudited')">终审池</el-button>
+          <el-button type="primary" @click="doReceive()">领取任务</el-button><!--该按钮放置到任务页面-->
         </el-form-item>
       </el-form>
     </el-col>
@@ -204,19 +193,9 @@
           {{fmtDate(scope.row.taskFinalTrialTime)}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskFinalTrialPint" label="更新日期" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          {{fmtDate(scope.row.updateTime)}}
-        </template>
-      </el-table-column>
-      <el-table-column prop="detailCount" label="版本" :show-overflow-tooltip="true">
-      </el-table-column>
-      <el-table-column prop="accounts" label="其他状态" :show-overflow-tooltip="true">
-      </el-table-column>
 
-      <el-table-column prop="operation" label="操作" width="150px">
+      <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="handleExamine(scope.row)">审核</el-button>
           <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button type="text" @click="deleteUpdate(scope.row)">删除</el-button>
         </template>
@@ -234,12 +213,10 @@
 
     <delete-dialog :visible.sync="deleteVisible" :row-data="curRowData" :cur-task-type="curTaskType"
                    @refreshList="fetchData"></delete-dialog>
-    <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></examine-dialog>
-    <online-dialog :visible.sync="isShowOnlineVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></online-dialog>
-    <offline-dialog :visible.sync="isShowOfflineVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></offline-dialog>
-    <settlement-dialog :visible.sync="isShowSettlementVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></settlement-dialog>
-    <reset-status-dialog :visible.sync="isShowResetStatusVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></reset-status-dialog>
-    <assign-dialog :visible.sync="isShowAssignVisible" :cur-select-data="multipleSelection"></assign-dialog>
+    <examine-dialog :visible.sync="isShowExamineVisible" :cur-select-data="multipleSelection"></examine-dialog>
+    <settlement-dialog :visible.sync="isShowSettlementVisible"></settlement-dialog>
+    <reset-status-dialog :visible.sync="isShowResetStatusVisible"></reset-status-dialog>
+    <assign-dialog :visible.sync="isShowAssignVisible"></assign-dialog>
 
   </div>
 </template>
@@ -248,31 +225,25 @@
 <script>
   import { getTaskList, doCreateDisBasics, toClaimTask } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
-
-  // import createPublicDialog from './dialog/createPublicDialog'
   import deleteDialog from '../dialog/deleteDialog'
   import examineDialog from '../dialog/examineDialog'
   import settlementDialog from '../dialog/settlementDialog'
   import resetStatusDialog from '../dialog/resetStatusDialog'
   import assignDialog from '../dialog/assignDialog'
-  import onlineDialog from '../dialog/onlineDialog'
-  import offlineDialog from '../dialog/offlineDialog'
 
   import i18n from '../../i18n/local'
 
   const viewName = 'i18nView'
   export default {
+    props: {
+      curTaskMenuType: ''
+    },
     components: {
       deleteDialog,
       examineDialog,
       settlementDialog,
       resetStatusDialog,
-      assignDialog,
-      onlineDialog,
-      offlineDialog
-    },
-    props: {
-      curTaskMenuType: ''
+      assignDialog
     },
     data() {
       return {
@@ -286,8 +257,6 @@
         isShowResetStatusVisible: false,
         isShowAssignVisible: false,
         isShowEditVisible: false,
-        isShowOfflineVisible: false,
-        isShowOnlineVisible: false,
         isShowCompare: false,
         isShowSubmit: false,
         deleteVisible: false,
@@ -308,8 +277,7 @@
           finalTrialUser: [],
           taskFirstTrialTime: [],
           taskSecondTrialTime: [],
-          taskFinalTrialTime: [],
-          taskMenuType: this.curTaskMenuType
+          taskFinalTrialTime: []
         },
         group: [{ label: '全部', value: 'all' }, { label: '草稿箱', value: 'drafts' }],
         multipleSelection: [],
@@ -328,7 +296,8 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
-      this.fetchData(this.curTaskMenuType)
+      this.searchBody.taskStatus[0] = this.$route.params.taskProgress
+      this.fetchData()
     },
     filters: {
       statusFilter(status) {
@@ -349,12 +318,13 @@
       }
     },
     methods: {
-      fetchData(cruTaskMenuType) {
+      fetchData() {
         this.listLoading = false
         const params = this.searchBody
         params.currentPage = 1
         params.pageSize = 9999
-        params.taskMenuType = cruTaskMenuType
+        params.taskMenuType = this.curTaskMenuType
+        // this.listQuery
         getTaskList(params).then(response => {
           const limit = 10
           const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
@@ -364,9 +334,6 @@
         })
       },
       fmtDate(obj) {
-        if (obj === '' || obj === null) {
-          return '--'
-        }
         var date = new Date(obj)
         var y = 1900 + date.getYear()
         var m = '0' + (date.getMonth() + 1)
@@ -389,43 +356,7 @@
           taskFinalTrialTime: []
         }
         // 调用查询接口
-        this.fetchData(this.curTaskMenuType)
-      },
-      doCreate() {
-        var curPath = ''
-        switch (this.curTaskMenuType) {
-          case 'missInstitution':
-            curPath = '/institution/create'
-            break
-          case 'missDoctor':
-            curPath = '/modernDoctor/cooperation-create'
-            break
-          case 'missChineseDisease':
-            curPath = '/disease/chinese-create'
-            break
-          case 'missWsetDisease':
-            curPath = '/disease/western-create'
-            break
-          case 'missChineseMedical':
-            curPath = '/drugs/chinese-create'
-            break
-          case 'missWesternMedical':
-            curPath = '/drugs/western-create'
-            break
-          case 'missChineseSymptom':
-            curPath = '/symptom/chinese-create'
-            break
-          case 'missWesternSymptom':
-            curPath = '/symptom/western-create'
-            break
-          case 'missArticle':
-            curPath = '/article/article-create'
-            break
-        }
-        const { href } = this.$router.resolve({
-          path: curPath
-        })
-        window.open(href, '_blank')
+        this.fetchData()
       },
       // 任务认领
       doReceive() {
@@ -436,78 +367,20 @@
         const params = {
           'status': 1,
           'taskIds': result,
-          'taskStatus': 'toFirAudited'
+          'taskStatus': this.$route.params.taskProgress
         }
         toClaimTask(params).then(response => {
-
+          if (response && response.meta.success) {
+            this.fetchData()
+          }
         })
       },
       handleSelectionChange(val) {
         this.multipleSelection = val
       },
-      // 上线
-      doOnline() {
-        this.isShowOnlineVisible = true
-      },
-      //  下线
-      doOffline() {
-        this.isShowOfflineVisible = true
-      },
-      // 批量删除
-      toShowBatchDelete() {
-      },
-      // 批量审核
-      toShowExamine() {
-        this.isShowExamineVisible = true
-      },
-      toShowSettlement() {
-        this.isShowSettlementVisible = true
-      },
-      toShowResetStatus() {
-        this.isShowResetStatusVisible = true
-      },
-      toShowAssign() {
-        this.isShowAssignVisible = true
-      },
-      toTaskPool(taskStatus) {
-        var curPath = ''
-        switch (this.curTaskMenuType) {
-          case 'missInstitution':
-            curPath = '/institution/treatment/pool/'
-            break
-          case 'missDoctor':
-            curPath = '/cooperation/pool/'
-            break
-          case 'missChineseDisease':
-            curPath = '/disease/chinese/pool/'
-            break
-          case 'missWsetDisease':
-            curPath = '/disease/western/pool/'
-            break
-          case 'missChineseMedical':
-            curPath = '/drugs/chinese/pool/'
-            break
-          case 'missWesternMedical':
-            curPath = '/drugs/western/pool/'
-            break
-          case 'missChineseSymptom':
-            curPath = '/symptom/chinese/pool/'
-            break
-          case 'missWesternSymptom':
-            curPath = '/symptom/western/pool/'
-            break
-          case 'missArticle':
-            curPath = '/article/pool/'
-            break
-        }
-        const { href } = this.$router.resolve({
-          path: curPath + taskStatus
-        })
-        window.open(href, '_blank')
-      },
       doFilter() {
         if (this.searchName === '') {
-          this.fetchData(this.curTaskMenuType)
+          this.fetchData()
           // this.$message.warning('查询条件不能为空！')
           return
         }
@@ -525,14 +398,6 @@
         this.total = this.filterTableDataEnd.length
         // 渲染表格,根据值
         this.currentChangePage(this.filterTableDataEnd)
-      },
-      handleExamine(row) {
-        const curTrearment = Object.assign({}, row)
-        localStorage.setItem('curTrearment', JSON.stringify(curTrearment))
-        const { href } = this.$router.resolve({
-          path: '/institution/examine'
-        })
-        window.open(href, '_blank')
       },
       handleUpdate(row) {
         const curTrearment = Object.assign({}, row)
@@ -577,10 +442,6 @@
         this.curTaskType = 'delete'
         this.curRowData = Object.assign({}, row)
       },
-      handleSubmit(row) {
-        this.isShowSubmit = true
-        this.curRowData = Object.assign({}, row)
-      },
       handleCompare(row) {
         // 调用查看版本的接口
         this.isShowCompare = true
@@ -591,11 +452,11 @@
       },
       handleSizeChange(val) {
         this.page = val
-        this.fetchData(this.curTaskMenuType)
+        this.fetchData()
       },
       handleCurrentChange(val) {
         this.page = val
-        this.fetchData(this.curTaskMenuType)
+        this.fetchData()
       },
       currentChangePage(list) {
         let from = (this.page - 1) * this.pageSize

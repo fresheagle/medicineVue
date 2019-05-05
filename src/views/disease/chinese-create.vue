@@ -7,12 +7,15 @@
             <div class="title">数据校验</div>
             <div class="body">
               <el-form :model="formData" label-width="80px">
-                <el-form-item label="名称">
-                  <el-input v-model="formData.jsonStr.missChineseDisease.name" placeholder="请输入任务标题"></el-input>
+                <el-form-item label="中文名称">
+                  <el-input v-model="formData.jsonStr.missChineseDisease.chineseName" placeholder="中文名称"></el-input>
                 </el-form-item>
-                <!--<el-form-item label="官方网站">-->
-                <!--<el-input v-model="formData.jsonStr.missChineseDisease.website" placeholder="请输入官方网站"></el-input>-->
-                <!--</el-form-item>-->
+                <el-form-item label="英文名称">
+                  <el-input v-model="formData.jsonStr.missChineseDisease.englishName" placeholder="英文名称"></el-input>
+                </el-form-item>
+                <el-form-item label="别名">
+                  <el-input v-model="formData.jsonStr.missChineseDisease.otherName" placeholder="别名"></el-input>
+                </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -570,7 +573,7 @@
 
 
 <script>
-  import { doCheck, doCreateDisBasics, getDepartmentList, getDislocationList } from '../../api/task'
+  import { doChineseDiseaseCheck, doCreateDisBasics, getDepartmentList, getDislocationList } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import i18n from '../../i18n/local'
   import 'quill/dist/quill.core.css'
@@ -590,7 +593,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: true,
+        isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -703,10 +706,11 @@
       },
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missChineseDisease.name,
-          website: this.formData.jsonStr.missChineseDisease.website
+          chineseName: this.formData.jsonStr.missChineseDisease.chineseName,
+          englishName: this.formData.jsonStr.missChineseDisease.englishName,
+          otherName: this.formData.jsonStr.missChineseDisease.otherName
         }
-        doCheck(params).then(response => {
+        doChineseDiseaseCheck(params).then(response => {
           if (response && response.meta.success) {
             this.formData.taskId = response.data
             this.isCheck = true

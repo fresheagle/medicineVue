@@ -11,7 +11,7 @@
     },
     data() {
       return {
-        curTaskMenuType: 'missInstitution'
+        curTaskMenuType: 'missChineseSymptom'
       }
     },
     created() {

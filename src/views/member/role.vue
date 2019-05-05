@@ -14,14 +14,15 @@
       </el-form>
     </el-col>
     <!--列表-->
-    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中" style="width: 100%;">
+    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中"
+              size="tiny" style="width: 100%;">
       <el-table-column prop="rolecode" label="编号" ></el-table-column>
       <el-table-column prop="rolename" label="名称">
       </el-table-column>
       <el-table-column prop="operation" label="操作 " width="300">
         <template slot-scope="scope" >
          <el-button size="small" type="text"  @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button size="small" type="text" @click="deleteUpdate(scope.row)">删除</el-button>
+          <!--<el-button size="small" type="text" @click="deleteUpdate(scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>

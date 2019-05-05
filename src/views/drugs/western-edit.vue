@@ -1,31 +1,6 @@
 <template>
   <div class="app-container" id="institutionCreate">
-    <div v-if="!isCheck">
-      <el-row >
-        <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">数据校验</div>
-            <div class="body">
-              <el-form :model="formData" label-width="80px">
-                <el-form-item label="通用名称">
-                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="请输入医生姓名"></el-input>
-                </el-form-item>
-                <el-form-item label="商品名称">
-                  <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item label="英文名称">
-                  <el-input v-model="formData.jsonStr.missMedical.englishName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item >
-                  <el-button @click="doCheck">校验</el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div v-if="isCheck" style="top:0px;position: relative;">
+    <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
           <div class="card">
@@ -519,7 +494,7 @@
         </el-col>
       </el-row>
     </div>
-    <div v-if="isCheck" class="footer">
+    <div class="footer">
       <el-row>
         <el-col :span="12" style="padding: 10px;">
           <div>
@@ -717,6 +692,7 @@
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
+      this.formData = JSON.parse(localStorage.getItem('curTrearment'))
     },
     filters: {
     },

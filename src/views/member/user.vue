@@ -41,13 +41,19 @@
     </el-pagination>
 
     <!-- 新增数据 -->
-    <el-dialog title="新增" :visible.sync="isShowCreateVisible" :append-to-body="true">
-      <el-form label-width="80px" :model="formData" ref="formData">
+    <el-dialog title="新增" :visible.sync="isShowCreateVisible" :append-to-body="true" size="tiny">
+      <el-form label-width="80px" :model="formData" ref="formData" :rules="rules2">
         <el-form-item label="账号" prop="userCode">
           <el-input v-model="formData.userCode"></el-input>
         </el-form-item>
         <el-form-item label="名称" prop="userName">
           <el-input v-model="formData.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="userPassWord">
+          <el-input type="password" v-model="formData.userPassWord" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="userPassWordSec">
+          <el-input type="password" v-model="formData.userPassWordSec" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="userEmail">
           <el-input v-model="formData.userEmail"></el-input>
@@ -58,7 +64,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowCreateVisible = false">取消</el-button>
-        <el-button type="primary" :loading="listLoading" class="title1" @click="doAddSubmit">确定</el-button>
+        <el-button type="primary" :loading="listLoading" class="title1" @click="doAddSubmit('formData')">确定</el-button>
       </div>
     </el-dialog>
     <!-- 编辑数据 -->
@@ -69,6 +75,12 @@
         </el-form-item>
         <el-form-item label="名称" prop="userName">
           <el-input v-model="formData.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="userPassWord">
+          <el-input type="password" v-model="formData.userPassWord" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="userPassWordSec">
+          <el-input type="password" v-model="formData.userPassWordSec" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="userEmail">
           <el-input v-model="formData.userEmail"></el-input>
@@ -83,17 +95,18 @@
       </div>
     </el-dialog>
     <!-- 关联角色 -->
-    <el-dialog title="关联角色" :visible.sync="isshowAddRoleDialog" :append-to-body="true">
+    <el-dialog title="关联角色" :visible.sync="isshowAddRoleDialog" :append-to-body="true" width="600px">
       <el-transfer
             v-model="roleArr"
             :props="{
               key: 'rolecode',
               label: 'rolename'
             }"
+            :titles="['全部角色', '已绑定角色']"
         :data="allRole">
       </el-transfer>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="isShowEditVisible = false">取消</el-button>
+        <el-button @click="isshowAddRoleDialog = false">取消</el-button>
         <el-button type="primary" :loading="listLoading" class="title1" @click="doEditSubmit">确定</el-button>
       </div>
     </el-dialog>
@@ -114,9 +127,28 @@
 
 
 <script>
-import { getUserList, toAddUser, toDeleteUser, toEditUser, getUserAndRoleList } from '@/api/member'
+import { getUserList, toAddUser, toDeleteUser, toEditUser, getUserAndRoleList, getAllRoleList, toAddUserRole } from '@/api/member'
 export default {
   data() {
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.formData.userPassWordSec !== '') {
+          this.$refs.formData.validateField('userPassWordSec')
+        }
+        callback()
+      }
+    }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.formData.userPassWord) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       tableList: [],
       listLoading: true,
@@ -129,8 +161,18 @@ export default {
       formData: {
         userName: '',
         userCode: '',
+        userPassWord: '',
+        userPassWordSec: '',
         userEmail: '',
         userPhoneNo: ''
+      },
+      rules2: {
+        userPassWord: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        userPassWordSec: [
+          { validator: validatePass2, trigger: 'blur' }
+        ]
       },
       total: 0,
       page: 1,
@@ -154,15 +196,6 @@ export default {
   created() {
     this.fetchData()
   },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        1: 'success',
-        2: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   methods: {
     fetchData() {
       this.listLoading = true
@@ -181,10 +214,17 @@ export default {
     doCreate() {
       this.isShowCreateVisible = true
     },
-    doAddSubmit() {
-      toAddUser(this.formData).then(response => {
-        this.isShowCreateVisible = false
-        this.fetchData()
+    doAddSubmit(formData) {
+      this.$refs[formData].validate((valid) => {
+        if (valid) {
+          toAddUser(this.formData).then(response => {
+            this.isShowCreateVisible = false
+            this.fetchData()
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
       })
     },
     doFilter() {
@@ -211,10 +251,17 @@ export default {
       this.isShowEditVisible = true
       this.formData = Object.assign({}, row)
     },
-    doEditSubmit() {
-      toEditUser(this.formData).then(response => {
-        this.isShowEditVisible = false
-        this.fetchData()
+    doEditSubmit(formData) {
+      this.$refs[formData].validate((valid) => {
+        if (valid) {
+          toEditUser(this.formData).then(response => {
+            this.isShowEditVisible = false
+            this.fetchData()
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
       })
     },
     deleteUpdate(row) {
@@ -229,8 +276,15 @@ export default {
     },
     showAddRoleDialog(row) {
       this.isshowAddRoleDialog = true
-      getUserAndRoleList(row.userCode).then(response => {
+      const param = {
+        currentPage: 1,
+        pageSize: 9999
+      }
+      getAllRoleList(param).then(response => {
         this.allRole = response.data.missControlRole
+      })
+      getUserAndRoleList(row.userCode).then(response => {
+        this.roleArr = response.data.missControlRole
       })
     },
     handleSizeChange(val) {

@@ -100,7 +100,12 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="中成药类型">
-                      <el-select v-model="formData.jsonStr.missMedical.chineseMedicalType" placeholder="请选择">
+                      <el-select
+                        v-model="formData.jsonStr.missMedical.chineseMedicalType"
+                        multiple
+                        collapse-tags
+                        style="margin-left: 20px;"
+                        placeholder="请选择">
                         <el-option
                           v-for="item in enumerate.chineseDrugsType"
                           :key="item.value"
@@ -112,7 +117,12 @@
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="中成药科室">
-                      <el-select v-model="formData.jsonStr.missMedical.chineseMedicalDepartment" placeholder="请选择">
+                      <el-select
+                        v-model="formData.jsonStr.missMedical.chineseMedicalDepartment"
+                        multiple
+                        collapse-tags
+                        style="margin-left: 20px;"
+                        placeholder="请选择">
                         <el-option
                           v-for="item in enumerate.chineseDrugsDepartment"
                           :key="item.value"
@@ -574,7 +584,7 @@
 
 
 <script>
-  import { doCheck, doCreateDisBasics, getDepartmentList } from '../../api/task'
+  import { doMedicalCheck, doCreateDisBasics, getDepartmentList } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import i18n from '../../i18n/local'
   import 'quill/dist/quill.core.css'
@@ -653,7 +663,7 @@
               enterprise: '',
               productInfo: '',
               messageFrom: '',
-              chineseMedicalType: '',
+              chineseMedicalType: [],
               chineseMedicalDepartment: '',
               editDoctor: '',
               auditDoctor: ''
@@ -709,10 +719,11 @@
     methods: {
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missMedical.name,
-          birthday: this.formData.jsonStr.missMedical.birthday
+          comName: this.formData.jsonStr.missMedical.comName,
+          shopName: this.formData.jsonStr.missMedical.shopName,
+          chinesePinyin: this.formData.jsonStr.missMedical.chinesePinyin
         }
-        doCheck(params).then(response => {
+        doMedicalCheck(params).then(response => {
           if (response && response.meta.success) {
             this.formData.taskId = response.data
             this.isCheck = true
