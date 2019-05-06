@@ -174,7 +174,8 @@
                 <el-row>
                   <el-col :span="6">
                     <div>
-                      <picture-slider :picture-list="item.picture"></picture-slider>
+                      <img width="100%" :src="item.picture[0]" alt="">
+                      <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
                     </div>
                   </el-col>
                   <el-col :span="12">
@@ -201,7 +202,8 @@
                 <el-row>
                   <el-col :span="6">
                     <div>
-                      <picture-slider :picture-list="item.picture"></picture-slider>
+                      <img width="100%" :src="item.picture[0]" alt="">
+                      <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
                     </div>
                   </el-col>
                   <el-col :span="12">
@@ -259,6 +261,14 @@
                     <el-button @click="doDeleteDepartment(index)">删除</el-button>
                   </el-col>
                 </el-row>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">医生信息</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.doctorInfo" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -650,6 +660,7 @@
               leadteamInfo: [],
               environment: [],
               departmentMapDTO: [],
+              doctorInfo: '',
               special: '',
               advantage: '',
               equipment: '',

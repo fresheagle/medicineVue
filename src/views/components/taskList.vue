@@ -529,8 +529,38 @@
       handleExamine(row) {
         const curTrearment = Object.assign({}, row)
         localStorage.setItem('curTrearment', JSON.stringify(curTrearment))
+        var curPath = ''
+        switch (this.curTaskMenuType) {
+          case 'missInstitution':
+            curPath = '/institution/examine'
+            break
+          case 'missDoctor':
+            curPath = '/modernDoctor/cooperation-examine'
+            break
+          case 'missChineseDisease':
+            curPath = '/disease/chinese-examine'
+            break
+          case 'missWsetDisease':
+            curPath = '/disease/western-examine'
+            break
+          case 'missChineseMedical':
+            curPath = '/drugs/chinese-examine'
+            break
+          case 'missWesternMedical':
+            curPath = '/drugs/western-examine'
+            break
+          case 'missChineseSymptom':
+            curPath = '/symptom/chinese-examine'
+            break
+          case 'missWesternSymptom':
+            curPath = '/symptom/western-examine'
+            break
+          case 'missArticle':
+            curPath = '/article/article-examine'
+            break
+        }
         const { href } = this.$router.resolve({
-          path: '/institution/examine'
+          path: curPath
         })
         window.open(href, '_blank')
       },

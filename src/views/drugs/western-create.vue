@@ -10,12 +10,6 @@
                 <el-form-item label="通用名称">
                   <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="请输入医生姓名"></el-input>
                 </el-form-item>
-                <el-form-item label="商品名称">
-                  <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item label="英文名称">
-                  <el-input v-model="formData.jsonStr.missMedical.englishName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -72,6 +66,18 @@
             <div class="title">基本信息</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="商品名称">
+                      <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入商品名称"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="英文名称">
+                      <el-input v-model="formData.jsonStr.missMedical.englishName" placeholder="请输入英文名称"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="汉语拼音">
@@ -723,9 +729,7 @@
     methods: {
       doCheck() {
         const params = {
-          comName: this.formData.jsonStr.missMedical.comName,
-          shopName: this.formData.jsonStr.missMedical.shopName,
-          englishName: this.formData.jsonStr.missMedical.englishName
+          comName: this.formData.jsonStr.missMedical.comName
         }
         doMedicalCheck(params).then(response => {
           if (response && response.meta.success) {

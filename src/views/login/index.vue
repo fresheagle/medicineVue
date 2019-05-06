@@ -49,8 +49,8 @@
       }
       return {
         loginForm: {
-          userCode: 'test1',
-          userPassWord: '123456'
+          userCode: '',
+          userPassWord: ''
         },
         loginRules: {
           userCode: [{ required: true, trigger: 'blur', validator: validateUsername }],

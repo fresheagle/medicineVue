@@ -49,6 +49,18 @@
               <el-form ref="formData" :model="formData" label-width="80px">
                 <el-row>
                   <el-col :span="12">
+                    <el-form-item label="商品名称">
+                      <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入商品名称"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="英文名称">
+                      <el-input v-model="formData.jsonStr.missMedical.englishName" placeholder="请输入英文名称"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
                     <el-form-item label="汉语拼音">
                       <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="汉语拼音"></el-input>
                     </el-form-item>

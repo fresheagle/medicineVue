@@ -4,7 +4,7 @@
       <el-dropdown class="avatar-container" trigger="click" style="margin-top: -10px;">
         <div class="avatar-wrapper">
           <img class="user-avatar" :src="logo">
-          <span style="vertical-align: text-bottom;color: #fff; padding-left: 5px;">test1</span>
+          <span style="vertical-align: text-bottom;color: #fff; padding-left: 5px;">{{curUserCode}}</span>
           <!--<i class="el-icon-caret-bottom"></i>-->
         </div>
 
@@ -29,15 +29,20 @@ import { mapGetters } from 'vuex'
 import nxTopLock from '@/components/nx-top-lock'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Cookies from 'js-cookie'
 export default {
   components: {
     Breadcrumb,
     Hamburger,
     nxTopLock
   },
+  created() {
+    this.curUserCode = Cookies.get('userCode')
+  },
   data() {
     return {
-      logo
+      logo,
+      curUserCode: ''
     }
   },
   computed: {

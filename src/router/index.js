@@ -44,10 +44,12 @@ export const constantRouterMap = [
       { path: 'chinese', name: '中医疾病', component: () => import('../views/disease/chinese') },
       { path: 'chinese-create', name: '中医疾病', component: () => import('../views/disease/chinese-create') },
       { path: 'chinese-edit', name: '中医疾病', component: () => import('../views/disease/chinese-edit') },
+      { path: 'chinese-examine', name: '中医疾病', component: () => import('../views/disease/chinese-examine') },
       { path: 'chinese/pool/:taskProgress', name: '中医疾病', component: () => import('../views/institution/taskPool') },
       { path: 'western', name: '西医疾病', component: () => import('../views/disease/western') },
       { path: 'western-create', name: '西医疾病', component: () => import('../views/disease/western-create') },
       { path: 'western-edit', name: '西医疾病', component: () => import('../views/disease/western-edit') },
+      { path: 'western-examine', name: '西医疾病', component: () => import('../views/disease/western-examine') },
       { path: 'western/pool/:taskProgress', name: '西医疾病', component: () => import('../views/institution/taskPool') }
     ]
   },
@@ -75,7 +77,8 @@ export const constantRouterMap = [
       { path: 'cooperation', name: '医生信息', component: () => import('../views/modernDoctor/cooperation') },
       { path: 'cooperation/pool/:taskProgress', name: '医生信息', component: () => import('../views/modernDoctor/taskPool') },
       { path: 'cooperation-create', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-create') },
-      { path: 'cooperation-edit', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-edit') }
+      { path: 'cooperation-edit', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-edit') },
+      { path: 'cooperation-examine', name: '医生信息', component: () => import('../views/modernDoctor/cooperation-examine') }
     ]
   },
   {
@@ -86,7 +89,8 @@ export const constantRouterMap = [
       { path: 'list', name: '文章', component: () => import('../views/article/list') },
       { path: 'article/pool/:taskProgress', name: '文章', component: () => import('../views/article/taskPool') },
       { path: 'article-create', name: '文章', component: () => import('../views/article/article-create') },
-      { path: 'article-edit', name: '文章', component: () => import('../views/article/article-edit') }
+      { path: 'article-edit', name: '文章', component: () => import('../views/article/article-edit') },
+      { path: 'article-examine', name: '文章', component: () => import('../views/article/article-examine') }
     ]
   },
   {
@@ -97,10 +101,12 @@ export const constantRouterMap = [
       { path: 'chinese', name: '中成药', component: () => import('../views/drugs/chinese') },
       { path: 'chinese-create', name: '中成药', component: () => import('../views/drugs/chinese-create') },
       { path: 'chinese-edit', name: '中成药', component: () => import('../views/drugs/chinese-edit') },
+      { path: 'chinese-examine', name: '中成药', component: () => import('../views/drugs/chinese-examine') },
       { path: 'chinese/pool/:taskProgress', name: '中成药', component: () => import('../views/drugs/chineseTaskPool') },
       { path: 'western', name: '西医制剂', component: () => import('../views/drugs/western') },
       { path: 'western-create', name: '西医制剂', component: () => import('../views/drugs/western-create') },
       { path: 'western-edit', name: '西医制剂', component: () => import('../views/drugs/western-edit') },
+      { path: 'western-examine', name: '西医制剂', component: () => import('../views/drugs/western-examine') },
       { path: 'western/pool/:taskProgress', name: '西医制剂', component: () => import('../views/drugs/westernTaskPool') }
     ]
   },
@@ -112,10 +118,12 @@ export const constantRouterMap = [
       { path: 'chinese', name: '中医症状', component: () => import('../views/symptom/chinese') },
       { path: 'chinese-create', name: '中医症状', component: () => import('../views/symptom/chinese-create') },
       { path: 'chinese-edit', name: '中医症状', component: () => import('../views/symptom/chinese-edit') },
+      { path: 'chinese-examine', name: '中医症状', component: () => import('../views/symptom/chinese-examine') },
       { path: 'chinese/pool/:taskProgress', name: '中医症状', component: () => import('../views/drugs/chineseTaskPool') },
       { path: 'western', name: '西医症状', component: () => import('../views/symptom/western') },
       { path: 'western-create', name: '西医症状', component: () => import('../views/symptom/western-create') },
       { path: 'western-edit', name: '西医症状', component: () => import('../views/symptom/western-edit') },
+      { path: 'western-examine', name: '西医症状', component: () => import('../views/symptom/western-examine') },
       { path: 'western/pool/:taskProgress', name: '西医症状', component: () => import('../views/drugs/westernTaskPool') }
     ]
   },

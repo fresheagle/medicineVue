@@ -79,8 +79,15 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
-                    <el-form-item label="传染性">
-                      <el-input v-model="formData.jsonStr.missWesternSymptom.infectivity" placeholder="传染性"></el-input>
+                    <el-form-item label="传染性" >
+                      <el-select v-model="formData.jsonStr.missWesternSymptom.infectivity" >
+                        <el-option
+                          v-for="item in infectivityList"
+                          :key="item.id"
+                          :label="item.value"
+                          :value="item.id">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -547,7 +554,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: true,
+        isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -603,6 +610,7 @@
         },
         dislocationPList: [], // 发病部位
         dislocationList: [], // 发病部位
+        infectivityList: enumerate.infectivityList,
         leadteamInfoObj: {
           name: '',
           desc: '',

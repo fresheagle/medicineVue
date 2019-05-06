@@ -334,6 +334,9 @@
         })
       },
       fmtDate(obj) {
+        if (obj === '' || obj === null) {
+          return '--'
+        }
         var date = new Date(obj)
         var y = 1900 + date.getYear()
         var m = '0' + (date.getMonth() + 1)
