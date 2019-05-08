@@ -277,7 +277,8 @@
           finalTrialUser: [],
           taskFirstTrialTime: [],
           taskSecondTrialTime: [],
-          taskFinalTrialTime: []
+          taskFinalTrialTime: [],
+          poolId: ''
         },
         group: [{ label: '全部', value: 'all' }, { label: '草稿箱', value: 'drafts' }],
         multipleSelection: [],
@@ -321,6 +322,15 @@
       fetchData() {
         this.listLoading = false
         const params = this.searchBody
+        if (this.$route.params.taskProgress === 'toFirAudited') {
+          params.poolId = 1
+        }
+        if (this.$route.params.taskProgress === 'toSecAudited') {
+          params.poolId = 2
+        }
+        if (this.$route.params.taskProgress === 'toFinalAudited') {
+          params.poolId = 3
+        }
         params.currentPage = 1
         params.pageSize = 9999
         params.taskMenuType = this.curTaskMenuType

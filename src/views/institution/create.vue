@@ -25,16 +25,16 @@
     <div v-if="isCheck" style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">任务信息</div>
-            <div class="body">
-              <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="任务标题">
-                  <el-input v-model="formData.taskTitle"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
+          <!--<div class="card">-->
+            <!--<div class="title">任务信息</div>-->
+            <!--<div class="body">-->
+              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
+                <!--<el-form-item label="任务标题">-->
+                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
+                <!--</el-form-item>-->
+              <!--</el-form>-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
@@ -656,7 +656,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: true,
+        isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -803,7 +803,6 @@
         })
       },
       changePdepartment(val) {
-        debugger
         const params = {
           currentPage: 1,
           pageSize: 9999,
@@ -846,6 +845,9 @@
        * */
       showLeaderDialog() {
         this.isShowLeaderDiaolg = true
+        this.leadteamInfoObj.name = ''
+        this.leadteamInfoObj.desc = ''
+        this.leadteamInfoObj.picture = []
         this.leaderPicList = []
       },
       upLeaderPicSuccess(response, file, fileList) {
@@ -874,6 +876,9 @@
        * */
       showEnvironmentDialog() {
         this.isShowEnvironmentDialog = true
+        this.environmentObj.name = ''
+        this.environmentObj.desc = ''
+        this.environmentObj.picture = []
         this.environmentPicList = []
       },
       upEnvironmentPicSuccess(response, file, fileList) {
@@ -959,6 +964,7 @@
       // 创建操作
       doSubmit(key) {
         this.formData.operateCode = key
+        this.formData.taskTitle = this.formData.jsonStr.missInstitution.name
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/institution/treatment')

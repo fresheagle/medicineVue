@@ -3,16 +3,16 @@
     <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">任务信息</div>
-            <div class="body">
-              <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="任务标题">
-                  <el-input v-model="formData.taskTitle"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
+          <!--<div class="card">-->
+            <!--<div class="title">任务信息</div>-->
+            <!--<div class="body">-->
+              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
+                <!--<el-form-item label="任务标题">-->
+                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
+                <!--</el-form-item>-->
+              <!--</el-form>-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
@@ -4625,7 +4625,8 @@
         <el-col :span="12">
           <div style="margin-right: 20%;">
             <!--<el-button>预览</el-button>-->
-            <el-button @click="doSubmit('approveSuccess')">提交进入审核</el-button>
+            <el-button @click="doSubmit('approveFail')">审核不通过</el-button>
+            <el-button @click="doSubmit('approveSuccess')">审核通过</el-button>
             <!--<el-button>重置所有字段</el-button>-->
             <el-button  @click="doSubmit('save')">保存并关闭</el-button>
           </div>
@@ -4773,7 +4774,6 @@
             approvsls: []// 各模块评审结果
           }
         },
-
         refrencesObj: {
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
@@ -4925,6 +4925,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.jsonStr.approvsls = this.approvsls
+        this.formData.taskTitle = this.formData.jsonStr.missMedical.shopName
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/drugs/western')

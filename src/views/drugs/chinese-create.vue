@@ -10,12 +10,6 @@
                 <el-form-item label="通用名称">
                   <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="请输入医生姓名"></el-input>
                 </el-form-item>
-                <el-form-item label="商品名称">
-                  <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
-                <el-form-item label="汉语拼音">
-                  <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="请输入医生出生日期"></el-input>
-                </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -28,16 +22,16 @@
     <div v-if="isCheck" style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
-          <div class="card">
-            <div class="title">任务信息</div>
-            <div class="body">
-              <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="任务标题">
-                  <el-input v-model="formData.taskTitle"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
+          <!--<div class="card">-->
+            <!--<div class="title">任务信息</div>-->
+            <!--<div class="body">-->
+              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
+                <!--<el-form-item label="任务标题">-->
+                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
+                <!--</el-form-item>-->
+              <!--</el-form>-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
@@ -72,6 +66,18 @@
             <div class="title">基本信息</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="90px">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="商品名称">
+                      <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="汉语拼音">
+                      <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="请输入医生出生日期"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="药品类型">
@@ -719,9 +725,7 @@
     methods: {
       doCheck() {
         const params = {
-          comName: this.formData.jsonStr.missMedical.comName,
-          shopName: this.formData.jsonStr.missMedical.shopName,
-          chinesePinyin: this.formData.jsonStr.missMedical.chinesePinyin
+          comName: this.formData.jsonStr.missMedical.comName
         }
         doMedicalCheck(params).then(response => {
           if (response && response.meta.success) {
@@ -825,6 +829,7 @@
       // 创建操作
       doSubmit(key) {
         this.formData.operateCode = key
+        this.formData.taskTitle = this.formData.jsonStr.missMedical.shopName
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/drugs/chinese')

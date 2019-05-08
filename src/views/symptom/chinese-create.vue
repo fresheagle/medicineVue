@@ -561,7 +561,7 @@
           'taskStatus': 'drafts',
           'taskType': 'create',
           'taskMenuType': 'missWesternSymptom',
-          'taskTitle': '',
+          'taskTitle': this.formData.jsonStr.missChineseSymptom.name,
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
