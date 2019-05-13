@@ -561,7 +561,7 @@
           'taskStatus': 'drafts',
           'taskType': 'create',
           'taskMenuType': 'missWesternSymptom',
-          'taskTitle': this.formData.jsonStr.missChineseSymptom.name,
+          'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
@@ -656,8 +656,6 @@
         parentDepartmentId: 0
       }
       this.getDepartmentList(params)
-    },
-    filters: {
     },
     methods: {
       initDislocationList() {
@@ -786,6 +784,7 @@
       // 创建操作
       doSubmit(key) {
         this.formData.operateCode = key
+        this.formData.taskTitle = this.formData.jsonStr.missChineseSymptom.name
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/symptom/western')

@@ -314,8 +314,25 @@ export function resetBatch(data) {
 // 指派新作者
 export function createuser(data) {
   return request({
-    url: '/api/mission/batch/new/createuser ',
+    url: '/api/mission/batch/new/createuser',
     method: 'put',
     data
+  })
+}
+
+// 删除
+export function deleteTask(data) {
+  return request({
+    url: '/api/mission/deleteMission',
+    method: 'delete',
+    data
+  })
+}
+// 查询用户列表
+export function getUserCodeList(params) {
+  return request({
+    url: 'api/user/userCode',
+    method: 'get',
+    params
   })
 }

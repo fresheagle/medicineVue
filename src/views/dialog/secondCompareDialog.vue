@@ -14,11 +14,12 @@
               <div style="margin-bottom: 10px;font-size: 18px;font-weight: 600;">变更前：</div>
               <el-form label-width="120px" >
                 <el-row>
-                  <el-col :span="12" v-for="key in versionKeyArr" v-if="beforejson[key]!==afterjson[key]">
+                  <el-col :span="12" v-for="key in versionKeyArr" v-if="beforejson[key]!==afterjson[key] && !(beforejson[key] instanceof Array)">
                     <el-form-item :label="i18n[key]" :prop="key"  >
-                      <el-input placeholder="请输入内容" :disabled="true" v-model="beforejson[key]" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-more" @click="showDetailLeft(key)"></el-button>
-                      </el-input>
+                      <!--<el-input placeholder="请输入内容" :disabled="true" v-model="beforejson[key]" class="input-with-select">-->
+                        <!--<el-button slot="append" icon="el-icon-more" @click="showDetailLeft(key)"></el-button>-->
+                      <!--</el-input>-->
+                      <span>{{beforejson[key]}}</span>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -30,11 +31,12 @@
               <div style="margin-bottom: 10px;font-size: 18px;font-weight: 600;">变更后：</div>
               <el-form label-width="120px" >
                 <el-row>
-                  <el-col :span="12" v-for="key in versionKeyArr" v-if="beforejson[key]!==afterjson[key]">
+                  <el-col :span="12" v-for="key in versionKeyArr" v-if="beforejson[key]!==afterjson[key] && !(beforejson[key] instanceof Array)">
                     <el-form-item :label="i18n[key]" :prop="key"  >
-                      <el-input placeholder="请输入内容" :disabled="true" :v-model="afterjson[key]" class="input-with-select">
-                        <el-button slot="append" icon="el-icon-more" @click="showDetailright(key)"></el-button>
-                      </el-input>
+                      <span>{{afterjson[key]}}</span>
+                      <!--<el-input placeholder="请输入内容" :disabled="true" :v-model="afterjson[key]" class="input-with-select">-->
+                        <!--<el-button slot="append" icon="el-icon-more" @click="showDetailright(key)"></el-button>-->
+                      <!--</el-input>-->
                     </el-form-item>
                   </el-col>
                 </el-row>

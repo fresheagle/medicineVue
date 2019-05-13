@@ -10,6 +10,16 @@
             <el-form-item label="作者:">
               <el-input placeholder="多个用逗号隔开"  v-model="searchCreateUser"></el-input>
             </el-form-item>
+            <el-form-item label="在线状态:">
+              <el-select v-model="searchBody.dataStatus" placeholder="请选择">
+                <el-option
+                  v-for="item in trailStatusList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="初审者:">
@@ -150,7 +160,8 @@
       </el-table-column>
       <el-table-column prop="taskStatus" label="最新进度" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          {{scope.row.taskStatus | statusFilter}}
+          <span  v-if="!scope.row.taskChangeComments">{{scope.row.taskStatus | statusFilter}}</span>
+          <el-button type="text" v-else @click="showExamineMsg(scope.row)">{{scope.row.taskStatus | statusFilter}}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="作者" :show-overflow-tooltip="true">
@@ -210,6 +221,16 @@
         </template>
       </el-table-column>
       <el-table-column prop="detailCount" label="版本" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleCompare(scope.row)">{{scope.row.detailCount}}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column prop="dataStatus" label="在线状态" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          <span v-if="scope.row.dataStatus === 'online'">已上线</span>
+          <span v-else-if="scope.row.dataStatus === 'offline'">已下线</span>
+          <span v-else>--</span>
+        </template>
       </el-table-column>
       <el-table-column prop="accounts" label="其他状态" :show-overflow-tooltip="true">
       </el-table-column>
@@ -240,14 +261,33 @@
     <settlement-dialog :visible.sync="isShowSettlementVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></settlement-dialog>
     <reset-status-dialog :visible.sync="isShowResetStatusVisible" :cur-select-data="multipleSelection" @refreshList="fetchData"></reset-status-dialog>
     <assign-dialog :visible.sync="isShowAssignVisible" :cur-select-data="multipleSelection"></assign-dialog>
+    <first-compare-dialog :visible.sync="isShowCompare" :row-data="curRowData" :cur-task-type="curTaskType"
+                          @refreshList="fetchData"></first-compare-dialog>
+
+    <el-dialog
+      :visible.sync="isShowExamineMsgDialog"
+      :append-to-body="true"
+      width="30%">
+      <div>
+        <el-form ref="formData" label-width="100px">
+          <el-form-item label="审核意见" >
+            {{this.taskChangeComments}}
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+      <el-button  @click="isShowExamineMsgDialog = false">取 消</el-button>
+    </span>
+    </el-dialog>
 
   </div>
 </template>
 
 
 <script>
-  import { getTaskList, doCreateDisBasics, toClaimTask } from '../../api/task'
+  import { getTaskList, toClaimTask, deleteTask,} from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
+  import firstCompareDialog from '../dialog/firstCompareDialog'
 
   // import createPublicDialog from './dialog/createPublicDialog'
   import deleteDialog from '../dialog/deleteDialog'
@@ -269,7 +309,8 @@
       resetStatusDialog,
       assignDialog,
       onlineDialog,
-      offlineDialog
+      offlineDialog,
+      firstCompareDialog
     },
     props: {
       curTaskMenuType: ''
@@ -288,6 +329,7 @@
         isShowEditVisible: false,
         isShowOfflineVisible: false,
         isShowOnlineVisible: false,
+        isShowExamineMsgDialog: false,
         isShowCompare: false,
         isShowSubmit: false,
         deleteVisible: false,
@@ -296,6 +338,7 @@
         searchFirstTrialUser: '',
         searchSecondTrialUser: '',
         searchFinalTrialUser: '',
+        trailStatusList: [{ label: '上线', value: 'online' }, { label: '下线', value: 'offline' }],
         searchBody: {
           taskTitle: '',
           createUser: [],
@@ -309,7 +352,8 @@
           taskFirstTrialTime: [],
           taskSecondTrialTime: [],
           taskFinalTrialTime: [],
-          taskMenuType: this.curTaskMenuType
+          taskMenuType: this.curTaskMenuType,
+          dataStatus: ''
         },
         group: [{ label: '全部', value: 'all' }, { label: '草稿箱', value: 'drafts' }],
         multipleSelection: [],
@@ -320,7 +364,9 @@
         searchName: '',
         filterTableDataEnd: [],
         curRowData: {},
-        curTaskType: '' // 作为参数，区分是创建还是更新操作
+        curTaskType: '', // 作为参数，区分是创建还是更新操作
+        taskChangeComments: '',
+        compareData: []
       }
     },
     created() {
@@ -455,6 +501,31 @@
       },
       // 批量删除
       toShowBatchDelete() {
+        const data = []
+        this.multipleSelection.forEach(function(item) {
+          data.push(item.taskId)
+        })
+        this.$confirm('此操作将永久删除选中数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteTask(data).then(response => {
+            this.$emit('refreshList')
+            this.$emit('update:visible', false)
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
       },
       // 批量审核
       toShowExamine() {
@@ -614,10 +685,7 @@
       handleCompare(row) {
         // 调用查看版本的接口
         this.isShowCompare = true
-        doCreateDisBasics(row.taskId).then(response => {
-          this.isShowCompare = false
-          this.curRowData = response.data
-        })
+        this.curRowData = row
       },
       handleSizeChange(val) {
         this.page = val
@@ -636,6 +704,10 @@
             this.tableList.push(list[from])
           }
         }
+      },
+      showExamineMsg(rowInfo) {
+        this.isShowExamineMsgDialog = true
+        this.taskChangeComments = rowInfo.taskChangeComments
       }
     },
     watch: {

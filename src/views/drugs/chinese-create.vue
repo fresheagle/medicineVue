@@ -8,7 +8,7 @@
             <div class="body">
               <el-form :model="formData" label-width="80px">
                 <el-form-item label="通用名称">
-                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="请输入医生姓名"></el-input>
+                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="通用名称"></el-input>
                 </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>

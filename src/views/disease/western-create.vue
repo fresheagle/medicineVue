@@ -7,15 +7,15 @@
             <div class="title">数据校验</div>
             <div class="body">
               <el-form :model="formData" label-width="80px">
-                <el-form-item label="中文名称">
-                  <el-input v-model="formData.jsonStr.missWsetDisease.chineseName" placeholder="中文名称"></el-input>
-                </el-form-item>
+                <!--<el-form-item label="中文名称">-->
+                  <!--<el-input v-model="formData.jsonStr.missWsetDisease.chineseName" placeholder="中文名称"></el-input>-->
+                <!--</el-form-item>-->
                 <el-form-item label="英文名称">
                   <el-input v-model="formData.jsonStr.missWsetDisease.englishName" placeholder="英文名称"></el-input>
                 </el-form-item>
-                <el-form-item label="别名">
-                  <el-input v-model="formData.jsonStr.missWsetDisease.otherName" placeholder="别名"></el-input>
-                </el-form-item>
+                <!--<el-form-item label="别名">-->
+                  <!--<el-input v-model="formData.jsonStr.missWsetDisease.otherName" placeholder="别名"></el-input>-->
+                <!--</el-form-item>-->
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -679,9 +679,9 @@
       },
       doCheck() {
         const params = {
-          chineseName: this.formData.jsonStr.missWsetDisease.chineseName,
-          englishName: this.formData.jsonStr.missWsetDisease.englishName,
-          otherName: this.formData.jsonStr.missWsetDisease.otherName
+          // chineseName: this.formData.jsonStr.missWsetDisease.chineseName,
+          englishName: this.formData.jsonStr.missWsetDisease.englishName
+          // otherName: this.formData.jsonStr.missWsetDisease.otherName
         }
         doWestDiseaseCheck(params).then(response => {
           if (response && response.meta.success) {

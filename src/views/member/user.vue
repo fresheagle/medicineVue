@@ -102,12 +102,12 @@
               key: 'rolecode',
               label: 'rolename'
             }"
-            :titles="['全部角色', '已绑定角色']"
+            :titles="['未绑定角色', '已绑定角色']"
         :data="allRole">
       </el-transfer>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isshowAddRoleDialog = false">取消</el-button>
-        <el-button type="primary" :loading="listLoading" class="title1" @click="doEditSubmit">确定</el-button>
+        <el-button type="primary" :loading="listLoading" class="title1" @click="doAddRoleSubmit">确定</el-button>
       </div>
     </el-dialog>
     <!-- 删除弹框 -->
@@ -190,7 +190,8 @@ export default {
       searchName: '',
       filterTableDataEnd: [],
       roleArr: [],
-      allRole: []
+      allRole: [],
+      curUserCode: ''
     }
   },
   created() {
@@ -264,6 +265,16 @@ export default {
         }
       })
     },
+    doAddRoleSubmit() {
+      const data = {
+        curUser: this.curUserCode,
+        roleList: this.roleArr
+      }
+      toAddUserRole(data).then(response => {
+        this.isshowAddRoleDialog = false
+        this.fetchData()
+      })
+    },
     deleteUpdate(row) {
       this.deleteVisible = true
       this.curRow = Object.assign({}, row)
@@ -276,15 +287,19 @@ export default {
     },
     showAddRoleDialog(row) {
       this.isshowAddRoleDialog = true
+      this.curUserCode = row.userCode
       const param = {
         currentPage: 1,
         pageSize: 9999
       }
       getAllRoleList(param).then(response => {
-        this.allRole = response.data.missControlRole
+        this.allRole = response.data.params
       })
       getUserAndRoleList(row.userCode).then(response => {
-        this.roleArr = response.data.missControlRole
+        const curTotal = response.data.missControlRole.length
+        for (var i = 0; i <= curTotal; i++) {
+          this.roleArr.push(response.data.missControlRole[i].rolecode)
+        }
       })
     },
     handleSizeChange(val) {

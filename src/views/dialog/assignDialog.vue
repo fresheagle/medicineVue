@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { createuser } from '../../api/task'
+  import { createuser, getUserCodeList } from '../../api/task'
   export default {
     props: {
       curSelectData: {},
@@ -59,7 +59,24 @@
           this.$emit('update:visible', false)
         })
       },
-      querySearchAsync() {},
+      querySearchAsync(queryString, cb) {
+        const data = {
+          currentPage: 1,
+          pageSize: 10,
+          userCode: queryString
+        }
+        getUserCodeList(data).then(response => {
+          const result = []
+          const data = response.data.params
+          for (var i = 0; i < data.length; i++) {
+            result.push({
+              'value': data[i], 'lebel': data[i]
+            })
+          }
+          console.log(result);
+          cb(result)
+        })
+      },
       handleSelect() {}
 
     },

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import { doCreateDisBasics } from '../../api/task'
+  import { deleteTask } from '../../api/task'
   export default {
     props: {
       rowData: {},
@@ -45,9 +45,8 @@
         this.$emit('update:visible', false)
       },
       submitDelete() {
-        this.formData.taskType = this.curTaskType
-        this.formData.taskStatus = 'drafts'
-        doCreateDisBasics(this.formData).then(response => {
+        const data = [this.formData.taskId]
+        deleteTask(data).then(response => {
           this.$emit('refreshList')
           this.$emit('update:visible', false)
           this.$notify({

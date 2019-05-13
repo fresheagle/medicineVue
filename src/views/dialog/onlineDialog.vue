@@ -48,7 +48,6 @@
           tasks: this.curData,
           trailStatus: 'online'
         }
-        debugger
         doApproval(param).then(response => {
           this.$emit('refreshList')
           this.$emit('update:visible', false)
