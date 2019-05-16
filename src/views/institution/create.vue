@@ -249,6 +249,37 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">医生专家</div>
+            <div class="body">
+              <el-button type="primary" @click="showDoctorsDialog">添加医生信息</el-button>
+              <div style="padding-top: 10px;" v-if="doctorInfoLength"
+                   v-for="(item,index) in formData.jsonStr.missInstitution.doctors">
+                <el-row>
+                  <el-col :span="6">
+                    <div>
+                      <img width="100%" :src="item.url" alt="">
+                      <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
+                    </div>
+                  </el-col>
+                  <el-col :span="12">
+                    <div style="padding-bottom: 10px;">
+                      <el-input  v-model="item.name"></el-input>
+                    </div>
+                    <div >
+                      <el-input type="textarea" :rows="4" v-model="item.job"></el-input>
+                    </div>
+                    <div >
+                      <el-input type="textarea" :rows="4" v-model="item.zl"></el-input>
+                    </div>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-button @click="deleteDoctorsInfo(index)">删除</el-button>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">科室设置</div>
             <div class="body">
               <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
@@ -387,6 +418,22 @@
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.affgroup" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">急救中心</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.emergencyCenter" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">预约咨询</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.orderRefer" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -588,6 +635,40 @@
          <el-button @click="cancelEnvironmentMsg">取 消</el-button>
       </span>
     </el-dialog>
+    <!--医生专家信息弹框-->
+    <el-dialog
+      title="添加医生信息"
+      :append-to-body="true"
+      :visible.sync="isShowdoctorsDiaolg"
+      width="30%">
+      <div>
+        <el-form label-width="80px" :model="doctorsObj">
+          <el-form-item label="姓名">
+            <el-input v-model="doctorsObj.name"></el-input>
+          </el-form-item>
+          <el-form-item label="职务与职称">
+            <el-input type="textarea" :rows="4" v-model="doctorsObj.job"></el-input>
+          </el-form-item>
+          <el-form-item label="职务与职称">
+            <el-input type="textarea" :rows="4" v-model="doctorsObj.zl"></el-input>
+          </el-form-item>
+          <el-form-item label="图片">
+            <el-upload
+              class="upload-demo"
+              multiple="false"
+              action="/api/file/upload"
+              :on-success="upDoctorsPicSuccess"
+              type="url">
+              <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="doAddDoctorsMsg">确 定</el-button>
+         <el-button @click="cancelDoctorsMsg">取 消</el-button>
+      </span>
+    </el-dialog>
      <!--参考资料弹框-->
     <el-dialog
       title="添加参考资料"
@@ -659,6 +740,7 @@
         isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
+        isShowdoctorsDiaolg: false,
         isShowRefrencesImageDialog: false,
         formData: {
           'taskStatus': 'drafts',
@@ -690,6 +772,7 @@
               address: '',
               leadteamInfo: [],
               environment: [],
+              doctors: [],
               departmentMapDTO: [],
               doctorInfo: '',
               special: '',
@@ -705,7 +788,9 @@
               affgroup: '',
               registrationTime: '',
               outpatientTime: '',
+              emergencyCenter: '',
               emergencyTime: '',
+              orderRefer: '',
               treatGuide: ''
             },
             refrences: {
@@ -725,6 +810,12 @@
           desc: '',
           picture: []
         },
+        doctorsObj: {
+          url: '', // 图片路径
+          name: '', // 姓名
+          job: '', // 职务与职称
+          zl: '' // 治疗范围
+        },
         refrencesObj: {
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
@@ -735,11 +826,13 @@
         },
         leaderPicList: [],
         environmentPicList: [],
+        doctorsList: [],
         refrencesPicList: [],
-        keyArr: [{ key: 'intro', value: '简介' }, { key: 'leadteamInfo', value: '领导团队' }, { key: 'environment', value: '医院环境' },
+        keyArr: [{ key: 'intro', value: '简介' }, { key: 'leadteamInfo', value: '领导团队' }, { key: 'environment', value: '医院环境' }, { key: 'doctors', value: '医生专家' },
           { key: 'departmentMapDTO', value: '科室设置' }, { key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
           { key: 'history', value: '历史发展' }, { key: 'busLines', value: '乘车路线' }, { key: 'clinicalTeaching', value: '临床教学与研究机构' }, { key: 'researchResult', value: '研究成果' },
-          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' }
+          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' },
+          { key: 'emergencyCenter', value: '急救中心' }, { key: 'orderRefer', value: '预约咨询' }
         ],
         provinceList: [],
         departmentList: [],
@@ -872,6 +965,39 @@
         this.formData.jsonStr.missInstitution.leadteamInfo.splice(index, 1)
       },
       /*
+       *医生信息
+       * */
+      showDoctorsDialog() {
+        this.isShowdoctorsDiaolg = true
+        this.doctorsObj.url = ''
+        this.doctorsObj.name = ''
+        this.doctorsObj.job = ''
+        this.doctorsObj.zl = ''
+        this.doctorsList = []
+      },
+      upDoctorsPicSuccess(response, file, fileList) {
+        if (response.meta.success) {
+          this.doctorsList.push(response.data[0].thumbnailUrl)
+        }
+      },
+      doAddDoctorsMsg() {
+        this.doctorsObj.url = this.doctorsList[0]
+        const param = {
+          name: this.doctorsObj.name,
+          job: this.doctorsObj.job,
+          zl: this.doctorsObj.zl,
+          url: this.doctorsObj.url
+        }
+        this.formData.jsonStr.missInstitution.doctors.push(param)
+        this.isShowdoctorsDiaolg = false
+      },
+      cancelDoctorsMsg() {
+        this.isShowdoctorsDiaolg = false
+      },
+      deleteDoctorsInfo(index) {
+        this.formData.jsonStr.missInstitution.doctors.splice(index, 1)
+      },
+      /*
        *医院环境信息
        * */
       showEnvironmentDialog() {
@@ -902,6 +1028,7 @@
       deleteEnvironment(index) {
         this.formData.jsonStr.missInstitution.environment.splice(index, 1)
       },
+
       /**
        * 科室设置
        * */
@@ -1002,6 +1129,13 @@
       },
       leadteamInfoLength() {
         if (this.formData.jsonStr.missInstitution.leadteamInfo.length > 0) {
+          return true
+        } else {
+          return false
+        }
+      },
+      doctorInfoLength() {
+        if (this.formData.jsonStr.missInstitution.leadteamInfo.lenth > 0) {
           return true
         } else {
           return false
