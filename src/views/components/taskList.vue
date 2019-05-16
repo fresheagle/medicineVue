@@ -160,8 +160,8 @@
       </el-table-column>
       <el-table-column prop="taskStatus" label="最新进度" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          <span  v-if="!scope.row.taskChangeComments">{{scope.row.taskStatus | statusFilter}}</span>
-          <el-button type="text" v-else @click="showExamineMsg(scope.row)">{{scope.row.taskStatus | statusFilter}}</el-button>
+          <!--<span  v-if="!scope.row.taskChangeComments">{{scope.row.taskStatus | statusFilter}}</span>-->
+          <el-button type="text" @click="showExamineMsg(scope.row)">{{scope.row.taskStatus | statusFilter}}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="作者" :show-overflow-tooltip="true">
@@ -265,12 +265,13 @@
                           @refreshList="fetchData"></first-compare-dialog>
 
     <el-dialog
+      title="审核留言"
       :visible.sync="isShowExamineMsgDialog"
       :append-to-body="true"
       width="30%">
       <div>
         <el-form ref="formData" label-width="100px">
-          <el-form-item label="审核意见" >
+          <el-form-item label="审核意见：" >
             {{this.taskChangeComments}}
           </el-form-item>
         </el-form>
