@@ -1313,7 +1313,7 @@
             <div class="title">不良反应</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.adverseReaction" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.adverseReactions" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -1395,7 +1395,7 @@
                   <el-collapse-item title="二审信息" name="secondTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.adverseReaction.secondTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.adverseReactions.secondTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -4508,7 +4508,6 @@
               mainMeffect: '',
               indication: '',
               clinicalApplication: '',
-              adverseReaction: '',
               analyze: '',
               medicFormat: '',
               dosage: '',
@@ -4700,7 +4699,7 @@
             finalSuggestion: ''
           },
           // 不良反应
-          adverseReaction: {
+          adverseReactions: {
             fisrtTrailApprovalResult: '通过',
             secondTrailApprovalResult: '通过',
             finalTrailApprovalResult: '通过',
@@ -5087,7 +5086,7 @@
         keyArr: [{ key: 'introduction', value: '简介' }, { key: 'component', value: '成分' }, { key: 'property', value: '教育经历' },
           { key: 'indication', value: '适应症' }, { key: 'medicFormat', value: '规格' }, { key: 'dosage', value: '用法用量' },
           { key: 'clinicalApplication', value: '临床应用及指南' },
-          { key: 'adverseReaction', value: '不良反应' }, { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' },
+          { key: 'adverseReactions', value: '不良反应' }, { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' },
           { key: 'gravidaDurg', value: '孕妇及哺乳期妇女用药' },
           { key: 'childrenDurg', value: '儿童用药' }, { key: 'elderlyDurg', value: '老人用药' }, { key: 'interactions', value: '药物相互作用' },
           { key: 'analyze', value: '药性分析' }, { key: 'pharmacology', value: '药理作用' }, { key: 'toxicologicalEffects', value: '毒理作用' },
