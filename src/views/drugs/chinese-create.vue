@@ -8,7 +8,7 @@
             <div class="body">
               <el-form :model="formData" label-width="80px">
                 <el-form-item label="通用名称">
-                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="通用名称"></el-input>
+                  <el-input v-model="formData.jsonStr.missChineseMedical.comName" placeholder="通用名称"></el-input>
                 </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
@@ -23,21 +23,21 @@
       <el-row >
         <el-col :span="12" class="rowClass">
           <!--<div class="card">-->
-            <!--<div class="title">任务信息</div>-->
-            <!--<div class="body">-->
-              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
-                <!--<el-form-item label="任务标题">-->
-                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
-                <!--</el-form-item>-->
-              <!--</el-form>-->
-            <!--</div>-->
+          <!--<div class="title">任务信息</div>-->
+          <!--<div class="body">-->
+          <!--<el-form ref="formData" :model="formData" label-width="80px">-->
+          <!--<el-form-item label="任务标题">-->
+          <!--<el-input v-model="formData.taskTitle"></el-input>-->
+          <!--</el-form-item>-->
+          <!--</el-form>-->
+          <!--</div>-->
           <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
                 <el-form-item label="药品类型">
-                  <el-input v-model="formData.jsonStr.missMedical.medicalType"></el-input>
+                  <el-input v-model="formData.jsonStr.missChineseMedical.medicalType"></el-input>
                 </el-form-item>
                 <el-form-item label="概述图">
                   <el-upload
@@ -46,17 +46,18 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missMedical.picturePath" :src="formData.jsonStr.missMedical.picturePath" class="avatar">
+                    <img v-if="formData.jsonStr.missChineseMedical.picturePath" :src="formData.jsonStr.missChineseMedical.picturePath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
+                  <el-button @click="clearPic">清除</el-button>
                 </el-form-item>
                 <el-form-item label="简介">
                   <el-input
                     type="textarea"
                     :rows="4"
                     placeholder="请输入内容"
-                    v-model="formData.jsonStr.missMedical.introduction">
+                    v-model="formData.jsonStr.missChineseMedical.introduction">
                   </el-input>
                 </el-form-item>
               </el-form>
@@ -69,37 +70,37 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="商品名称">
-                      <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入医生出生日期"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.shopName" placeholder="请输入医生出生日期"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="汉语拼音">
-                      <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="请输入医生出生日期"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.chinesePinyin" placeholder="请输入医生出生日期"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="药品类型">
-                      <el-input v-model="formData.jsonStr.missMedical.drugType" placeholder="药品类型"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.drugType" placeholder="药品类型"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="医保类型">
-                      <el-input v-model="formData.jsonStr.missMedical.healthType" placeholder="医保类型"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.healthType" placeholder="医保类型"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="处方类型">
-                      <el-radio v-model="formData.jsonStr.missMedical.recipeType" label="1">处方</el-radio>
-                      <el-radio v-model="formData.jsonStr.missMedical.recipeType" label="2">非处方</el-radio>
+                      <el-radio v-model="formData.jsonStr.missChineseMedical.recipeType" label="1">处方</el-radio>
+                      <el-radio v-model="formData.jsonStr.missChineseMedical.recipeType" label="2">非处方</el-radio>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="参考价格">
-                      <el-input v-model="formData.jsonStr.missMedical.price" placeholder="参考价格"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.price" placeholder="参考价格"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -107,7 +108,7 @@
                   <el-col :span="12">
                     <el-form-item label="中成药类型">
                       <el-select
-                        v-model="formData.jsonStr.missMedical.chineseMedicalType"
+                        v-model="formData.jsonStr.missChineseMedical.chineseMedicalType"
                         multiple
                         collapse-tags
                         style="margin-left: 20px;"
@@ -124,7 +125,7 @@
                   <el-col :span="12">
                     <el-form-item label="中成药科室">
                       <el-select
-                        v-model="formData.jsonStr.missMedical.chineseMedicalDepartment"
+                        v-model="formData.jsonStr.missChineseMedical.chineseMedicalDepartment"
                         multiple
                         collapse-tags
                         style="margin-left: 20px;"
@@ -142,12 +143,12 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="编辑医生">
-                      <el-input v-model="formData.jsonStr.missMedical.editDoctor" placeholder="编辑医生"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.editDoctor" placeholder="编辑医生"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="审核医生">
-                      <el-input v-model="formData.jsonStr.missMedical.auditDoctor" placeholder="审核医生"></el-input>
+                      <el-input v-model="formData.jsonStr.missChineseMedical.auditDoctor" placeholder="审核医生"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -158,7 +159,7 @@
             <div class="title">主要成分</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.component" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.component" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -166,7 +167,7 @@
             <div class="title">性状</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.property" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.property" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -174,7 +175,7 @@
             <div class="title">组成</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.constitute" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.constitute" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -182,7 +183,7 @@
             <div class="title">主要功效</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.mainMeffect" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.mainMeffect" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -190,7 +191,7 @@
             <div class="title">适应病症</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.indication" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.indication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -198,7 +199,7 @@
             <div class="title">规格</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.medicFormat" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.medicFormat" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -206,7 +207,7 @@
             <div class="title">用法用量</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.dosage" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.dosage" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -214,7 +215,7 @@
             <div class="title">临床应用及指南</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.clinicalApplication" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.clinicalApplication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -222,7 +223,7 @@
             <div class="title">不良反应</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.adverseReaction" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.adverseReaction" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -230,7 +231,7 @@
             <div class="title">禁忌</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.taboo" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.taboo" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -238,7 +239,7 @@
             <div class="title">注意事项</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.notice" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.notice" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -246,7 +247,7 @@
             <div class="title">药物相互作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.interactions" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.interactions" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -254,7 +255,7 @@
             <div class="title">药性分析</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.analyze" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.analyze" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -262,7 +263,7 @@
             <div class="title">药理作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacology" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.pharmacology" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -270,7 +271,7 @@
             <div class="title">毒理作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.toxicologicalEffects" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.toxicologicalEffects" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -278,7 +279,7 @@
             <div class="title">贮藏</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.storageMethod" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.storageMethod" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -286,7 +287,7 @@
             <div class="title">有效期</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.ytime" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.ytime" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -294,7 +295,7 @@
             <div class="title">执行标准</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.standard" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.standard" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -302,7 +303,7 @@
             <div class="title">执行文号</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.approvaNum" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.approvaNum" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -310,7 +311,7 @@
             <div class="title">联合用药</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.combinedMedication" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.combinedMedication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -318,7 +319,7 @@
             <div class="title">医师建议</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.physicianAdvice" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.physicianAdvice" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -326,7 +327,7 @@
             <div class="title">鉴别</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.identify" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.identify" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -334,7 +335,7 @@
             <div class="title">检查</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacyCheck" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.pharmacyCheck" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -342,7 +343,7 @@
             <div class="title">含量测定</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.contentPic" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.contentPic" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -350,7 +351,7 @@
             <div class="title">附注</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.notes" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.notes" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -359,7 +360,7 @@
             <div class="title">药品标识</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.drugIdentifying" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.drugIdentifying" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -367,7 +368,7 @@
             <div class="title">药品介绍</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.drugIntroduc" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.drugIntroduc" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -375,7 +376,7 @@
             <div class="title">历史发展</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.history" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.history" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -383,7 +384,7 @@
             <div class="title">获奖情况</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.awards" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.awards" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -391,7 +392,7 @@
             <div class="title">生产地址</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.address" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.address" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -399,7 +400,7 @@
             <div class="title">生产企业</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.enterprise" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.enterprise" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -408,7 +409,7 @@
             <div class="title">产品信息</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.productInfo" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.productInfo" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -416,7 +417,7 @@
             <div class="title">信息来源</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.messageFrom" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseMedical.messageFrom" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -512,9 +513,9 @@
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
               <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
-                <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-                <!--<span style="color: red;" v-if="formData.jsonStr.missMedical[item.key] === '' ||formData.jsonStr.missMedical[item.key].length ===0">（空） </span>-->
-                <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missMedical[item.key])}}</span>-->
+              <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
+              <!--<span style="color: red;" v-if="formData.jsonStr.missChineseMedical[item.key] === '' ||formData.jsonStr.missChineseMedical[item.key].length ===0">（空） </span>-->
+              <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseMedical[item.key])}}</span>-->
               <!--</div>-->
             </div>
           </div>
@@ -572,6 +573,7 @@
             <el-upload
               class="upload-demo"
               action="/api/file/upload"
+              :file-list="refrencesObj.fileList"
               :on-success="upRefrencesPicSuccess"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -617,14 +619,14 @@
         formData: {
           'taskStatus': 'drafts',
           'taskType': 'create',
-          'taskMenuType': 'missMedical',
+          'taskMenuType': 'missChineseMedical',
           'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
           'taskSecondTrialPoint': '',
           'jsonStr': {
-            'missMedical': {
+            'missChineseMedical': {
               id: '',
               introduction: '',
               picturePath: '',
@@ -683,6 +685,7 @@
         },
 
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -725,7 +728,7 @@
     methods: {
       doCheck() {
         const params = {
-          comName: this.formData.jsonStr.missMedical.comName
+          comName: this.formData.jsonStr.missChineseMedical.comName
         }
         doMedicalCheck(params).then(response => {
           if (response && response.meta.success) {
@@ -733,6 +736,9 @@
             this.isCheck = true
           }
         })
+      },
+      clearPic() {
+        this.formData.jsonStr.missChineseMedical.picturePath = ''
       },
       changeInstitutionId(val) {
         const params = {
@@ -753,7 +759,7 @@
       * */
       upSummarySuccess(res, file) {
         // this.imageUrl = URL.createObjectURL(file.raw)
-        this.formData.jsonStr.missMedical.picturepath = URL.createObjectURL(file.raw)
+        this.formData.jsonStr.missChineseMedical.picturepath = URL.createObjectURL(file.raw)
       },
       beSummaryUpload(file) {
         const isJPG = file.type === 'image/jpeg'
@@ -778,10 +784,10 @@
           departmentName: '',
           expertsTime: ''
         }
-        this.formData.jsonStr.missMedical.institutionList.push(param)
+        this.formData.jsonStr.missChineseMedical.institutionList.push(param)
       },
       doDeleteInstitution(index) {
-        this.formData.jsonStr.missMedical.institutionList.splice(index, 1)
+        this.formData.jsonStr.missChineseMedical.institutionList.splice(index, 1)
       },
       /**
        * 参考资料
@@ -829,7 +835,7 @@
       // 创建操作
       doSubmit(key) {
         this.formData.operateCode = key
-        this.formData.taskTitle = this.formData.jsonStr.missMedical.shopName
+        this.formData.taskTitle = this.formData.jsonStr.missChineseMedical.shopName
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/drugs/chinese')
@@ -866,7 +872,7 @@
         }
       },
       leadteamInfoLength() {
-        if (this.formData.jsonStr.missMedical.leadteamInfo.length > 0) {
+        if (this.formData.jsonStr.missChineseMedical.leadteamInfo.length > 0) {
           return true
         } else {
           return false

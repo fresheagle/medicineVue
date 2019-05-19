@@ -31,6 +31,7 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
+                  <el-button @click="clearPic">清除</el-button>
                 </el-form-item>
                 <el-form-item label="简介">
                   <el-input
@@ -2993,6 +2994,7 @@
           picture: []
         },
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -3041,6 +3043,9 @@
         getDislocationList(params).then(response => {
           this.dislocationPList = response.data.params
         })
+      },
+      clearPic() {
+        this.formData.jsonStr.missChineseSymptom.picturepath = ''
       },
       doCheck() {
         const params = {

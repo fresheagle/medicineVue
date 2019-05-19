@@ -10,12 +10,6 @@
                 <el-form-item label="中文名称">
                   <el-input v-model="formData.jsonStr.missWesternSymptom.chineseName" placeholder="请输入中文名称"></el-input>
                 </el-form-item>
-                <el-form-item label="英文名称">
-                  <el-input v-model="formData.jsonStr.missWesternSymptom.englishName" placeholder="请输入英文名称"></el-input>
-                </el-form-item>
-                <el-form-item label="别名">
-                  <el-input v-model="formData.jsonStr.missWesternSymptom.otherName" placeholder="请输入别名"></el-input>
-                </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -56,6 +50,7 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
+                  <el-button @click="clearPic">清除</el-button>
                 </el-form-item>
                 <el-form-item label="简介">
                   <el-input
@@ -72,6 +67,18 @@
             <div class="title">基本信息</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="100px">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item label="英文名称">
+                      <el-input v-model="formData.jsonStr.missWesternSymptom.englishName" placeholder="请输入英文名称"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="别名">
+                      <el-input v-model="formData.jsonStr.missWesternSymptom.otherName" placeholder="请输入别名"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="主管部门">
@@ -519,6 +526,7 @@
             <el-upload
               class="upload-demo"
               action="/api/file/upload"
+              :file-list="refrencesObj.fileList"
               :on-success="upRefrencesPicSuccess"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -622,6 +630,7 @@
           picture: []
         },
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -670,11 +679,14 @@
           this.dislocationPList = response.data.params
         })
       },
+      clearPic() {
+        this.formData.jsonStr.missWesternSymptom.picturepath = ''
+      },
       doCheck() {
         const params = {
-          chineseName: this.formData.jsonStr.missChineseSymptom.chineseName,
-          englishName: this.formData.jsonStr.missChineseSymptom.englishName,
-          otherName: this.formData.jsonStr.missChineseSymptom.otherName
+          chineseName: this.formData.jsonStr.missWesternSymptom.chineseName
+          // englishName: this.formData.jsonStr.missChineseSymptom.englishName,
+          // otherName: this.formData.jsonStr.missChineseSymptom.otherName
         }
         doSymptomCheck(params).then(response => {
           if (response && response.meta.success) {

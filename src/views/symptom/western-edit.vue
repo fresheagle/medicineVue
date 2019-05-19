@@ -31,6 +31,7 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
+                  <el-button @click="clearPic">清除</el-button>
                 </el-form-item>
                 <el-form-item label="简介">
                   <el-input
@@ -494,6 +495,7 @@
             <el-upload
               class="upload-demo"
               action="/api/file/upload"
+              :file-list="refrencesObj.fileList"
               :on-success="upRefrencesPicSuccess"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -597,6 +599,7 @@
           picture: []
         },
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -646,11 +649,12 @@
           this.dislocationPList = response.data.params
         })
       },
+      clearPic() {
+        this.formData.jsonStr.missWesternSymptom.picturepath = ''
+      },
       doCheck() {
         const params = {
-          chineseName: this.formData.jsonStr.missChineseSymptom.chineseName,
-          englishName: this.formData.jsonStr.missChineseSymptom.englishName,
-          otherName: this.formData.jsonStr.missChineseSymptom.otherName
+          chineseName: this.formData.jsonStr.missWesternSymptom.chineseName
         }
         doSymptomCheck(params).then(response => {
           if (response && response.meta.success) {

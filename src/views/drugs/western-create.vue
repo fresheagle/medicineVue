@@ -8,7 +8,7 @@
             <div class="body">
               <el-form :model="formData" label-width="80px">
                 <el-form-item label="通用名称">
-                  <el-input v-model="formData.jsonStr.missMedical.comName" placeholder="通用名称"></el-input>
+                  <el-input v-model="formData.jsonStr.missWesternMedical.comName" placeholder="通用名称"></el-input>
                 </el-form-item>
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
@@ -23,21 +23,21 @@
       <el-row >
         <el-col :span="12" class="rowClass">
           <!--<div class="card">-->
-            <!--<div class="title">任务信息</div>-->
-            <!--<div class="body">-->
-              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
-                <!--<el-form-item label="任务标题">-->
-                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
-                <!--</el-form-item>-->
-              <!--</el-form>-->
-            <!--</div>-->
+          <!--<div class="title">任务信息</div>-->
+          <!--<div class="body">-->
+          <!--<el-form ref="formData" :model="formData" label-width="80px">-->
+          <!--<el-form-item label="任务标题">-->
+          <!--<el-input v-model="formData.taskTitle"></el-input>-->
+          <!--</el-form-item>-->
+          <!--</el-form>-->
+          <!--</div>-->
           <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
                 <el-form-item label="药品类型">
-                  <el-input v-model="formData.jsonStr.missMedical.medicalType"></el-input>
+                  <el-input v-model="formData.jsonStr.missWesternMedical.medicalType"></el-input>
                 </el-form-item>
                 <el-form-item label="概述图">
                   <el-upload
@@ -46,17 +46,18 @@
                     :show-file-list="false"
                     :on-success="upSummarySuccess"
                     :before-upload="beSummaryUpload">
-                    <img v-if="formData.jsonStr.missMedical.picturepath" :src="formData.jsonStr.missMedical.picturepath" class="avatar">
+                    <img v-if="formData.jsonStr.missWesternMedical.picturepath" :src="formData.jsonStr.missWesternMedical.picturepath" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
+                  <el-button @click="clearPic">清除</el-button>
                 </el-form-item>
                 <el-form-item label="简介">
                   <el-input
                     type="textarea"
                     :rows="4"
                     placeholder="请输入内容"
-                    v-model="formData.jsonStr.missMedical.introduction">
+                    v-model="formData.jsonStr.missWesternMedical.introduction">
                   </el-input>
                 </el-form-item>
               </el-form>
@@ -69,50 +70,50 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="商品名称">
-                      <el-input v-model="formData.jsonStr.missMedical.shopName" placeholder="请输入商品名称"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.shopName" placeholder="请输入商品名称"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="英文名称">
-                      <el-input v-model="formData.jsonStr.missMedical.englishName" placeholder="请输入英文名称"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.englishName" placeholder="请输入英文名称"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="汉语拼音">
-                      <el-input v-model="formData.jsonStr.missMedical.chinesePinyin" placeholder="汉语拼音"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.chinesePinyin" placeholder="汉语拼音"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="药品类型">
-                      <el-input v-model="formData.jsonStr.missMedical.drugType" placeholder="药品类型"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.drugType" placeholder="药品类型"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="处方类型">
-                      <el-radio v-model="formData.jsonStr.missMedical.recipeType" label="1">处方</el-radio>
-                      <el-radio v-model="formData.jsonStr.missMedical.recipeType" label="2">非处方</el-radio>
+                      <el-radio v-model="formData.jsonStr.missWesternMedical.recipeType" label="1">处方</el-radio>
+                      <el-radio v-model="formData.jsonStr.missWesternMedical.recipeType" label="2">非处方</el-radio>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="医保类型">
-                      <el-input v-model="formData.jsonStr.missMedical.healthType" placeholder="医保类型"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.healthType" placeholder="医保类型"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="参考价格">
-                      <el-input v-model="formData.jsonStr.missMedical.price" placeholder="参考价格"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.price" placeholder="参考价格"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="西药科室">
                       <el-select
-                        v-model="formData.jsonStr.missMedical.westMedicalDepartment"
+                        v-model="formData.jsonStr.missWesternMedical.westMedicalDepartment"
                         multiple
                         collapse-tags
                         style="margin-left: 20px;"
@@ -130,12 +131,12 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="编辑医生">
-                      <el-input v-model="formData.jsonStr.missMedical.editDoctor" placeholder="编辑医生"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.editDoctor" placeholder="编辑医生"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12">
                     <el-form-item label="审核医生">
-                      <el-input v-model="formData.jsonStr.missMedical.auditDoctor" placeholder="审核医生"></el-input>
+                      <el-input v-model="formData.jsonStr.missWesternMedical.auditDoctor" placeholder="审核医生"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -146,7 +147,7 @@
             <div class="title">成分</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.component" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.component" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -154,7 +155,7 @@
             <div class="title">性状</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.property" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.property" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -162,7 +163,7 @@
             <div class="title">适应症</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.indication" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.indication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -170,7 +171,7 @@
             <div class="title">规格</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.medicFormat" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.medicFormat" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -178,7 +179,7 @@
             <div class="title">用法用量</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.dosage" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.dosage" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -186,7 +187,7 @@
             <div class="title">临床应用及指南</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.clinicalApplication" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.clinicalApplication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -194,7 +195,7 @@
             <div class="title">不良反应</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.adverseReaction" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.adverseReaction" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -202,7 +203,7 @@
             <div class="title">禁忌</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.taboo" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.taboo" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -210,7 +211,7 @@
             <div class="title">注意事项</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.notice" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.notice" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -218,7 +219,7 @@
             <div class="title">孕妇及哺乳期妇女用药</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.gravidaDurg" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.gravidaDurg" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -226,7 +227,7 @@
             <div class="title">儿童用药</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.childrenDurg" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.childrenDurg" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -234,7 +235,7 @@
             <div class="title">老人用药</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.elderlyDurg" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.elderlyDurg" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -242,7 +243,7 @@
             <div class="title">药物相互作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.interactions" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.interactions" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -250,7 +251,7 @@
             <div class="title">药物过量</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.durgOverdose" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.durgOverdose" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -258,7 +259,7 @@
             <div class="title">药理作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacology" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.pharmacology" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -266,7 +267,7 @@
             <div class="title">毒理作用</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.toxicologicalEffects" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.toxicologicalEffects" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -274,7 +275,7 @@
             <div class="title">药代动力学</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacokinetics" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.pharmacokinetics" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -282,7 +283,7 @@
             <div class="title">贮藏</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.storageMethod" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.storageMethod" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -290,7 +291,7 @@
             <div class="title">有效期</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.ytime" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.ytime" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -298,7 +299,7 @@
             <div class="title">执行标准</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.standard" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.standard" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -306,7 +307,7 @@
             <div class="title">执行文号</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.approvaNum" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.approvaNum" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -314,7 +315,7 @@
             <div class="title">联合用药</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.combinedMedication" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.combinedMedication" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -322,7 +323,7 @@
             <div class="title">医师建议</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.physicianAdvice" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.physicianAdvice" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -330,7 +331,7 @@
             <div class="title">鉴别</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.identify" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.identify" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -338,7 +339,7 @@
             <div class="title">检查</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.pharmacyCheck" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.pharmacyCheck" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -346,7 +347,7 @@
             <div class="title">含量测定</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.contentPic" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.contentPic" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -354,7 +355,7 @@
             <div class="title">附注</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.notes" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.notes" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -363,7 +364,7 @@
             <div class="title">药品标识</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.drugIdentifying" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.drugIdentifying" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -371,7 +372,7 @@
             <div class="title">药品介绍</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.drugIntroduc" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.drugIntroduc" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -379,7 +380,7 @@
             <div class="title">历史发展</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.history" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.history" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -387,7 +388,7 @@
             <div class="title">获奖情况</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.awards" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.awards" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -395,7 +396,7 @@
             <div class="title">生产地址</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.address" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.address" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -403,7 +404,7 @@
             <div class="title">生产企业</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.enterprise" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.enterprise" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -412,7 +413,7 @@
             <div class="title">产品信息</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.productInfo" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.productInfo" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -420,7 +421,7 @@
             <div class="title">信息来源</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missMedical.messageFrom" :options="editorOption"></quill-editor>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.messageFrom" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -516,9 +517,9 @@
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
               <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
-                <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-                <!--<span style="color: red;" v-if="formData.jsonStr.missMedical[item.key] === '' ||formData.jsonStr.missMedical[item.key].length ===0">（空） </span>-->
-                <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missMedical[item.key])}}</span>-->
+              <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
+              <!--<span style="color: red;" v-if="formData.jsonStr.missWesternMedical[item.key] === '' ||formData.jsonStr.missWesternMedical[item.key].length ===0">（空） </span>-->
+              <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missWesternMedical[item.key])}}</span>-->
               <!--</div>-->
             </div>
           </div>
@@ -576,6 +577,7 @@
             <el-upload
               class="upload-demo"
               action="/api/file/upload"
+              :file-list="refrencesObj.fileList"
               :on-success="upRefrencesPicSuccess"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -619,14 +621,14 @@
         formData: {
           'taskStatus': 'drafts',
           'taskType': 'create',
-          'taskMenuType': 'missMedical',
+          'taskMenuType': 'missWesternMedical',
           'taskTitle': '',
           'operateCode': '', // 当前任务操作：save：保存，approveSuccess：提交/审核通过，approveFail：审核不通过
           'taskId': '',
           'taskFirstTrialPoint': '', // 二审总分数，可填可不填
           'taskSecondTrialPoint': '',
           'jsonStr': {
-            'missMedical': {
+            'missWesternMedical': {
               id: '',
               introduction: '',
               picturePath: '',
@@ -687,6 +689,7 @@
         },
 
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -729,7 +732,7 @@
     methods: {
       doCheck() {
         const params = {
-          comName: this.formData.jsonStr.missMedical.comName
+          comName: this.formData.jsonStr.missWesternMedical.comName
         }
         doMedicalCheck(params).then(response => {
           if (response && response.meta.success) {
@@ -737,6 +740,9 @@
             this.isCheck = true
           }
         })
+      },
+      clearPic() {
+        this.formData.jsonStr.missWesternMedical.picturePath = ''
       },
       changeInstitutionId(val) {
         const params = {
@@ -757,7 +763,7 @@
       * */
       upSummarySuccess(res, file) {
         // this.imageUrl = URL.createObjectURL(file.raw)
-        this.formData.jsonStr.missMedical.picturepath = URL.createObjectURL(file.raw)
+        this.formData.jsonStr.missWesternMedical.picturepath = URL.createObjectURL(file.raw)
       },
       beSummaryUpload(file) {
         const isJPG = file.type === 'image/jpeg'
@@ -782,10 +788,10 @@
           departmentName: '',
           expertsTime: ''
         }
-        this.formData.jsonStr.missMedical.institutionList.push(param)
+        this.formData.jsonStr.missWesternMedical.institutionList.push(param)
       },
       doDeleteInstitution(index) {
-        this.formData.jsonStr.missMedical.institutionList.splice(index, 1)
+        this.formData.jsonStr.missWesternMedical.institutionList.splice(index, 1)
       },
       /**
        * 参考资料
@@ -833,7 +839,7 @@
       // 创建操作
       doSubmit(key) {
         this.formData.operateCode = key
-        this.formData.taskTitle = this.formData.jsonStr.missMedical.shopName
+        this.formData.taskTitle = this.formData.jsonStr.missWesternMedical.shopName
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/drugs/western')
@@ -870,7 +876,7 @@
         }
       },
       leadteamInfoLength() {
-        if (this.formData.jsonStr.missMedical.leadteamInfo.length > 0) {
+        if (this.formData.jsonStr.missWesternMedical.leadteamInfo.length > 0) {
           return true
         } else {
           return false

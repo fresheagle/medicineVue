@@ -452,6 +452,7 @@
             <el-upload
               class="upload-demo"
               action="/api/file/upload"
+              :file-list="refrencesObj.fileList"
               :on-success="upRefrencesPicSuccess"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -547,6 +548,7 @@
         },
 
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -593,6 +595,9 @@
             this.isCheck = true
           }
         })
+      },
+      clearPic() {
+        this.formData.jsonStr.missDoctor.picturepath = ''
       },
       getDepartmentList(params) {
         getDepartmentList(params).then(response => {

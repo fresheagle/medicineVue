@@ -53,6 +53,7 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                   <div class="el-upload__text">图片要求：1080*810，不超过10M</div>
+                  <el-button @click="clearPic">清除</el-button>
                 </el-form-item>
                 <el-form-item label="简介">
                   <el-input
@@ -200,7 +201,7 @@
                    v-for="(item,index) in formData.jsonStr.missInstitution.leadteamInfo">
                 <el-row>
                   <el-col :span="6">
-                    <div>
+                    <div @click="handlePictureCardPreview(item.picture[0])">
                       <img width="100%" :src="item.picture[0]" alt="">
                       <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
                     </div>
@@ -228,8 +229,8 @@
                    v-for="(item,index) in formData.jsonStr.missInstitution.environment">
                 <el-row>
                   <el-col :span="6">
-                    <div>
-                      <img width="100%" :src="item.picture[0]" alt="">
+                    <div @click="handlePictureCardPreview(item.picture[0])">
+                      <img width="100%"  height="150" :src="item.picture[0]" alt="">
                       <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
                     </div>
                   </el-col>
@@ -544,9 +545,10 @@
           <el-form-item label="图片">
             <el-upload
               class="upload-demo"
-              multiple="false"
+              :multiple="false"
               action="/api/file/upload"
               :on-success="upLeaderPicSuccess"
+              :file-list="leadteamInfoObj.fileList"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
@@ -557,6 +559,9 @@
         <el-button type="primary" @click="doAddLeaderMsg">确 定</el-button>
          <el-button @click="cancelLeaderMsg">取 消</el-button>
       </span>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogVisible" size="tiny" :append-to-body="true">
+      <img width="100%" :src="curPicUrl" alt="">
     </el-dialog>
     <!--医院环境信息弹框-->
     <el-dialog
@@ -577,6 +582,7 @@
               class="upload-demo"
               action="/api/file/upload"
               :on-success="upEnvironmentPicSuccess"
+              :file-list="environmentObj.fileList"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
@@ -619,6 +625,7 @@
             <el-upload
               class="upload-demo"
               action="/api/file/upload"
+              :file-list="refrencesObj.fileList"
               :on-success="upRefrencesPicSuccess"
               list-type="picture">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -656,7 +663,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: false,
+        isCheck: true,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -715,17 +722,22 @@
             approvsls: []// 各模块评审结果
           }
         },
+        dialogVisible: false,
+        curPicUrl: '',
         leadteamInfoObj: {
           name: '',
           desc: '',
-          picture: []
+          picture: [],
+          fileList: []
         },
         environmentObj: {
           name: '',
           desc: '',
-          picture: []
+          picture: [],
+          fileList: []
         },
         refrencesObj: {
+          fileList: [],
           sequenc: '', // 序号
           referColumnschinese: '', // 模块：领导团队
           referenceType: 'image', // text iamge
@@ -779,6 +791,13 @@
             this.isCheck = true
           }
         })
+      },
+      clearPic() {
+        this.formData.jsonStr.missInstitution.picturepath = ''
+      },
+      handlePictureCardPreview(url) {
+        this.dialogVisible = true
+        this.curPicUrl = url
       },
       getDistrict(pid, level) {
         const params = {
@@ -848,6 +867,7 @@
         this.leadteamInfoObj.name = ''
         this.leadteamInfoObj.desc = ''
         this.leadteamInfoObj.picture = []
+        this.leadteamInfoObj.fileList = []
         this.leaderPicList = []
       },
       upLeaderPicSuccess(response, file, fileList) {
@@ -879,6 +899,7 @@
         this.environmentObj.name = ''
         this.environmentObj.desc = ''
         this.environmentObj.picture = []
+        this.environmentObj.fileList = []
         this.environmentPicList = []
       },
       upEnvironmentPicSuccess(response, file, fileList) {
@@ -947,6 +968,7 @@
           comment: this.refrencesObj.comment, // 描述
           imageName: '' // 图片名称
         }
+        this.refrencesObj.fileList = []
         this.formData.jsonStr.refrences.image.push(param)
         this.isShowRefrencesImageDialog = false
       },
