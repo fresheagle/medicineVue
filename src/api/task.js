@@ -60,7 +60,6 @@ export function doSymptomCheck(params) {
   })
 }
 
-
 // 批量审批
 export function doApproval(data) {
   return request({
@@ -341,6 +340,7 @@ export function doExport(data) {
   return request({
     url: '/api/mission/data/page/export',
     method: 'post',
+    responseType: 'blob',
     data
   })
 }

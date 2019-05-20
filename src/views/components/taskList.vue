@@ -609,9 +609,12 @@
         params.pageSize = 9999
         params.taskMenuType = this.curTaskMenuType
         doExport(params).then(response => {
-          const blob = new Blob([response], { type: 'application/vnd.ms-excel' })
+          const blob = new Blob([response], { type: 'application/excel' })
           const objectUrl = URL.createObjectURL(blob)
-          window.location.href = objectUrl
+          var a = document.createElement('a')
+          a.href = objectUrl
+          a.download = 'export_file.xlsx'
+          a.click()
         })
       },
       handleExamine(row) {

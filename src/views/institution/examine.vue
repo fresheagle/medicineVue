@@ -3127,7 +3127,7 @@
             approvsls: []// 各模块评审结果
           }
         },
-	dialogVisible: false,
+        dialogVisible: false,
         curPicUrl: '',
         approvsls: {
           summary: {
@@ -3457,11 +3457,9 @@
         environmentPicList: [],
         doctorsList: [],
         refrencesPicList: [],
-        keyArr: [{ key: 'intro', value: '简介' }, { key: 'leadteamInfo', value: '领导团队' }, { key: 'environment', value: '医院环境' },{ key: 'doctors', value: '医生专家' },
-          { key: 'departmentMapDTO', value: '科室设置' }, { key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
+        keyArr: [{ key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
           { key: 'history', value: '历史发展' }, { key: 'busLines', value: '乘车路线' }, { key: 'clinicalTeaching', value: '临床教学与研究机构' }, { key: 'researchResult', value: '研究成果' },
-          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' },
-          { key: 'emergencyCenter', value: '急救中心' }, { key: 'orderRefer', value: '预约咨询' }
+          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' }
         ],
         provinceList: [],
         departmentList: [],
@@ -3781,7 +3779,9 @@
         }
       },
       doctorInfoLength() {
-        if (this.formData.jsonStr.missInstitution.leadteamInfo.lenth > 0) {
+        if (!this.formData.jsonStr.missInstitution.doctors) {
+          return false
+        } else if (this.formData.jsonStr.missInstitution.doctors.length > 0) {
           return true
         } else {
           return false

@@ -467,9 +467,6 @@
                   <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
                 </el-form-item>
               </el-form>
-              <!--<div>-->
-                <!--<quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>-->
-              <!--</div>-->
             </div>
           </div>
         </el-col>
@@ -762,7 +759,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: false,
+        isCheck: true,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowdoctorsDiaolg: false,
