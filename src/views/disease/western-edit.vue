@@ -778,6 +778,7 @@
           comment: this.refrencesObj.comment, // 描述
           imageName: '' // 图片名称
         }
+        this.refrencesObj.fileList = []
         this.formData.jsonStr.refrences.image.push(param)
         this.isShowRefrencesImageDialog = false
       },
