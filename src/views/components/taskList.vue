@@ -141,10 +141,10 @@
           <el-button type="primary" @click="toShowSettlement()" :disabled="!(multipleSelection.length > 0)">结算</el-button>
           <el-button type="primary" @click="toShowResetStatus()" :disabled="!(multipleSelection.length > 0)">重置进度</el-button>
           <el-button type="primary" @click="toShowAssign()" :disabled="!(multipleSelection.length > 0)">指派新作者</el-button>
-          <el-button type="text" @click="toTaskPool('drafts')">草稿箱</el-button>
-          <el-button type="text" @click="toTaskPool('toFirAudited')">初审池</el-button>
-          <el-button type="text" @click="toTaskPool('toSecAudited')">二审池</el-button>
-          <el-button type="text" @click="toTaskPool('toFinalAudited')">终审池</el-button>
+          <el-button type="text" @click="toTaskPool('drafts')" v-if="curRoleCode.indexOf('001') !== -1">草稿箱</el-button>
+          <el-button type="text" @click="toTaskPool('toFirAudited')" v-if="curRoleCode.indexOf('002') !== -1">初审池</el-button>
+          <el-button type="text" @click="toTaskPool('toSecAudited')" v-if="curRoleCode.indexOf('003') !== -1">二审池</el-button>
+          <el-button type="text" @click="toTaskPool('toFinalAudited')" v-if="curRoleCode.indexOf('004') !== -1">终审池</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -237,9 +237,10 @@
 
       <el-table-column prop="operation" label="操作" width="150px">
         <template slot-scope="scope">
-          <el-button type="text" @click="handleExamine(scope.row)">审核</el-button>
-          <el-button type="text" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button type="text" @click="deleteUpdate(scope.row)">删除</el-button>
+          <el-button type="text" @click="handleExamine(scope.row)"
+                     v-if="curRoleCode.indexOf('002') !== -1 || curRoleCode.indexOf('003') !== -1 || curRoleCode.indexOf('004') !== -1">审核</el-button>
+          <el-button type="text" @click="handleUpdate(scope.row)" v-if="curRoleCode.indexOf('001') !== -1">编辑</el-button>
+          <el-button type="text" @click="deleteUpdate(scope.row)" v-if="curRoleCode.indexOf('000') !== -1">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -286,7 +287,7 @@
 
 
 <script>
-  import { getTaskList, toClaimTask, deleteTask,} from '../../api/task'
+  import { getTaskList, toClaimTask, deleteTask } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import firstCompareDialog from '../dialog/firstCompareDialog'
 
@@ -298,6 +299,7 @@
   import assignDialog from '../dialog/assignDialog'
   import onlineDialog from '../dialog/onlineDialog'
   import offlineDialog from '../dialog/offlineDialog'
+  import Cookies from 'js-cookie'
 
   import i18n from '../../i18n/local'
 
@@ -318,6 +320,7 @@
     },
     data() {
       return {
+        curRoleCode: '',
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         tableList: [],
@@ -371,6 +374,7 @@
       }
     },
     created() {
+      this.curRoleCode = Cookies.get('roleCode')
       if (!this.$i18n.getLocaleMessage('en')[viewName]) {
         this.$i18n.mergeLocaleMessage('en', i18n.en)
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
@@ -729,7 +733,6 @@
         this.searchBody.finalTrialUser = finalTrialUserStr.split(',')
       }
     },
-
     computed: {
       lang: {
         get() {

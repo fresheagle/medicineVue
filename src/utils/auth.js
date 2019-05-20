@@ -43,3 +43,13 @@ export function setMenuPath(menu) {
 export function removeMenuPath() {
   return Cookies.remove(menuPath)
 }
+const roleCode = 'roleCode' // roleCode
+export function getRoleCode() {
+  return Cookies.get(roleCode)
+}
+export function setRoleCode(code) {
+  return Cookies.set(roleCode, code)
+}
+export function removeRoleCode() {
+  return Cookies.remove(roleCode)
+}

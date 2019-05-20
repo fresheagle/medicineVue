@@ -257,7 +257,7 @@
                    v-for="(item,index) in formData.jsonStr.missInstitution.doctors">
                 <el-row>
                   <el-col :span="6">
-                    <div>
+                    <div @click="handlePictureCardPreview(item.url)">
                       <img width="100%" :src="item.url" alt="">
                       <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
                     </div>
@@ -287,7 +287,7 @@
               <div v-for="(itemd, index) in formData.jsonStr.missInstitution.departmentMapDTO" style="margin-bottom: 5px;">
                 <el-row >
                   <el-col :span="7" style="padding-right:40px;">
-                    <el-input  v-model="itemd.office"></el-input>
+                    <el-input  v-model="itemd.office"  placeholder="科室名称"></el-input>
                   </el-col>
                   <el-col :span="7" style="padding-right:40px;">
                     <el-select  v-model="itemd.parentDepartmentId" @change="changePdepartment">
@@ -451,10 +451,13 @@
                 <el-form-item label="急诊时间">
                   <el-input v-model="formData.jsonStr.missInstitution.emergencyTime" placeholder="急诊时间"></el-input>
                 </el-form-item>
+                <el-form-item label="就诊指南">
+                  <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
+                </el-form-item>
               </el-form>
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
-              </div>
+              <!--<div>-->
+                <!--<quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>-->
+              <!--</div>-->
             </div>
           </div>
         </el-col>
@@ -648,7 +651,7 @@
       :visible.sync="isShowdoctorsDiaolg"
       width="30%">
       <div>
-        <el-form label-width="80px" :model="doctorsObj">
+        <el-form label-width="100px" :model="doctorsObj">
           <el-form-item label="姓名">
             <el-input v-model="doctorsObj.name"></el-input>
           </el-form-item>
@@ -663,6 +666,7 @@
               class="upload-demo"
               multiple="false"
               action="/api/file/upload"
+              :file-list="doctorsObj.fileList"
               :on-success="upDoctorsPicSuccess"
               type="url">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -820,12 +824,13 @@
           desc: '',
           picture: [],
           fileList: []
-	},
+        },
         doctorsObj: {
           url: '', // 图片路径
           name: '', // 姓名
           job: '', // 职务与职称
-          zl: '' // 治疗范围
+          zl: '', // 治疗范围
+          fileList: []
         },
         refrencesObj: {
           fileList: [],
@@ -993,6 +998,7 @@
         this.doctorsObj.name = ''
         this.doctorsObj.job = ''
         this.doctorsObj.zl = ''
+        this.doctorsObj.fileList = []
         this.doctorsList = []
       },
       upDoctorsPicSuccess(response, file, fileList) {

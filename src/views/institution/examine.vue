@@ -678,7 +678,7 @@
                    v-for="(item,index) in formData.jsonStr.missInstitution.doctors">
                 <el-row>
                   <el-col :span="6">
-                    <div>
+                    <div  @click="handlePictureCardPreview(item.url)">
                       <img width="100%" :src="item.url" alt="">
                       <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
                     </div>
@@ -818,6 +818,9 @@
               <div  style="padding-bottom: 10px;"><el-button @click="doAdddepartment" type="primary">新增科室</el-button></div>
               <div v-for="(itemd, index) in formData.jsonStr.missInstitution.departmentMapDTO" style="margin-bottom: 5px;">
                 <el-row >
+                  <el-col :span="7" style="padding-right:40px;">
+                    <el-input  v-model="itemd.office"  placeholder="科室名称"></el-input>
+                  </el-col>
                   <el-col :span="7" style="padding-right:40px;">
                     <el-select  v-model="itemd.departmentPid" @change="changePdepartment">
                       <el-option
@@ -2636,41 +2639,19 @@
             <div class="title">就诊需知</div>
             <div class="body">
               <el-form ref="formData" :model="formData" label-width="80px">
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="挂号时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.registrationTime"
-                        type="datetime"
-                        placeholder="选择日期时间">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="就诊时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.outpatientTime"
-                        type="datetime"
-                        placeholder="选择日期时间">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="急诊时间">
-                      <el-date-picker
-                        v-model="formData.jsonStr.missInstitution.emergencyTime"
-                        type="datetime"
-                        placeholder="选择日期时间">
-                      </el-date-picker>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
+                <el-form-item label="挂号时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.registrationTime" placeholder="挂号时间"></el-input>
+                </el-form-item>
+                <el-form-item label="就诊时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.outpatientTime" placeholder="就诊时间"></el-input>
+                </el-form-item>
+                <el-form-item label="急诊时间">
+                  <el-input v-model="formData.jsonStr.missInstitution.emergencyTime" placeholder="急诊时间"></el-input>
+                </el-form-item>
+                <el-form-item label="就诊指南">
+                  <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
+                </el-form-item>
               </el-form>
-              <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
-              </div>
             </div>
           </div>
           <div class="card">
@@ -2985,6 +2966,7 @@
               class="upload-demo"
               multiple="false"
               action="/api/file/upload"
+              :file-list="doctorsObj.fileList"
               :on-success="upDoctorsPicSuccess"
               type="url">
               <el-button size="small" type="primary">点击上传</el-button>
@@ -3429,19 +3411,20 @@
           name: '',
           desc: '',
           picture: [],
-	  fileList: []
+          fileList: []
         },
         environmentObj: {
           name: '',
           desc: '',
           picture: [],
-	  fileList: []
+          fileList: []
         },
         doctorsObj: {
           url: '', // 图片路径
           name: '', // 姓名
           job: '', // 职务与职称
-          zl: '' // 治疗范围
+          zl: '', // 治疗范围
+          fileList: []
         },
         refrencesObj: {
           fileList: [],
@@ -3571,6 +3554,10 @@
        * */
       showLeaderDialog() {
         this.isShowLeaderDiaolg = true
+        this.leadteamInfoObj.name = ''
+        this.leadteamInfoObj.desc = ''
+        this.leadteamInfoObj.picture = []
+        this.leadteamInfoObj.fileList = []
         this.leaderPicList = []
       },
       upLeaderPicSuccess(response, file, fileList) {
@@ -3632,6 +3619,10 @@
        * */
       showEnvironmentDialog() {
         this.isShowEnvironmentDialog = true
+        this.environmentObj.name = ''
+        this.environmentObj.desc = ''
+        this.environmentObj.picture = []
+        this.environmentObj.fileList = []
         this.environmentPicList = []
       },
       upEnvironmentPicSuccess(response, file, fileList) {
@@ -3660,6 +3651,7 @@
        * */
       doAdddepartment() {
         const param = {
+          office: '',
           departmentPid: '',
           departmentCode: '',
           departmentName: '',

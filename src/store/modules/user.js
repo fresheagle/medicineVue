@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken, getUserCode, setUserCode, removeUserCode, getUserPassWord, setUserPassWord, removeUserPassWord, setMenuPath, removeMenuPath } from '@/utils/auth'
+import { getToken, setToken, removeToken, getUserCode, setUserCode, removeUserCode, getUserPassWord, setUserPassWord, removeUserPassWord, setMenuPath, removeMenuPath,setRoleCode } from '@/utils/auth'
 
 const user = {
   state: {
@@ -38,6 +38,7 @@ const user = {
           commit('SET_NAME', data.userCode)
           commit('SET_ROLES', 'admin')
           setUserCode(data.userCode)
+          setRoleCode(JSON.stringify(data.roleCodes))
           setUserPassWord(userInfo.userPassWord)
           setToken(data.token)
           commit('SET_TOKEN', data.token)
