@@ -10,9 +10,9 @@
                 <el-form-item label="名称">
                   <el-input v-model="formData.jsonStr.missArticle.name"></el-input>
                 </el-form-item>
-                <el-form-item label="作者">
-                  <el-input v-model="formData.jsonStr.missArticle.author" placeholder="作者"></el-input>
-                </el-form-item>
+                <!--<el-form-item label="作者">-->
+                  <!--<el-input v-model="formData.jsonStr.missArticle.author" placeholder="作者"></el-input>-->
+                <!--</el-form-item>-->
                 <el-form-item >
                   <el-button @click="doCheck">校验</el-button>
                 </el-form-item>
@@ -389,8 +389,7 @@
     methods: {
       doCheck() {
         const params = {
-          name: this.formData.jsonStr.missArticle.name,
-          author: this.formData.jsonStr.missArticle.author
+          name: this.formData.jsonStr.missArticle.name
         }
         doArtcileCheck(params).then(response => {
           if (response && response.meta.success) {

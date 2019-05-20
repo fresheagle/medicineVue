@@ -336,3 +336,11 @@ export function getUserCodeList(params) {
     params
   })
 }
+// 结算
+export function doExport(data) {
+  return request({
+    url: '/api/mission/data/page/export',
+    method: 'post',
+    data
+  })
+}

@@ -14,8 +14,10 @@ import '@/icons' // icon
 import '@/permission' // permission control
 import i18n from './lang'
 import FullCalendar from 'vue-full-calendar'
+import draggable from 'vuedraggable'
 
 Vue.use(FullCalendar)
+Vue.use(draggable)
 Vue.use(ElementUI, { locale })
 Vue.use(ElementUI, {
   size: 'medium', // set element-ui default size

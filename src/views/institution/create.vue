@@ -197,27 +197,31 @@
             <div class="title">领导团队</div>
             <div class="body">
               <el-button type="primary" @click="showLeaderDialog">添加领导信息</el-button>
-              <div style="padding-top: 10px;" v-if="leadteamInfoLength"
-                   v-for="(item,index) in formData.jsonStr.missInstitution.leadteamInfo">
-                <el-row>
-                  <el-col :span="6">
-                    <div @click="handlePictureCardPreview(item.picture[0])">
-                      <img width="100%" :src="item.picture[0]" alt="">
-                      <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
-                    </div>
-                  </el-col>
-                  <el-col :span="12">
-                    <div style="padding-bottom: 10px;">
-                      <el-input  v-model="item.name"></el-input>
-                    </div>
-                    <div >
-                      <el-input type="textarea" :rows="4" v-model="item.desc"></el-input>
-                    </div>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-button @click="deleteLeadteamInfo(index)">删除</el-button>
-                  </el-col>
-                </el-row>
+              <div style="padding-top: 10px;"  v-if="leadteamInfoLength">
+                <draggable v-model="formData.jsonStr.missInstitution.leadteamInfo">
+                  <div v-for="(item,index) in formData.jsonStr.missInstitution.leadteamInfo">
+                    <el-row >
+                      <el-col :span="6">
+                        <div @click="handlePictureCardPreview(item.picture[0])">
+                          <img width="100%" :src="item.picture[0]" alt="">
+                          <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
+                        </div>
+                      </el-col>
+                      <el-col :span="12">
+                        <div style="padding-bottom: 10px;">
+                          <el-input  v-model="item.name"></el-input>
+                        </div>
+                        <div >
+                          <el-input type="textarea" :rows="4" v-model="item.desc"></el-input>
+                        </div>
+                      </el-col>
+                      <el-col :span="6">
+                        <el-button @click="deleteLeadteamInfo(index)">删除</el-button>
+                        <el-button>拖动排序</el-button>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </draggable>
               </div>
             </div>
           </div>
@@ -225,27 +229,31 @@
             <div class="title">医院环境</div>
             <div class="body">
               <el-button type="primary" @click="showEnvironmentDialog">添加医院信息</el-button>
-              <div style="padding-top: 10px;" v-if="formData.jsonStr.missInstitution.environment.length"
-                   v-for="(item,index) in formData.jsonStr.missInstitution.environment">
-                <el-row>
-                  <el-col :span="6">
-                    <div @click="handlePictureCardPreview(item.picture[0])">
-                      <img width="100%"  height="150" :src="item.picture[0]" alt="">
-                      <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
-                    </div>
-                  </el-col>
-                  <el-col :span="12">
-                    <div style="padding-bottom: 10px;">
-                      <el-input  v-model="item.name"></el-input>
-                    </div>
-                    <div >
-                      <el-input type="textarea" :rows="4" v-model="item.desc"></el-input>
-                    </div>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-button @click="deleteEnvironment(index)">删除</el-button>
-                  </el-col>
-                </el-row>
+              <div style="padding-top: 10px;" v-if="formData.jsonStr.missInstitution.environment.length">
+                <draggable v-model="formData.jsonStr.missInstitution.environment">
+                  <div v-for="(item,index) in formData.jsonStr.missInstitution.environment">
+                    <el-row>
+                      <el-col :span="6">
+                        <div @click="handlePictureCardPreview(item.picture[0])">
+                          <img width="100%"  height="150" :src="item.picture[0]" alt="">
+                          <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
+                        </div>
+                      </el-col>
+                      <el-col :span="12">
+                        <div style="padding-bottom: 10px;">
+                          <el-input  v-model="item.name"></el-input>
+                        </div>
+                        <div >
+                          <el-input type="textarea" :rows="4" v-model="item.desc"></el-input>
+                        </div>
+                      </el-col>
+                      <el-col :span="6">
+                        <el-button @click="deleteEnvironment(index)">删除</el-button>
+                        <el-button >拖动排序</el-button>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </draggable>
               </div>
             </div>
           </div>
@@ -253,30 +261,34 @@
             <div class="title">医生专家</div>
             <div class="body">
               <el-button type="primary" @click="showDoctorsDialog">添加医生信息</el-button>
-              <div style="padding-top: 10px;" v-if="doctorInfoLength"
-                   v-for="(item,index) in formData.jsonStr.missInstitution.doctors">
-                <el-row>
-                  <el-col :span="6">
-                    <div @click="handlePictureCardPreview(item.url)">
-                      <img width="100%" :src="item.url" alt="">
-                      <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
-                    </div>
-                  </el-col>
-                  <el-col :span="12">
-                    <div style="padding-bottom: 10px;">
-                      <el-input  v-model="item.name"></el-input>
-                    </div>
-                    <div >
-                      <el-input type="textarea" :rows="4" v-model="item.job"></el-input>
-                    </div>
-                    <div >
-                      <el-input type="textarea" :rows="4" v-model="item.zl"></el-input>
-                    </div>
-                  </el-col>
-                  <el-col :span="6">
-                    <el-button @click="deleteDoctorsInfo(index)">删除</el-button>
-                  </el-col>
-                </el-row>
+              <div style="padding-top: 10px;" v-if="doctorInfoLength">
+                <draggable v-model="formData.jsonStr.missInstitution.doctors">
+                  <div v-for="(item,index) in formData.jsonStr.missInstitution.doctors">
+                    <el-row>
+                      <el-col :span="6">
+                        <div @click="handlePictureCardPreview(item.url)">
+                          <img width="100%" :src="item.url" alt="">
+                          <!--<picture-slider :picture-list="item.picture"></picture-slider>-->
+                        </div>
+                      </el-col>
+                      <el-col :span="12">
+                        <div style="padding-bottom: 10px;">
+                          <el-input  v-model="item.name"></el-input>
+                        </div>
+                        <div >
+                          <el-input type="textarea" :rows="4" v-model="item.job"></el-input>
+                        </div>
+                        <div >
+                          <el-input type="textarea" :rows="4" v-model="item.zl"></el-input>
+                        </div>
+                      </el-col>
+                      <el-col :span="6">
+                        <el-button @click="deleteDoctorsInfo(index)">删除</el-button>
+                        <el-button @click="deleteDoctorsInfo(index)">拖动排序</el-button>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </draggable>
               </div>
             </div>
           </div>
@@ -664,7 +676,7 @@
           <el-form-item label="图片">
             <el-upload
               class="upload-demo"
-              multiple="false"
+              :multiple="false"
               action="/api/file/upload"
               :file-list="doctorsObj.fileList"
               :on-success="upDoctorsPicSuccess"
@@ -736,19 +748,21 @@
   import 'quill/dist/quill.bubble.css'
   import { quillEditor } from 'vue-quill-editor'
   import pictureSlider from '../dialog/pictureSlider'
+  import draggable from 'vuedraggable'
 
   const viewName = 'i18nView'
   export default {
     components: {
       quillEditor,
-      pictureSlider
+      pictureSlider,
+      draggable
     },
     data() {
       return {
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: true,
+        isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowdoctorsDiaolg: false,
@@ -1162,7 +1176,7 @@
         }
       },
       doctorInfoLength() {
-        if (this.formData.jsonStr.missInstitution.leadteamInfo.lenth > 0) {
+        if (this.formData.jsonStr.missInstitution.doctors.length > 0) {
           return true
         } else {
           return false

@@ -124,7 +124,7 @@
             <el-form-item >
               <el-button type="primary" @click="doFilter()">搜索</el-button>
               <el-button type="primary" @click="resetSearchBody()">重置条件</el-button>
-              <el-button type="primary">导出结果</el-button>
+              <el-button type="primary" @click="doExport()">导出结果</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -287,7 +287,7 @@
 
 
 <script>
-  import { getTaskList, toClaimTask, deleteTask } from '../../api/task'
+  import { getTaskList, toClaimTask, deleteTask, doExport } from '../../api/task'
   import enumerate from '../../store/modules/enumerate'
   import firstCompareDialog from '../dialog/firstCompareDialog'
 
@@ -601,6 +601,18 @@
         this.total = this.filterTableDataEnd.length
         // 渲染表格,根据值
         this.currentChangePage(this.filterTableDataEnd)
+      },
+      doExport() {
+        this.listLoading = false
+        const params = this.searchBody
+        params.currentPage = 1
+        params.pageSize = 9999
+        params.taskMenuType = this.curTaskMenuType
+        doExport(params).then(response => {
+          const blob = new Blob([response], { type: 'application/vnd.ms-excel' })
+          const objectUrl = URL.createObjectURL(blob)
+          window.location.href = objectUrl
+        })
       },
       handleExamine(row) {
         const curTrearment = Object.assign({}, row)
