@@ -131,14 +131,15 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="疾病分类">
-                      <el-select v-model="formData.jsonStr.missWsetDisease.diseaseType" disabled >
-                        <el-option
-                          v-for="item in enumerate.diseaseTypeList"
-                          :key="item.id"
-                          :label="item.value"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
+                      <!--<el-select v-model="formData.jsonStr.missWsetDisease.diseaseType" disabled >-->
+                        <!--<el-option-->
+                          <!--v-for="item in enumerate.diseaseTypeList"-->
+                          <!--:key="item.id"-->
+                          <!--:label="item.value"-->
+                          <!--:value="item.id">-->
+                        <!--</el-option>-->
+                      <!--</el-select>-->
+                      <el-input v-model="formData.jsonStr.missWsetDisease.type" placeholder="疾病分类"></el-input>
                     </el-form-item>
                   </el-col>
                   <!--<el-col :span="12">-->
@@ -594,6 +595,7 @@
               otherName: '',
               relatedDiseases: '',
               diseaseType: '2',
+              type: '',
               locationPid: '',
               locationDisease: '',
               mainCauses: '',

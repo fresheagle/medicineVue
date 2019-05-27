@@ -160,7 +160,6 @@
       </el-table-column>
       <el-table-column prop="taskStatus" label="最新进度" :show-overflow-tooltip="true">
         <template slot-scope="scope">
-          <!--<span  v-if="!scope.row.taskChangeComments">{{scope.row.taskStatus | statusFilter}}</span>-->
           <el-button type="text" @click="showExamineMsg(scope.row)">{{scope.row.taskStatus | statusFilter}}</el-button>
         </template>
       </el-table-column>
@@ -238,7 +237,8 @@
       <el-table-column prop="operation" label="操作" width="150px">
         <template slot-scope="scope">
           <el-button type="text" @click="handleExamine(scope.row)"
-                     v-if="curRoleCode.indexOf('002') !== -1 || curRoleCode.indexOf('003') !== -1 || curRoleCode.indexOf('004') !== -1">审核</el-button>
+                     v-if="(curRoleCode.indexOf('002') !== -1 || curRoleCode.indexOf('003') !== -1 || curRoleCode.indexOf('004') !== -1)
+                     && (scope.row.taskStatus === 'firAuditeding' || scope.row.taskStatus === 'secAuditeding' || scope.row.taskStatus === 'finalAuditeding')">审核</el-button>
           <el-button type="text" @click="handleUpdate(scope.row)" v-if="curRoleCode.indexOf('001') !== -1">编辑</el-button>
           <el-button type="text" @click="deleteUpdate(scope.row)" v-if="curRoleCode.indexOf('000') !== -1">删除</el-button>
         </template>

@@ -131,28 +131,22 @@
                 <el-row>
                   <el-col :span="12">
                     <el-form-item label="疾病分类">
-                      <el-select v-model="formData.jsonStr.missChineseDisease.diseaseType" disabled>
-                        <el-option
-                          v-for="item in enumerate.diseaseTypeList"
-                          :key="item.id"
-                          :label="item.value"
-                          :value="item.id">
-                        </el-option>
-                      </el-select>
+                      <el-input v-model="formData.jsonStr.missChineseDisease.type" placeholder="疾病分类"></el-input>
+                      <!--<el-select v-model="formData.jsonStr.missChineseDisease.diseaseType" disabled>-->
+                        <!--<el-option-->
+                          <!--v-for="item in enumerate.diseaseTypeList"-->
+                          <!--:key="item.id"-->
+                          <!--:label="item.value"-->
+                          <!--:value="item.id">-->
+                        <!--</el-option>-->
+                      <!--</el-select>-->
                     </el-form-item>
                   </el-col>
-                  <!--<el-col :span="12">-->
-                  <!--<el-form-item label="发病部位">-->
-                  <!--<el-select v-model="formData.jsonStr.missChineseDisease.locationDisease" >-->
-                  <!--<el-option-->
-                  <!--v-for="item in dislocationList"-->
-                  <!--:key="item.jsonStr.key.id"-->
-                  <!--:label="item.jsonStr.key.dislocationName"-->
-                  <!--:value="item.jsonStr.key.id">-->
-                  <!--</el-option>-->
-                  <!--</el-select>-->
-                  <!--</el-form-item>-->
-                  <!--</el-col>-->
+                  <el-col :span="12">
+                    <el-form-item label="中医发病部位">
+                      <el-input v-model="formData.jsonStr.missChineseDisease.location" placeholder="中医发病部位"></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </el-form>
             </div>
@@ -185,6 +179,37 @@
                   </el-col>
                   <el-col :span="3">
                     <el-button @click="doDeleteDislocation(index)">删除</el-button>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">指征机构</div>
+            <div class="body">
+              <div  style="padding-bottom: 10px;"><el-button @click="doAddSyndromeType" type="primary">新增指征机构</el-button></div>
+              <div v-for="(itemd, index) in formData.jsonStr.missChineseDisease.syndromeType" style="margin-bottom: 5px;">
+                <el-row >
+                  <el-col :span="6" style="padding-right:40px;">
+                    <el-input v-model="itemd.text_symptom" placeholder="症状"></el-input>
+                  </el-col>
+                  <el-col :span="6" style="padding-right:40px;">
+                    <el-input v-model="itemd.text_name" placeholder="症名"></el-input>
+                  </el-col>
+                  <el-col :span="6" style="padding-right:40px;">
+                    <el-input v-model="itemd.text_treatment" placeholder="治法"></el-input>
+                  </el-col>
+                  <el-col :span="6" style="padding-right:40px;">
+                    <el-input v-model="itemd.text_representative_party" placeholder="代表方"></el-input>
+                  </el-col>
+                  <el-col :span="6" style="padding-right:40px;">
+                    <el-input v-model="itemd.text_chinese_medicine" placeholder="常用中药"></el-input>
+                  </el-col>
+                  <el-col :span="6" style="padding-right:40px;">
+                    <el-input v-model="itemd.text_add_subtract" placeholder="加减"></el-input>
+                  </el-col>
+                  <el-col :span="3">
+                    <el-button @click="doDeleteSyndromeType(index)">删除</el-button>
                   </el-col>
                 </el-row>
               </div>
@@ -595,7 +620,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: false,
+        isCheck: true,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -618,6 +643,8 @@
               otherName: '',
               relatedDiseases: '',
               diseaseType: '1',
+              type: '',
+              location: '',
               locationPid: '',
               locationDisease: '',
               mainCauses: '',
@@ -648,7 +675,8 @@
               consultation: '',
               section: '',
               departmentMapDTO: [],
-              dislocationList: []
+              dislocationList: [],
+              syndromeType: []
             },
             refrences: {
               textcontent: [],
@@ -798,6 +826,21 @@
       },
       doDeleteDislocation(index) {
         this.formData.jsonStr.missChineseDisease.dislocationList.splice(index, 1)
+      },
+      // 指征机构
+      doAddSyndromeType() {
+        const param = {
+          'text_symptom': '',
+          'text_name': '',
+          'text_treatment': '',
+          'text_representative_party': '',
+          'text_chinese_medicine': '',
+          'text_add_subtract': ''
+        }
+        this.formData.jsonStr.missChineseDisease.syndromeType.push(param)
+      },
+      doDeleteSyndromeType(index) {
+        this.formData.jsonStr.missChineseDisease.syndromeType.splice(index, 1)
       },
       /**
        * 参考资料

@@ -3,16 +3,6 @@
     <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
-          <!--<div class="card">-->
-            <!--<div class="title">任务信息</div>-->
-            <!--<div class="body">-->
-              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
-                <!--<el-form-item label="任务标题">-->
-                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
-                <!--</el-form-item>-->
-              <!--</el-form>-->
-            <!--</div>-->
-          <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
@@ -50,7 +40,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -236,7 +226,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.information.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -382,7 +372,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.dislocation.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -520,7 +510,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.disease.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -680,7 +670,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.diseasewest.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -799,7 +789,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.epidemiology.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -918,7 +908,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.symptomOrigin.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1037,7 +1027,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.clinicalManifestation.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1156,7 +1146,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.inspect.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1275,7 +1265,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.diagnosi.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1394,7 +1384,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.differentialDiagnosis.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1513,7 +1503,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.clinicalSignificance.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1632,7 +1622,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.treatment.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1751,7 +1741,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.preventiveMeasure.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1870,7 +1860,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.dailyNursing.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1989,7 +1979,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.attentionMatter.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2108,7 +2098,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.influenceFactor.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2227,7 +2217,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.consultation.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2346,7 +2336,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.section.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>

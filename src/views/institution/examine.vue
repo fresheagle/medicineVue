@@ -45,116 +45,116 @@
             </div>
           </div>
           <div class="card">
-          <div class="title">审核信息</div>
-          <div class="body">
-            <div v-if="formData.taskStatus === 'firAuditeding'">
-              <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="初审">
-                  <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
-                    <el-radio-button label="通过">通过</el-radio-button>
-                    <el-radio-button label="不通过">不通过</el-radio-button>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item label="意见">
-                  <el-input  type="textarea"
-                             :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-            <div v-if="formData.taskStatus === 'secAuditeding'">
-              <el-collapse accordion>
-                <el-collapse-item title="初审信息" name="fisrtTrailApproval">
-                  <el-form ref="formData" :model="formData" label-width="80px">
-                    <el-form-item label="初审">
-                      <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
-                        <el-radio-button label="通过">通过</el-radio-button>
-                        <el-radio-button label="不通过">不通过</el-radio-button>
-                      </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="得分">
-                      <el-input  v-model="approvsls.summary.firstApprovalPoint"></el-input>
-                    </el-form-item>
-                    <el-form-item label="时间">
-                      <span>{{approvsls.summary.firstTrailSuggestTime}}</span>
-                    </el-form-item>
-                    <el-form-item label="意见">
-                      <el-input  type="textarea"
-                                 :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
-                    </el-form-item>
-                  </el-form>
-                </el-collapse-item>
-              </el-collapse>
-              <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="二审">
-                  <el-radio-group v-model="approvsls.summary.secondTrailApprovalResult">
-                    <el-radio-button label="通过">通过</el-radio-button>
-                    <el-radio-button label="不通过">不通过</el-radio-button>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item label="意见">
-                  <el-input  type="textarea"
-                             :rows="2" v-model="approvsls.summary.secondSuggestion"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-            <div v-if="formData.taskStatus === 'finalAuditeding'">
-              <el-collapse accordion>
-                <el-collapse-item title="初审信息" name="fisrtTrailApproval">
-                  <el-form ref="formData" :model="formData" label-width="80px">
-                    <el-form-item label="初审">
-                      <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
-                        <el-radio-button label="通过">通过</el-radio-button>
-                        <el-radio-button label="不通过">不通过</el-radio-button>
-                      </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="得分">
-                      <span>{{approvsls.summary.firstApprovalPoint}}</span>
-                    </el-form-item>
-                    <el-form-item label="时间">
-                      <span>{{approvsls.summary.firstTrailSuggestTime}}</span>
-                    </el-form-item>
-                    <el-form-item label="意见">
-                      <el-input  type="textarea"
-                                 :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
-                    </el-form-item>
-                  </el-form>
-                </el-collapse-item>
-                <el-collapse-item title="二审信息" name="secondTrailApproval">
-                  <el-form ref="formData" :model="formData" label-width="80px">
-                    <el-form-item label="初审">
-                      <el-radio-group v-model="approvsls.summary.secondTrailApprovalResult">
-                        <el-radio-button label="通过">通过</el-radio-button>
-                        <el-radio-button label="不通过">不通过</el-radio-button>
-                      </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="得分">
-                      <el-input v-model="approvsls.summary.secondApprovalPoint"></el-input>
-                    </el-form-item>
-                    <el-form-item label="时间">
-                      <span>{{approvsls.summary.secondTrailSuggestTime}}</span>
-                    </el-form-item>
-                    <el-form-item label="意见">
-                      <el-input  type="textarea"
-                                 :rows="2" v-model="approvsls.summary.secondSuggestion"></el-input>
-                    </el-form-item>
-                  </el-form>
-                </el-collapse-item>
-              </el-collapse>
-              <el-form ref="formData" :model="formData" label-width="80px">
-                <el-form-item label="终审">
-                  <el-radio-group v-model="approvsls.summary.finalTrailApprovalResult">
-                    <el-radio-button label="通过">通过</el-radio-button>
-                    <el-radio-button label="不通过">不通过</el-radio-button>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item label="意见">
-                  <el-input  type="textarea"
-                             :rows="2" v-model="approvsls.summary.finalSuggestion"></el-input>
-                </el-form-item>
-              </el-form>
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div v-if="formData.taskStatus === 'firAuditeding'">
+                <el-form ref="formData" :model="formData" label-width="80px">
+                  <el-form-item label="初审">
+                    <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
+                      <el-radio-button label="通过">通过</el-radio-button>
+                      <el-radio-button label="不通过">不通过</el-radio-button>
+                    </el-radio-group>
+                  </el-form-item>
+                  <el-form-item label="意见">
+                    <el-input  type="textarea"
+                               :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
+                  </el-form-item>
+                </el-form>
+              </div>
+              <div v-if="formData.taskStatus === 'secAuditeding'">
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
+                          <el-radio-button label="通过">通过</el-radio-button>
+                          <el-radio-button label="不通过">不通过</el-radio-button>
+                        </el-radio-group>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <el-input  v-model="approvsls.summary.firstApprovalPoint"></el-input>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.summary.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea"
+                                   :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+                <el-form ref="formData" :model="formData" label-width="80px">
+                  <el-form-item label="二审">
+                    <el-radio-group v-model="approvsls.summary.secondTrailApprovalResult">
+                      <el-radio-button label="通过">通过</el-radio-button>
+                      <el-radio-button label="不通过">不通过</el-radio-button>
+                    </el-radio-group>
+                  </el-form-item>
+                  <el-form-item label="意见">
+                    <el-input  type="textarea"
+                               :rows="2" v-model="approvsls.summary.secondSuggestion"></el-input>
+                  </el-form-item>
+                </el-form>
+              </div>
+              <div v-if="formData.taskStatus === 'finalAuditeding'">
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
+                          <el-radio-button label="通过">通过</el-radio-button>
+                          <el-radio-button label="不通过">不通过</el-radio-button>
+                        </el-radio-group>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.summary.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.summary.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea"
+                                   :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <el-radio-group v-model="approvsls.summary.secondTrailApprovalResult">
+                          <el-radio-button label="通过">通过</el-radio-button>
+                          <el-radio-button label="不通过">不通过</el-radio-button>
+                        </el-radio-group>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <el-input v-model="approvsls.summary.secondApprovalPoint"></el-input>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.summary.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea"
+                                   :rows="2" v-model="approvsls.summary.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+                <el-form ref="formData" :model="formData" label-width="80px">
+                  <el-form-item label="终审">
+                    <el-radio-group v-model="approvsls.summary.finalTrailApprovalResult">
+                      <el-radio-button label="通过">通过</el-radio-button>
+                      <el-radio-button label="不通过">不通过</el-radio-button>
+                    </el-radio-group>
+                  </el-form-item>
+                  <el-form-item label="意见">
+                    <el-input  type="textarea"
+                               :rows="2" v-model="approvsls.summary.finalSuggestion"></el-input>
+                  </el-form-item>
+                </el-form>
+              </div>
             </div>
           </div>
-    </div>
           <div class="card">
             <div class="title">基本信息</div>
             <div class="body">

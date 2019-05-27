@@ -3,16 +3,6 @@
     <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
-          <!--<div class="card">-->
-          <!--<div class="title">任务信息</div>-->
-          <!--<div class="body">-->
-          <!--<el-form ref="formData" :model="formData" label-width="80px">-->
-          <!--<el-form-item label="任务标题">-->
-          <!--<el-input v-model="formData.taskTitle"></el-input>-->
-          <!--</el-form-item>-->
-          <!--</el-form>-->
-          <!--</div>-->
-          <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
@@ -50,7 +40,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -66,7 +56,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.summary.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -122,7 +112,7 @@
                   <el-collapse-item title="二审信息" name="secondTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.messageFrom.secondTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.summary.secondTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -241,7 +231,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.information.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -257,7 +247,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.information.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -360,7 +350,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.component.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -376,7 +366,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.component.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -479,7 +469,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.property.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -495,7 +485,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.property.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -598,7 +588,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.indication.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -614,7 +604,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.indication.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -717,7 +707,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.medicFormat.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -733,7 +723,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.medicFormat.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -836,7 +826,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.dosage.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -852,7 +842,7 @@
                   <el-collapse-item title="初审信息" name="fisrtTrailApproval">
                     <el-form ref="formData" :model="formData" label-width="80px">
                       <el-form-item label="初审">
-                        <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
+                        <el-radio-group v-model="approvsls.dosage.fisrtTrailApprovalResult">
                           <el-radio-button label="通过">通过</el-radio-button>
                           <el-radio-button label="不通过">不通过</el-radio-button>
                         </el-radio-group>
@@ -955,7 +945,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.clinicalApplication.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1074,7 +1064,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.adverseReaction.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1193,7 +1183,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.taboo.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1312,7 +1302,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.notice.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1431,7 +1421,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.gravidaDurg.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1550,7 +1540,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.childrenDurg.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1669,7 +1659,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.elderlyDurg.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1788,7 +1778,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.interactions.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -1907,7 +1897,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.durgOverdose.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2026,7 +2016,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.pharmacology.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2145,7 +2135,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.toxicologicalEffects.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2264,7 +2254,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.pharmacokinetics.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2383,7 +2373,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.storageMethod.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2502,7 +2492,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.ytime.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2621,7 +2611,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.standard.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2740,7 +2730,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.approvaNum.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2859,7 +2849,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.combinedMedication.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -2978,7 +2968,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.physicianAdvice.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3097,7 +3087,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.identify.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3216,7 +3206,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.pharmacyCheck.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3335,7 +3325,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.contentPic.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3454,7 +3444,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.notes.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3574,7 +3564,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.drugIdentifying.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3693,7 +3683,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.drugIntroduc.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3812,7 +3802,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.history.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -3931,7 +3921,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.awards.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -4050,7 +4040,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.address.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -4169,7 +4159,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.enterprise.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -4289,7 +4279,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.productInfo.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -4408,7 +4398,7 @@
               <div v-if="formData.taskStatus === 'firAuditeding'">
                 <el-form ref="formData" :model="formData" label-width="80px">
                   <el-form-item label="初审">
-                    <el-radio-group v-model="approvsls.relationshipWestern.fisrtTrailApprovalResult">
+                    <el-radio-group v-model="approvsls.messageFrom.fisrtTrailApprovalResult">
                       <el-radio-button label="通过">通过</el-radio-button>
                       <el-radio-button label="不通过">不通过</el-radio-button>
                     </el-radio-group>
@@ -4773,6 +4763,603 @@
               image: []
             }, // 参考资料
             approvsls: []// 各模块评审结果
+          }
+        },
+        approvsls: {
+          // 概述
+          summary: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 基本信息
+          information: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 主要成分
+          component: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 性状
+          property: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 组成
+          constitute: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 主要功效
+          mainMeffect: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 适应病症
+          indication: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 规格
+          medicFormat: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 用法用量
+          dosage: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 临床应用及指南
+          clinicalApplication: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 不良反应
+          adverseReaction: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 禁忌
+          taboo: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 注意事项
+          notice: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          gravidaDurg: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          childrenDurg: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          elderlyDurg: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 药物相互作用
+          interactions: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          durgOverdose: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 药性分析
+          analyze: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 药理作用
+          pharmacology: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 毒理作用
+          toxicologicalEffects: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          pharmacokinetics: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 贮藏
+          storageMethod: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 有效期
+          ytime: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 执行标准
+          standard: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 执行文号
+          approvaNum: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 联合用药
+          combinedMedication: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 医师建议
+          physicianAdvice: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 鉴别
+          identify: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 检查
+          pharmacyCheck: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 含量测定
+          contentPic: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 附注
+          notes: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 药品标识
+          drugIdentifying: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 药品介绍
+          drugIntroduc: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 历史发展
+          history: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 获奖情况
+          awards: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 生产地址
+          address: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 生产企业
+          enterprise: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 产品信息
+          productInfo: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          // 信息来源
+          messageFrom: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
           }
         },
         refrencesObj: {

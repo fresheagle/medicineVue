@@ -3,16 +3,6 @@
     <div style="top:0px;position: relative;">
       <el-row >
         <el-col :span="12" class="rowClass">
-          <!--<div class="card">-->
-            <!--<div class="title">任务信息</div>-->
-            <!--<div class="body">-->
-              <!--<el-form ref="formData" :model="formData" label-width="80px">-->
-                <!--<el-form-item label="任务标题">-->
-                  <!--<el-input v-model="formData.taskTitle"></el-input>-->
-                <!--</el-form-item>-->
-              <!--</el-form>-->
-            <!--</div>-->
-          <!--</div>-->
           <div class="card">
             <div class="title">概述</div>
             <div class="body">
@@ -42,6 +32,60 @@
                   </el-input>
                 </el-form-item>
               </el-form>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.summary.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.summary.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.summary.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.summary.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.summary.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.summary.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.summary.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.summary.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.summary.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.summary.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
             </div>
           </div>
           <div class="card">
@@ -167,6 +211,60 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.information.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.information.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.information.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.information.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.information.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.information.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.information.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.information.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.information.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.information.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">领导团队</div>
             <div class="body">
               <el-button type="primary" @click="showLeaderDialog">添加领导信息</el-button>
@@ -195,6 +293,60 @@
                     </el-row>
                   </div>
                 </draggable>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.leadership.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.leadership.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.leadership.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.leadership.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.leadership.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.leadership.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.leadership.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.leadership.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.leadership.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.leadership.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -231,6 +383,60 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.environment.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.environment.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.environment.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.environment.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.environment.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.environment.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.environment.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.environment.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.environment.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.environment.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">医生专家</div>
             <div class="body">
               <el-button type="primary" @click="showDoctorsDialog">添加医生信息</el-button>
@@ -262,6 +468,60 @@
                     </el-row>
                   </div>
                 </draggable>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.doctors.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.doctors.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.doctors.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.doctors.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.doctors.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.doctors.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.doctors.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.doctors.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.departments.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.doctors.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -312,10 +572,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.departments.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.departments.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.departments.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.departments.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.departments.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.departments.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.departments.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.departments.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.departments.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.departments.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">医生信息</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.doctorInfo" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.doctorInfo.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.doctorInfo.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.doctorInfo.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.doctorInfo.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.doctorInfo.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.doctorInfo.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.doctorInfo.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.doctorInfo.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.doctorInfo.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.doctorInfo.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -328,10 +696,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.characteristic.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.characteristic.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.characteristic.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.characteristic.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.characteristic.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.characteristic.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.characteristic.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.characteristic.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.characteristic.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.characteristic.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">医疗优势</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.advantage" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.advantage.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.advantage.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.advantage.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.advantage.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.advantage.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.advantage.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.advantage.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.advantage.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.advantage.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.advantage.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -344,10 +820,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.installations.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.installations.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.installations.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.installations.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.installations.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.installations.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.installations.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.installations.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.installations.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.installations.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">历史发展</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.history" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.historical.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.historical.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.historical.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.historical.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.historical.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.historical.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.historical.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.historical.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.historical.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.historical.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -360,10 +944,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.busLine.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.busLine.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.busLine.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.busLine.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.busLine.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.busLine.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.busLine.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.busLine.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.busLine.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.busLine.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">临床教学与科研机构</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.clinicalTeaching" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.clinicalTeaching.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.clinicalTeaching.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.clinicalTeaching.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.clinicalTeaching.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.clinicalTeaching.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.clinicalTeaching.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.clinicalTeaching.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.clinicalTeaching.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.clinicalTeaching.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.clinicalTeaching.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -376,10 +1068,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.achievements.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.achievements.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.achievements.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.achievements.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.achievements.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.achievements.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.achievements.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.achievements.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.achievements.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.achievements.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">学术专著</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.academicMonograph" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.monograph.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.monograph.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.monograph.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.monograph.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.monograph.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.monograph.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.monograph.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.monograph.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.monograph.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.monograph.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -392,10 +1192,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.activity.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.activity.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.activity.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.activity.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.activity.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.activity.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.activity.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.activity.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.activity.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.activity.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">获奖情况</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.honor" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.prize.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.prize.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.prize.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.prize.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.prize.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.prize.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.prize.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.prize.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.prize.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.prize.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -408,6 +1316,60 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.branch.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.branch.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.branch.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.branch.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.branch.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.branch.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.branch.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.branch.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.branch.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.branch.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">急救中心</div>
             <div class="body">
               <div>
@@ -416,10 +1378,118 @@
             </div>
           </div>
           <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.emergencyCenter.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.emergencyCenter.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.emergencyCenter.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.emergencyCenter.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.emergencyCenter.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.emergencyCenter.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.emergencyCenter.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.emergencyCenter.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.emergencyCenter.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.emergencyCenter.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
+            </div>
+          </div>
+          <div class="card">
             <div class="title">预约咨询</div>
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.orderRefer" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.orderRefer.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.orderRefer.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.orderRefer.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.orderRefer.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.orderRefer.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.orderRefer.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.orderRefer.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.orderRefer.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.orderRefer.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.orderRefer.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </div>
           </div>
@@ -440,6 +1510,60 @@
                   <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missInstitution.treatGuide" :options="editorOption"></quill-editor>
                 </el-form-item>
               </el-form>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">审核信息</div>
+            <div class="body">
+              <div>
+                <el-collapse accordion>
+                  <el-collapse-item title="初审信息" name="fisrtTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="初审">
+                        <span>{{approvsls.notice.fisrtTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.notice.firstApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.notice.firstTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.notice.firstSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="二审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="二审">
+                        <span>{{approvsls.notice.secondTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="得分">
+                        <span>{{approvsls.notice.secondApprovalPoint}}</span>
+                      </el-form-item>
+                      <el-form-item label="时间">
+                        <span>{{approvsls.notice.secondTrailSuggestTime}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.notice.secondSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                  <el-collapse-item title="终审信息" name="secondTrailApproval">
+                    <el-form ref="formData" :model="formData" label-width="80px">
+                      <el-form-item label="终审">
+                        <span>{{approvsls.notice.finalTrailApprovalResult}}</span>
+                      </el-form-item>
+                      <el-form-item label="意见">
+                        <el-input  type="textarea" readonly
+                                   :rows="2" v-model="approvsls.notice.finalSuggestion"></el-input>
+                      </el-form-item>
+                    </el-form>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
             </div>
           </div>
         </el-col>
@@ -533,7 +1657,7 @@
             <div class="body" style="height: 800px;overflow-y: auto;">
               <div v-for="item in keyArr" style="margin-bottom: 15px;">
                 <span style="margin-right: 20px;">{{item.value}} </span>
-                <span style="color: red;" v-if="formData.jsonStr.missInstitution[item.key] === '' || formData.jsonStr.missInstitution[item.key].length ===0">（空） </span>
+                <span style="color: red;" v-if="formData.jsonStr.missInstitution[item.key] === '' ||formData.jsonStr.missInstitution[item.key].length ===0">（空） </span>
                 <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missInstitution[item.key])}}</span>
               </div>
             </div>
@@ -553,7 +1677,8 @@
         <el-col :span="12">
           <div style="margin-right: 20%;">
             <!--<el-button>预览</el-button>-->
-            <el-button @click="doSubmit('approveSuccess')">提交进入审核</el-button>
+            <el-button @click="doSubmit('approveFail')">审核不通过</el-button>
+            <el-button @click="doSubmit('approveSuccess')">审核通过</el-button>
             <!--<el-button @click="resetForm('formData')">重置所有字段</el-button>-->
             <el-button  @click="doSubmit('save')">保存并关闭</el-button>
           </div>
@@ -661,7 +1786,7 @@
          <el-button @click="cancelDoctorsMsg">取 消</el-button>
       </span>
     </el-dialog>
-     <!--参考资料弹框-->
+    <!--参考资料弹框-->
     <el-dialog
       title="添加参考资料"
       :append-to-body="true"
@@ -797,6 +1922,302 @@
         },
         dialogVisible: false,
         curPicUrl: '',
+        approvsls: {
+          summary: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          information: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          leadership: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          environment: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          doctors: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          departments: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          doctorInfo: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          characteristic: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          advantage: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          installations: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          historical: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          busLine: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          clinicalTeaching: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          achievements: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          monograph: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          activity: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          prize: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          branch: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          emergencyCenter: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          orderRefer: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          },
+          notice: {
+            fisrtTrailApprovalResult: '通过',
+            secondTrailApprovalResult: '通过',
+            finalTrailApprovalResult: '通过',
+            firstApprovalPoint: 0,
+            secondApprovalPoint: 0,
+            finalApprovalPoint: 0,
+            firstTrailSuggestTime: '',
+            secondTrailSuggestTime: '',
+            finalTrailSuggestTime: '',
+            firstSuggestion: '',
+            secondSuggestion: '',
+            finalSuggestion: ''
+          }
+        },
         leadteamInfoObj: {
           name: '',
           desc: '',
@@ -1103,6 +2524,7 @@
       // 创建操作
       doSubmit(key) {
         this.formData.operateCode = key
+        this.formData.jsonStr.approvsls = this.approvsls
         this.formData.taskTitle = this.formData.jsonStr.missInstitution.name
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
