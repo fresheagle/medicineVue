@@ -471,6 +471,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.taskTitle = this.formData.jsonStr.missArticle.name
+        this.formData.jsonStr.approvsls = this.approvsls
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/article/list')

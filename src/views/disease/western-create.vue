@@ -373,7 +373,7 @@
             <div class="title">现代研究</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.modernResearch" :options="editorOption"></quill-editor>
+                  <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWsetDisease.modernResearch" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -623,7 +623,13 @@
               modernResearch: '',
               treatmentCost: '',
               departmentMapDTO: [],
-              dislocationList: []
+              dislocationList: [],
+              medicalExamination: '',
+              familyTreatment: '',
+              department: '',
+              doctorConsulation: '',
+              expectedInspection: '',
+              expectedTreatment: ''
             },
             refrences: {
               textcontent: [],
@@ -644,8 +650,13 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'chineseName', value: '中文名称' }, { key: 'englishName', value: '英文名称' },
-          { key: 'otherName', value: '别名' }, { key: 'relatedDiseases', value: '相关西医疾病' }
+        keyArr: [{ key: 'epidemiology', value: '流行病学' }, { key: 'tRelatedDisease', value: '相关疾病' }, { key: 'etiologyPathogenesis', value: '病因与发病机制' },
+          { key: 'pathology', value: '病理' }, { key: 'clinicalTypesClass', value: '临床分型与分类' },{ key: 'symptom', value: '症状体征' },
+          { key: 'laboratoryExamination', value: '实验室检查' }, { key: 'text_otherCheck', value: '其他辅助检查' },{ key: 'preventionTreatment', value: '并发症' },
+          { key: 'diagnosticPoints', value: '诊断要点' }, { key: 'differentialDiagnosis', value: '鉴别诊断' },{ key: 'treatmentPrognosis', value: '治疗' },
+          { key: 'nursing', value: '护理' }, { key: 'preventionMeasures', value: '预防措施' },{ key: 'dietaryConditioning', value: '膳食调理' },
+          { key: 'attentionMatter', value: '注意事项' }, { key: 'consultation', value: '急诊（120）指征' },{ key: 'section', value: '门诊指征' },
+          { key: 'modernResearch', value: '现代研究' }, { key: 'treatmentCost', value: '治疗费用参考' }
         ],
         provinceList: [],
         departmentList: [],
@@ -823,6 +834,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.taskTitle = this.formData.jsonStr.missWsetDisease.chineseName
+        this.formData.jsonStr.approvsls = this.approvsls
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/disease/western')

@@ -35,19 +35,6 @@ export default {
         children: [{ path: 'dashboard', name: '首页' }
         ]
       },
-      // {
-      //   path: '/task',
-      //   name: '我的任务',
-      //   children: [
-      //     { path: 'drafts', name: '草稿箱' },
-      //     { path: 'unfinished', name: '未完成任务' },
-      //     { path: 'toFirAudited', name: '待初审任务' },
-      //     { path: 'toSecAudited', name: '待二审任务' },
-      //     { path: 'toFinalAudited', name: '待终审发布任务' },
-      //     { path: 'finished', name: '已完成任务' },
-      //     { path: 'discarded', name: '已废止任务' }
-      //   ]
-      // },
       {	path: '/institution', name: '医疗机构',
         children: [{ path: 'treatment', name: '医疗机构' }
         ]
@@ -78,10 +65,6 @@ export default {
         children: [{ path: 'list', name: '文章' }
         ]
       },
-      // { path: '/enterprise', name: '医药企业',
-      //   children: [{ path: 'list', name: '药品企业信息' }
-      //   ]
-      // },
       { path: '/trash', name: '回收站',
         children: [{ path: 'prescription', name: '回收数据查询' },
           { path: 'verification', name: '数据删除任务记录查询' },

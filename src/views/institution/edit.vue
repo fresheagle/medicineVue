@@ -1728,9 +1728,6 @@
       width="30%">
       <div>
         <el-form label-width="80px" :model="environmentObj">
-          <el-form-item label="姓名">
-            <el-input v-model="environmentObj.name"></el-input>
-          </el-form-item>
           <el-form-item label="描述">
             <el-input type="textarea" :rows="4" v-model="environmentObj.desc"></el-input>
           </el-form-item>
@@ -1911,22 +1908,28 @@
               emergencyCenter: '',
               emergencyTime: '',
               orderRefer: '',
-              treatGuide: ''
+              treatGuide: '',
+              medicalExamination: '',
+              familyTreatment: '',
+              department: '',
+              doctorConsulation: '',
+              expectedInspection: '',
+              expectedTreatment: ''
             },
             refrences: {
               textcontent: [],
               image: []
             }, // 参考资料
-            approvsls: []// 各模块评审结果
+            approvsls: {}// 各模块评审结果
           }
         },
         dialogVisible: false,
         curPicUrl: '',
         approvsls: {
           summary: {
-            fisrtTrailApprovalResult: '通过',
-            secondTrailApprovalResult: '通过',
-            finalTrailApprovalResult: '通过',
+            fisrtTrailApprovalResult: '',
+            secondTrailApprovalResult: '',
+            finalTrailApprovalResult: '',
             firstApprovalPoint: 0,
             secondApprovalPoint: 0,
             finalApprovalPoint: 0,
@@ -2204,9 +2207,9 @@
             finalSuggestion: ''
           },
           notice: {
-            fisrtTrailApprovalResult: '通过',
-            secondTrailApprovalResult: '通过',
-            finalTrailApprovalResult: '通过',
+            fisrtTrailApprovalResult: '',
+            secondTrailApprovalResult: '',
+            finalTrailApprovalResult: '',
             firstApprovalPoint: 0,
             secondApprovalPoint: 0,
             finalApprovalPoint: 0,
@@ -2225,7 +2228,6 @@
           fileList: []
         },
         environmentObj: {
-          name: '',
           desc: '',
           picture: [],
           fileList: []
@@ -2250,9 +2252,11 @@
         environmentPicList: [],
         doctorsList: [],
         refrencesPicList: [],
-        keyArr: [{ key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
+        keyArr: [
+          { key: 'doctorInfo', value: '医生信息' }, { key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
           { key: 'history', value: '历史发展' }, { key: 'busLines', value: '乘车路线' }, { key: 'clinicalTeaching', value: '临床教学与研究机构' }, { key: 'researchResult', value: '研究成果' },
-          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' }
+          { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' },
+          { key: 'emergencyCenter', value: '急救中心' }, { key: 'orderRefer', value: '预约咨询' }, { key: 'treatGuide', value: '就诊指南' }
         ],
         provinceList: [],
         departmentList: [],
@@ -2271,6 +2275,7 @@
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
       this.formData = JSON.parse(localStorage.getItem('curTrearment'))
+      this.approvsls = this.formData.jsonStr.approvsls
       const params = {
         currentPage: 1,
         pageSize: 9999,
@@ -2434,7 +2439,6 @@
        * */
       showEnvironmentDialog() {
         this.isShowEnvironmentDialog = true
-        this.environmentObj.name = ''
         this.environmentObj.desc = ''
         this.environmentObj.picture = []
         this.environmentObj.fileList = []
@@ -2448,7 +2452,6 @@
       doAddEnvironmentMsg() {
         this.environmentObj.picture = this.environmentPicList
         const param = {
-          name: this.environmentObj.name,
           desc: this.environmentObj.desc,
           picture: this.environmentObj.picture
         }

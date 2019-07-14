@@ -2541,11 +2541,11 @@
           <div class="card">
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
-              <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
-              <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-              <!--<span style="color: red;" v-if="formData.jsonStr.missChineseSymptom[item.key] === '' ||formData.jsonStr.missChineseSymptom[item.key].length ===0">（空） </span>-->
-              <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseSymptom[item.key])}}</span>-->
-              <!--</div>-->
+              <div v-for="item in keyArr" style="margin-bottom: 15px;">
+                <span style="margin-right: 20px;">{{item.value}} </span>
+                <span style="color: red;" v-if="formData.jsonStr.missChineseSymptom[item.key] === '' ||formData.jsonStr.missChineseSymptom[item.key].length ===0">（空） </span>
+                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseSymptom[item.key])}}</span>
+              </div>
             </div>
           </div>
         </el-col>
@@ -2679,6 +2679,7 @@
               attentionMatter: '',
               influenceFactor: '',
               consultation: '',
+              section: '',
               editDoctor: '',
               auditDoctor: '',
               departmentId: '',
@@ -3003,10 +3004,10 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'dislocationList', value: '发病部位' }, { key: 'environment', value: '医院环境' },
-          { key: 'dislocationList', value: '科室设置' }, { key: 'epidemiology', value: '流行病学' }, { key: 'symptomOrigin', value: '症状起因' }, { key: 'clinicalManifestation', value: '临床表现' },
-          { key: 'inspect', value: '检查' }, { key: 'diagnosi', value: '诊断' }, { key: 'differentialDiagnosis', value: '鉴别诊断' }, { key: 'clinicalSignificance', value: '临床意义' },
-          { key: 'treatment', value: '治疗' }, { key: 'preventiveMeasure', value: '预防措施' }, { key: 'dailyNursing', value: '日常护理' }, { key: 'attentionMatter', value: '注意事项' },
+        keyArr: [{ key: 'epidemiology', value: '流行病学' }, { key: 'symptomOrigin', value: '症状起因' },
+          { key: 'clinicalManifestation', value: '临床表现' }, { key: 'inspect', value: '检查' }, { key: 'diagnosi', value: '诊断' },
+          { key: 'differentialDiagnosis', value: '鉴别诊断' }, { key: 'clinicalSignificance', value: '临床意义' }, { key: 'treatment', value: '治疗' },
+          { key: 'preventiveMeasure', value: '预防措施' }, { key: 'dailyNursing', value: '日常护理' }, { key: 'attentionMatter', value: '注意事项' },
           { key: 'influenceFactor', value: '影响因素' }, { key: 'consultation', value: '急诊（120）指征' }, { key: 'section', value: '门诊指征' }
         ],
         departmentList: [],
@@ -3023,6 +3024,7 @@
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
       this.formData = JSON.parse(localStorage.getItem('curTrearment'))
+      this.approvsls = this.formData.jsonStr.approvsls
       this.initDislocationList()
       const params = {
         currentPage: 1,
@@ -3116,6 +3118,31 @@
         getDislocationList(params).then(response => {
           this.dislocationList = response.data.params
         })
+      },
+      getDepartmentList(params) {
+        getDepartmentList(params).then(response => {
+          this.pdepartmentList = response.data.params
+        })
+      },
+      /*
+       *医院环境信息
+       * */
+      showEnvironmentDialog() {
+        this.isShowEnvironmentDialog = true
+        this.environmentPicList = []
+      },
+      /**
+       * 科室设置
+       * */
+      doAdddepartment() {
+        const param = {
+          office: '',
+          parentDepartmentId: '',
+          departmentId: '',
+          departmentName: '',
+          departmentLevel: ''
+        }
+        this.formData.jsonStr.missChineseSymptom.departmentMapDTO.push(param)
       },
       /**
        * 参考资料

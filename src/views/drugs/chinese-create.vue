@@ -512,11 +512,11 @@
           <div class="card">
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
-              <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
-              <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-              <!--<span style="color: red;" v-if="formData.jsonStr.missChineseMedical[item.key] === '' ||formData.jsonStr.missChineseMedical[item.key].length ===0">（空） </span>-->
-              <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseMedical[item.key])}}</span>-->
-              <!--</div>-->
+              <div v-for="item in keyArr" style="margin-bottom: 15px;">
+                <span style="margin-right: 20px;">{{item.value}} </span>
+                <span style="color: red;" v-if="formData.jsonStr.missChineseMedical[item.key] === '' ||formData.jsonStr.missChineseMedical[item.key].length ===0">（空） </span>
+                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missChineseMedical[item.key])}}</span>
+              </div>
             </div>
           </div>
         </el-col>
@@ -612,7 +612,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: false,
+        isCheck: true,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -660,6 +660,7 @@
               pharmacyCheck: '',
               contentPic: '',
               notes: '',
+              approvaNum: '',
               combinedMedication: '',
               physicianAdvice: '',
               drugIdentifying: '',
@@ -693,19 +694,15 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'component', value: '成分' }, { key: 'property', value: '教育经历' },
-          { key: 'indication', value: '适应症' }, { key: 'medicFormat', value: '规格' }, { key: 'dosage', value: '用法用量' },
-          { key: 'clinicalApplication', value: '临床应用及指南' },
-          { key: 'adverseReactions', value: '不良反应' }, { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' },
-          { key: 'gravidaDurg', value: '孕妇及哺乳期妇女用药' },
-          { key: 'childrenDurg', value: '儿童用药' }, { key: 'elderlyDurg', value: '老人用药' }, { key: 'interactions', value: '药物相互作用' },
+        keyArr: [{ key: 'component', value: '主要成分' }, { key: 'property', value: '性状' }, { key: 'constitute', value: '组成' },
+          { key: 'mainMeffect', value: '主要功效' }, { key: 'indication', value: '适应病症' }, { key: 'medicFormat', value: '规格' },
+          { key: 'dosage', value: '用法用量' }, { key: 'clinicalApplication', value: '临床应用及指南' }, { key: 'adverseReactions', value: '不良反应' },
+          { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' }, { key: 'interactions', value: '药物相互作用' },
           { key: 'analyze', value: '药性分析' }, { key: 'pharmacology', value: '药理作用' }, { key: 'toxicologicalEffects', value: '毒理作用' },
-          { key: 'storageMethod', value: '贮藏' }, { key: 'ytime', value: '有效期' },
-          { key: 'standard', value: '执行标准' }, { key: 'approvaNum', value: '执行文号' }, { key: 'combinedMedication', value: '联合用药' },
-          { key: 'physicianAdvice', value: '医师建议' }, { key: 'identify', value: '鉴别' }, { key: 'pharmacyCheck', value: '检查' },
-          { key: 'contentPic', value: '含量测定' }, { key: 'notes', value: '附注' }, { key: 'drugIdentifying', value: '药品标识' },
-          { key: 'drugIntroduc', value: '药品介绍' }, { key: 'history', value: '历史发展' }, { key: 'awards', value: '获奖情况' },
-          { key: 'address', value: '生产地址' }, { key: 'enterprise', value: '生产企业' }, { key: 'productInfo', value: '产品信息' },
+          { key: 'storageMethod', value: '贮藏' }, { key: 'ytime', value: '有效期' }, { key: 'standard', value: '执行标准' },
+          { key: 'approvaNum', value: '执行文号' }, { key: 'physicianAdvice', value: '医师建议' },{ key: 'identify', value: '鉴别' }, { key: 'pharmacyCheck', value: '检查' },
+          { key: 'contentPic', value: '含量测定' }, { key: 'notes', value: '附注' }, { key: 'drugIdentifying', value: '药品标识' }, { key: 'drugIntroduc', value: '药品介绍' },
+          { key: 'history', value: '历史发展' }, { key: 'awards', value: '获奖情况' }, { key: 'enterprise', value: '生产企业' }, { key: 'productInfo', value: '产品信息' },
           { key: 'messageFrom', value: '信息来源' }
         ],
         institutionList: [],
@@ -836,6 +833,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.taskTitle = this.formData.jsonStr.missChineseMedical.shopName
+        this.formData.jsonStr.approvsls = this.approvsls
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/drugs/chinese')

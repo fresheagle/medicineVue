@@ -251,7 +251,7 @@
             <div class="title">药物过量</div>
             <div class="body">
               <div>
-                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.durgOverdose" :options="editorOption"></quill-editor>
+                  <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missWesternMedical.durgOverdose" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -516,11 +516,11 @@
           <div class="card">
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
-              <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
-              <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-              <!--<span style="color: red;" v-if="formData.jsonStr.missWesternMedical[item.key] === '' ||formData.jsonStr.missWesternMedical[item.key].length ===0">（空） </span>-->
-              <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missWesternMedical[item.key])}}</span>-->
-              <!--</div>-->
+              <div v-for="item in keyArr" style="margin-bottom: 15px;">
+                <span style="margin-right: 20px;">{{item.value}} </span>
+                <span style="color: red;" v-if="formData.jsonStr.missWesternMedical[item.key] === '' ||formData.jsonStr.missWesternMedical[item.key].length ===0">（空） </span>
+                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missWesternMedical[item.key])}}</span>
+              </div>
             </div>
           </div>
         </el-col>
@@ -698,7 +698,7 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'component', value: '成分' }, { key: 'property', value: '教育经历' },
+        keyArr: [{ key: 'component', value: '成分' }, { key: 'property', value: '性状' },
           { key: 'indication', value: '适应症' }, { key: 'medicFormat', value: '规格' }, { key: 'dosage', value: '用法用量' },
           { key: 'clinicalApplication', value: '临床应用及指南' },
           { key: 'adverseReactions', value: '不良反应' }, { key: 'taboo', value: '禁忌' }, { key: 'notice', value: '注意事项' },
@@ -841,6 +841,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.taskTitle = this.formData.jsonStr.missWesternMedical.shopName
+        this.formData.jsonStr.approvsls = this.approvsls
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/drugs/western')

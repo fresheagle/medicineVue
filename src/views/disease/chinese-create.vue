@@ -336,7 +336,6 @@
               </div>
             </div>
           </div>
-
           <div class="card">
             <div class="title">外治法</div>
             <div class="body">
@@ -430,6 +429,54 @@
             <div class="body">
               <div>
                 <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.section" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">体格检验</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.medicalExamination" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">家庭处理</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.familyTreatment" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">就诊科室</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.department" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">医生问诊</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.doctorConsulation  " :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">预计检查</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.expectedInspection" :options="editorOption"></quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="title">预计治疗</div>
+            <div class="body">
+              <div>
+                <quill-editor ref="myTextEditor" v-model="formData.jsonStr.missChineseDisease.expectedTreatment" :options="editorOption"></quill-editor>
               </div>
             </div>
           </div>
@@ -620,7 +667,7 @@
         enumerate: enumerate,
         i18n: i18n.zh.i18nView,
         imageUrl: '',
-        isCheck: true,
+        isCheck: false,
         isShowLeaderDiaolg: false,
         isShowEnvironmentDialog: false,
         isShowRefrencesImageDialog: false,
@@ -676,7 +723,13 @@
               section: '',
               departmentMapDTO: [],
               dislocationList: [],
-              syndromeType: []
+              syndromeType: [],
+              medicalExamination: '',
+              familyTreatment: '',
+              department: '',
+              doctorConsulation: '',
+              expectedInspection: '',
+              expectedTreatment: ''
             },
             refrences: {
               textcontent: [],
@@ -697,8 +750,17 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'introduction', value: '简介' }, { key: 'chineseName', value: '中文名称' }, { key: 'englishName', value: '英文名称' },
-          { key: 'otherName', value: '别名' }, { key: 'relatedDiseases', value: '相关西医疾病' }
+        keyArr: [
+          { key: 'nounInterpretation', value: '名词解释' }, { key: 'history', value: '历史沿革' }, { key: 'relationshipWestern', value: '与西医病名关系' },
+          { key: 'pathogeny', value: '病因' }, { key: 'pathogenesis', value: '病机' }, { key: 'clinicalManifestation', value: '临床表现' },
+          { key: 'diagnosisBasis', value: '诊断依据' }, { key: 'diseaseIdentification', value: '病症鉴别' }, { key: 'relatedExaminations', value: '相关检查' },
+          { key: 'examinationPoints', value: '辨证要点' }, { key: 'treatmentPrinciples', value: '治疗原则' }, { key: 'externalTherapy', value: '外治法' },
+          { key: 'otherTherapies', value: '其他疗法' }, { key: 'textPrognosis', value: '转归预后' }, { key: 'preventiveNursing', value: '预防调护' },
+          { key: 'textDietaryConditioning', value: '膳食调理' }, { key: 'clinicalPreparation', value: '临证备要' }, { key: 'literatureAbstract', value: '文献摘要' },
+          { key: 'modernResearch', value: '现代研究' }, { key: 'medicalRead', value: '医案选读' }, { key: 'treatmentCost', value: '治疗费用参考' },
+          { key: 'consultation', value: '急诊（120）指征' }, { key: 'section', value: '门诊指征' }, { key: 'medicalExamination', value: '体格检验' },
+          { key: 'familyTreatment', value: '家庭处理' }, { key: 'department', value: '就诊科室' }, { key: 'doctorConsulation', value: '医生问诊' },
+          { key: 'expectedInspection', value: '预计检查' }, { key: 'expectedTreatment', value: '预计治疗' }
         ],
         provinceList: [],
         departmentList: [],
@@ -890,6 +952,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.taskTitle = this.formData.jsonStr.missChineseDisease.chineseName
+        this.formData.jsonStr.approvsls = this.approvsls
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/disease/chinese')

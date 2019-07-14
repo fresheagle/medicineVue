@@ -630,9 +630,6 @@
       width="30%">
       <div>
         <el-form label-width="80px" :model="environmentObj">
-          <el-form-item label="姓名">
-            <el-input v-model="environmentObj.name"></el-input>
-          </el-form-item>
           <el-form-item label="描述">
             <el-input type="textarea" :rows="4" v-model="environmentObj.desc"></el-input>
           </el-form-item>
@@ -667,7 +664,7 @@
           <el-form-item label="职务与职称">
             <el-input type="textarea" :rows="4" v-model="doctorsObj.job"></el-input>
           </el-form-item>
-          <el-form-item label="职务与职称">
+          <el-form-item label="治疗范围">
             <el-input type="textarea" :rows="4" v-model="doctorsObj.zl"></el-input>
           </el-form-item>
           <el-form-item label="图片">
@@ -819,7 +816,7 @@
               textcontent: [],
               image: []
             }, // 参考资料
-            approvsls: []// 各模块评审结果
+            approvsls: {}// 各模块评审结果
           }
         },
         dialogVisible: false,
@@ -831,7 +828,6 @@
           fileList: []
         },
         environmentObj: {
-          name: '',
           desc: '',
           picture: [],
           fileList: []
@@ -856,11 +852,11 @@
         environmentPicList: [],
         doctorsList: [],
         refrencesPicList: [],
-        keyArr: [{ key: 'intro', value: '简介' }, { key: 'leadteamInfo', value: '领导团队' }, { key: 'environment', value: '医院环境' }, { key: 'doctors', value: '医生专家' },
-          { key: 'departmentMapDTO', value: '科室设置' }, { key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
+        keyArr: [
+          { key: 'doctorInfo', value: '医生信息' }, { key: 'special', value: '特色专科' }, { key: 'advantage', value: '医疗优势' }, { key: 'equipment', value: '医疗设施' },
           { key: 'history', value: '历史发展' }, { key: 'busLines', value: '乘车路线' }, { key: 'clinicalTeaching', value: '临床教学与研究机构' }, { key: 'researchResult', value: '研究成果' },
           { key: 'academicMonograph', value: '学术专著' }, { key: 'academicActivity', value: '学术活动' }, { key: 'honor', value: '获奖情况' }, { key: 'affgroup', value: '分支机构' },
-          { key: 'emergencyCenter', value: '急救中心' }, { key: 'orderRefer', value: '预约咨询' }
+          { key: 'emergencyCenter', value: '急救中心' }, { key: 'orderRefer', value: '预约咨询' }, { key: 'treatGuide', value: '就诊指南' }
         ],
         provinceList: [],
         departmentList: [],
@@ -1039,7 +1035,6 @@
        * */
       showEnvironmentDialog() {
         this.isShowEnvironmentDialog = true
-        this.environmentObj.name = ''
         this.environmentObj.desc = ''
         this.environmentObj.picture = []
         this.environmentObj.fileList = []
@@ -1053,7 +1048,6 @@
       doAddEnvironmentMsg() {
         this.environmentObj.picture = this.environmentPicList
         const param = {
-          name: this.environmentObj.name,
           desc: this.environmentObj.desc,
           picture: this.environmentObj.picture
         }
@@ -1130,6 +1124,7 @@
       doSubmit(key) {
         this.formData.operateCode = key
         this.formData.taskTitle = this.formData.jsonStr.missInstitution.name
+        this.formData.jsonStr.approvsls = this.approvsls
         doCreateDisBasics(this.formData).then(response => {
           if (response.meta.message === 'ok') {
             this.$router.push('/institution/treatment')

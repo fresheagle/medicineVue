@@ -133,7 +133,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <el-form-item>
-          <el-button type="primary" @click="doCreate()">创建</el-button>
+          <el-button type="primary" @click="doCreate()" v-if="curRoleCode.indexOf('000') !== -1 || curRoleCode.indexOf('001') !== -1">创建</el-button>
           <el-button type="primary" @click="doOnline()" :disabled="!(multipleSelection.length > 0)">上线</el-button>
           <el-button type="primary" @click="doOffline()" :disabled="!(multipleSelection.length > 0)">下线</el-button>
           <el-button type="primary" @click="toShowBatchDelete()" :disabled="!(multipleSelection.length > 0)">删除</el-button>
@@ -207,8 +207,8 @@
           {{scope.row.finalTrialUser.userName}}
         </template>
       </el-table-column>
-      <el-table-column prop="taskFinalTrialPint" label="终审得分" :show-overflow-tooltip="true">
-      </el-table-column>
+      <!--<el-table-column prop="taskFinalTrialPint" label="终审得分" :show-overflow-tooltip="true">-->
+      <!--</el-table-column>-->
       <el-table-column prop="taskFinalTrialTime" label="终审日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{fmtDate(scope.row.taskFinalTrialTime)}}
@@ -232,14 +232,18 @@
         </template>
       </el-table-column>
       <el-table-column prop="accounts" label="其他状态" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          <span v-if="scope.row.accounts === 'unaccounts'">未结算</span>
+          <span v-else-if="scope.row.accounts === 'accounts'">已结算</span>
+          <span v-else>--</span>
+        </template>
       </el-table-column>
-
       <el-table-column prop="operation" label="操作" width="150px">
         <template slot-scope="scope">
           <el-button type="text" @click="handleExamine(scope.row)"
-                     v-if="(curRoleCode.indexOf('002') !== -1 || curRoleCode.indexOf('003') !== -1 || curRoleCode.indexOf('004') !== -1)
+                     v-if="(curRoleCode.indexOf('000') !== -1 || curRoleCode.indexOf('002') !== -1 || curRoleCode.indexOf('003') !== -1 || curRoleCode.indexOf('004') !== -1)
                      && (scope.row.taskStatus === 'firAuditeding' || scope.row.taskStatus === 'secAuditeding' || scope.row.taskStatus === 'finalAuditeding')">审核</el-button>
-          <el-button type="text" @click="handleUpdate(scope.row)" v-if="curRoleCode.indexOf('001') !== -1">编辑</el-button>
+          <el-button type="text" @click="handleUpdate(scope.row)" v-if="curRoleCode.indexOf('000') !== -1 || curRoleCode.indexOf('001') !== -1">编辑</el-button>
           <el-button type="text" @click="deleteUpdate(scope.row)" v-if="curRoleCode.indexOf('000') !== -1">删除</el-button>
         </template>
       </el-table-column>
@@ -403,12 +407,13 @@
       fetchData(cruTaskMenuType) {
         this.listLoading = false
         const params = this.searchBody
-        params.currentPage = 1
-        params.pageSize = 9999
+        params.currentPage = this.page
+        params.pageSize = this.pageSize
         params.taskMenuType = cruTaskMenuType
         getTaskList(params).then(response => {
-          const limit = 10
-          const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
+          //const limit = 10
+          //const pageList = response.data.params.filter((item, index) => index < limit * this.page && index >= limit * (this.page - 1))
+          const pageList = response.data.params
           this.total = response.data.total
           this.tableList = pageList
           this.listLoading = false

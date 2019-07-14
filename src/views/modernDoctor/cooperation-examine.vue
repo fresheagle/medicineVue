@@ -1914,11 +1914,11 @@
           <div class="card">
             <div class="title">信息统计</div>
             <div class="body" style="height: 800px;overflow-y: auto;">
-              <!--<div v-for="item in keyArr" style="margin-bottom: 15px;">-->
-                <!--<span style="margin-right: 20px;">{{item.value}} </span>-->
-                <!--<span style="color: red;" v-if="formData.jsonStr.missDoctor[item.key] === '' ||formData.jsonStr.missDoctor[item.key].length ===0">（空） </span>-->
-                <!--<span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missDoctor[item.key])}}</span>-->
-              <!--</div>-->
+              <div v-for="item in keyArr" style="margin-bottom: 15px;">
+                <span style="margin-right: 20px;">{{item.value}} </span>
+                <span style="color: red;" v-if="formData.jsonStr.missDoctor[item.key] === '' ||formData.jsonStr.missDoctor[item.key].length ===0">（空） </span>
+                <span v-else style="color: #B3BBBE;">{{fnGetCpmisWords(formData.jsonStr.missDoctor[item.key])}}</span>
+              </div>
             </div>
           </div>
         </el-col>
@@ -2306,10 +2306,10 @@
           imageName: '' // 图片名称
         },
         refrencesPicList: [],
-        keyArr: [{ key: 'intro', value: '简介' }, { key: 'institutionList', value: '执业机构' }, { key: 'education', value: '教育经历' },
-          { key: 'workExperience', value: '工作经历' }, { key: 'treatArea', value: '诊疗范围' }, { key: 'researchArea', value: '研究方向' }, { key: 'academi', value: '学术思想' },
-          { key: 'production', value: '科研成果' }, { key: 'awards', value: '获奖情况' }, { key: 'science', value: '学术兼职' }, { key: 'socialization', value: '社会活动' },
-          { key: 'thesis', value: '主要论文' }, { key: 'bookmaking', value: '出版著作' }, { key: 'heritageMap', value: '传承图谱' }
+        keyArr: [{ key: 'education', value: '教育经历' }, { key: 'workExperience', value: '工作经历' }, { key: 'treatArea', value: '诊疗范围' },
+          { key: 'researchArea', value: '研究方向' }, { key: 'academi', value: '学术思想' }, { key: 'production', value: '科研成果' },
+          { key: 'awards', value: '获奖情况' },{ key: 'science', value: '学术兼职' }, { key: 'socialization', value: '社会活动' },
+          { key: 'thesis', value: '主要论文' }, { key: 'bookmaking', value: '出版著作' },{ key: 'heritageMap', value: '传承图谱' }
         ],
         institutionList: [],
         departmentList: [],
@@ -2325,6 +2325,7 @@
         this.$i18n.mergeLocaleMessage('zh', i18n.zh)
       }
       this.formData = JSON.parse(localStorage.getItem('curTrearment'))
+      this.approvsls = this.formData.jsonStr.approvsls
       const params = {
         currentPage: 1,
         pageSize: 9999,
